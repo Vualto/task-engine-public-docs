@@ -1,4 +1,4 @@
-# vuworkflow API Documentation
+# Vuworkflow API
 
 # 1. Introduction to vuworkflow
 
