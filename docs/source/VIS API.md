@@ -1921,7 +1921,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-[//] # 
+
 [//] # <!--  Commented out as per Chris request
 [//] # 
 [//] # ## Clients
@@ -1989,7 +1989,6 @@ Headers:
 [//] #   }
 [//] # ]
 [//] # ```
-[//] # 
 [//] # -->
 
 ### GET category/{id}/events
