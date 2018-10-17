@@ -3,13 +3,21 @@ pre {
 }
 
 .wy-side-nav-search {
-    background-color: #003763 !important;
+    background-color: #003c69 !important;
 }
 
 .version {
     color: white !important;
 }
 
-.wy-menu-vertical a:active {
-    background-color:  #003763 !important;
+.wy-menu-vertical a:not(.current):not(.internal):active {
+    background-color:  #003c69 !important;
 } 
+
+body, p, h1, h2, h3, h4, h5, h6 {
+    font-family: Arial !important;
+}
+
+h1, h2, h3, h4, h5, h6, a {
+    color: #003c69;    
+}
