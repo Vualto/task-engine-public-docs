@@ -1,10 +1,10 @@
 # Vuworkflow API
 
-# 1. Introduction to vuworkflow
+## 1. Introduction to vuworkflow
 
 vuworkflow is a product that facilitates easy integration between client systems and the vudrm platform.  It is designed to allow simple or complicated workflows to be constructed and tested easily and quickly.  vuworkflow is exposed via a simple API and reports back to the client system via any required mechanism, although usually this is as simple as an HTTP POST to an endpoint.
 
-## 1.1 How it works
+### 1.1 How it works
 
 vuworkflow breaks a workflow up in to several component parts.  Every piece of work submitted is a job, and each job is broken up in to a series of tasks.  These tasks are then scheduled on to queues which workers then process.
 
@@ -12,13 +12,13 @@ Every job and task have unique identities, and these are exposed back to the cli
 
 When a task is being processed, a callback is sent through the configured mechanism as it starts and when it completes or fails, this way the client system should be able to track the progress of a job as it progresses through vuworkflow and then perform any relevant tasks when the job as a whole is completed.
 
-## 1.2 System Requirements
+### 1.2 System Requirements
 
 vuworkflow is designed to run in Docker containers, and is therefore able to run on any Docker-supported Linux host, preferably running whatever the latest version of Docker is at the time (currently 1.12.1).  Any workers that need to run on Windows are currently NOT containerized but are installed as a native Windows service – this will change as Docker support for Windows matures.
 
 When a worker starts a task, it will generally need to copy one or more files to local storage to perform its work in an efficient manner, so it’s critical that hosts have sufficient disk space for processing to take place; this is particularly important when dealing with video transcoding or DRM encryption.  This also means that sometimes running more than one worker per host is not an option.  Vualto will usually advise on disk space requirements once the workflow is fully defined and some representative test content has been processed.
 
-## 1.3 Integration
+### 1.3 Integration
 
 There are two main integration points for vuworkflow:
 
@@ -27,7 +27,7 @@ There are two main integration points for vuworkflow:
 **Callbacks** – how we notify client systems of job progress.
 
 
-# 2. Triggers
+## 2. Triggers
 
 
 While vuworkflow can be configured to use watch folders or other methods of notification (currently outside the scope of this document) to trigger a workflow, the most common route is to have the client system trigger a workflow via an API call.
@@ -46,7 +46,7 @@ There is a single endpoint, /job, that handles all requests, only the payload va
  
 Custom workflows can be easily created , the only difference will be the name of the workflow and the parameters passed in the ‘parameters’ section.
 
-## 2.1 Workflow Trigger Example
+### 2.1 Workflow Trigger Example
  
  An example call to the vuworkflow API to trigger a workflow would be as follows ( Parameters must be a parameters object):
  
@@ -71,7 +71,7 @@ The Headers are defined as follows:
 | API-KEY           | The API-KEY assigned to the client.  
 
 
-## 2.1.1 vodstream
+### 2.1.1 vodstream
 
 
 | Parameter Name    | Description                                                           |
@@ -83,7 +83,7 @@ The Headers are defined as follows:
 | drm               | OPTIONAL The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”access” or “all”. If this value isn’t present then no DRM is applied. 
 | rest_endpoints    | Multiple end points can be specified.
 
-### 2.1.1.1 vodstream JSON Request example
+#### 2.1.1.1 vodstream JSON Request example
 
 ```json
 {
@@ -110,7 +110,7 @@ The Headers are defined as follows:
 }
 ```
 
-## 2.1.2 voddownload
+### 2.1.2 voddownload
 
 | Parameter Name    | Description                                                           |
 |-------------------|-----------------------------------------------------------------------|
@@ -122,7 +122,7 @@ The Headers are defined as follows:
 | rest_endpoints    | Multiple end points can be specified.
 
 
-## 2.1.3 vodcapture
+### 2.1.3 vodcapture
 
 | Parameter Name    | Description                                                           |
 |-------------------|-----------------------------------------------------------------------|
@@ -137,7 +137,7 @@ The Headers are defined as follows:
 | rest_endpoints    | Multiple end points can be specified.
 
 
-## 2.1.4 voddelete S3
+### 2.1.4 voddelete S3
 
 | Parameter Name    | Description                                                           |
 |-------------------|-----------------------------------------------------------------------|
@@ -146,7 +146,7 @@ The Headers are defined as follows:
 | folder            | REQUIRED Folder where the content to be deleted resides
 | rest_endpoints    | Multiple end points can be specified.
 
-### 2.1.4.1 voddelete S3 JSON Request example
+#### 2.1.4.1 voddelete S3 JSON Request example
 
 ```json
 {
@@ -165,7 +165,7 @@ The Headers are defined as follows:
 }
 ```
 
-## 2.1.5 drmswitch 
+### 2.1.5 drmswitch 
 
 | Parameter Name    | Description                                                           |
 |-------------------|-----------------------------------------------------------------------|
@@ -175,7 +175,7 @@ The Headers are defined as follows:
 | rest_endpoints    | Multiple end points can be specified.
 
 
-### 2.1.5.1 drmswitch JSON example
+#### 2.1.5.1 drmswitch JSON example
 
 ```json
 {
@@ -195,7 +195,7 @@ The Headers are defined as follows:
 ```
 
 
-## 2.2 vodstream Workflow Trigger Example
+### 2.2 vodstream Workflow Trigger Example
 
 Example of a curl command to trigger ingest for the vodstream workflow:
 
@@ -234,7 +234,7 @@ If the ‘output_folder’ parameter was excluded, then the files would be outpu
 
 **NOTE:** there may be some additional files, depending on the exact processes involved, but the minimum would usually be these.
 
-#3. Rest Endpoint Callbacks
+##3. Rest Endpoint Callbacks
 
 Specifying the vuworkflow ```https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback``` “webhook” in the callback will register the VOD asset within the Vualto vuflow events management system. It’s recommended and this is optional but does mean you can view the VOD event within ```https://admin.vuworkflow.staging.vualto.com```. This is also required for VOD assets to automatically go into private mode (configurable) after ingestion.
 
@@ -307,7 +307,7 @@ Example JSON VOD Delete
 ```
 
 
-#4. Public/Private switching
+##4. Public/Private switching
 
 VIS API [vuflow protection](http://readme.vualto.com/vis-api/#put-eventvuflowprotectioncontentid)
 
