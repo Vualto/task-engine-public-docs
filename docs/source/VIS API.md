@@ -1924,9 +1924,9 @@ Headers:
 
 <!--  Commented out as per Chris request
 
-# Clients
+## Clients
 
-## PUT client/environment
+### PUT client/environment
 
 Update Primary Environment for client (UAT, LIVEA, LOCAL etc)
 
@@ -1947,7 +1947,7 @@ Headers:
 
     PrimaryEnvironment: {string}
 
-## GET client/environment
+### GET client/environment
 
 Get ALL Environments for client (UAT, LIVEA, LOCAL etc)
 
