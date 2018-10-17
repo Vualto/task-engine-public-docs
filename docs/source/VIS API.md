@@ -1,16 +1,3 @@
-<!-- 
-    NOTE: The generated css for the TOC doesn't have a
-    scrollbar so it is added into the base.css file AFTER
-    mkDocs Build runs. This stops the TOC running off the 
-    end of the page:
-    
-    .bs-sidebar.well {
-    padding: 0;
-    max-height:85vh;
-    overflow-y: auto;
-    }
--->
-
 # VIS API
 
 ## Basic Requirements
@@ -22,9 +9,9 @@ For example the "Get channel/{id}" REST call would be ```GET api/channel/{guid}`
 All Id's are Guid's
 
 
-# Channels
+## Channels
 
-## GET channel/{id}
+### GET channel/{id}
 **Example Request: **
 
 Headers: 
@@ -208,7 +195,7 @@ can be  `POST`ed back. Recommended to view the JSON in a JSON viewer.
 } 
 ```
 
-## GET channel
+### GET channel
 
 NOTE: Returns all data for all channels.
 
@@ -230,7 +217,7 @@ X-Transaction-ID: {string}
 
 ```Very similar to "GET channel/{id}" but as an array.```
 
-## DELETE channel/{id}
+### DELETE channel/{id}
 
 
 **Example request: **
@@ -247,7 +234,7 @@ Headers:
 X-Transaction-ID: {string}
 ```
 
-## POST channel
+### POST channel
 
 Add new Channel
 
@@ -491,7 +478,7 @@ Example Schema for JSON:
 }
 ```
 
-## PUT channel/{id}
+### PUT channel/{id}
 
 **Example request: **
 
@@ -517,7 +504,7 @@ ConfigurationJson: {string} - The Template channel JSON. Has to be the same JSON
 ```
 
 
-## GET channel/statistics/{id}
+### GET channel/statistics/{id}
 
 Returns the Stats for the channels that are available within the HMS API
 
@@ -733,7 +720,7 @@ X-Transaction-ID: {string}
 ```
 
 
-## GET channel/{id}/events
+### GET channel/{id}/events
 
 Returns the events for the channel Id passed into call
 
@@ -929,9 +916,9 @@ X-Transaction-ID: {string}
 
 ```
 
-# Logs
+## Logs
 
-## GET log
+### GET log
 
 **Note:** Could be useful for displaying errors in the admin.
 
@@ -1023,7 +1010,7 @@ X-Transaction-ID: {string}
     }
 ```
 
-# Channel Profiles
+## Channel Profiles
 
 Channel profiles are constructed of many AudioInputs, which are defined as follows:
 
@@ -1033,7 +1020,7 @@ Channel profiles are constructed of many AudioInputs, which are defined as follo
         AudioEnabled : {bool}       { e.g. "true" }
     }
 
-## POST channelprofile
+### POST channelprofile
 
 Add new Channel Profile
 
@@ -1054,7 +1041,7 @@ Headers:
 
     AudioInputs: {IEnumerable<AudioInput>}
 
-## PUT channelprofile/{id}
+### PUT channelprofile/{id}
 
 Update a channel profile
 
@@ -1075,13 +1062,13 @@ Headers:
 
     AudioInputs: {IEnumerable<AudioInput>}
 
-## PUT channelprofile/event/{id}
+### PUT channelprofile/event/{id}
 
 Update a channel profile for a given Event
 
 Same as above, only change is the route & ID
 
-## GET channelprofile
+### GET channelprofile
 
 Get ALL Channel Profiles
 
@@ -1153,7 +1140,7 @@ Headers:
         }
     ]
 
-## GET channelprofile/{id}
+### GET channelprofile/{id}
 
 Get the given Channel Profile
 
@@ -1182,13 +1169,13 @@ Headers:
         ]
     }
 
-## GET channelprofile/event/{id}
+### GET channelprofile/event/{id}
 
 Get the Channel Profile for a given Event
 
 Same as above, only change is the route & ID
 
-## DELETE channelprofile/{id}
+### DELETE channelprofile/{id}
 
 **Example request**
 
@@ -1201,15 +1188,15 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## DELETE channelprofile/event/{id}
+### DELETE channelprofile/event/{id}
 
 Delete the Channel Profile for a given Event
 
 Same as above, only change is the route & ID
 
-# Events
+## Events
 
-## Event States
+### Event States
 
 ```text
     PRE_LIVE
@@ -1263,7 +1250,7 @@ Same as above, only change is the route & ID
 ```
 
 
-## GET event/{id}
+### GET event/{id}
 
 **Query Params: **
 ```
@@ -1441,7 +1428,7 @@ X-Transaction-ID: {string}
   }
 ```
 
-## GET event
+### GET event
 Get all Events
 
 **Example request:** 
@@ -1550,7 +1537,7 @@ X-Transaction-ID: {string}
 ```
 
 
-## POST event
+### POST event
 
 All parameters are optional and can be omitted apart from ID which is required for updating or if you want to create your own ID.
 ScheduledEnd parameter can be omitted or left empty to signify the event will never end.
@@ -1630,7 +1617,7 @@ Body Params: Note: '?' indicates Optional Parameter.
 
 
 
-## DELETE event/{id}
+### DELETE event/{id}
 
 **Example request:**
 
@@ -1651,7 +1638,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## PUT event/forcestop/{id}
+### PUT event/forcestop/{id}
 
 Use this method to force an event into a stopped state. This function will also force stop the encoder channel it’s running under bypassing the concurrency lock mechanism and removing any existing locks. Should be used as a last resort in case the lock synchronisation becomes out of sync. Potentially dangerous as no checks will be made to see if an event channel encoder is already running.
 
@@ -1668,7 +1655,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## PUT event/state/{id}
+### PUT event/state/{id}
 
 Use update state to start and stop the encoders for the event.
 
@@ -1695,7 +1682,7 @@ Body Params:
 
     “PRE_LIVE” or “LIVE_PUBLISHED” or “STOPPED”
     
-## PUT event/vuflow/protection/{contentId}
+### PUT event/vuflow/protection/{contentId}
 **Example request:**
 
 Headers:
@@ -1717,7 +1704,7 @@ Headers:
     X-Transaction-ID: {string}
     
     
-## GET event/reference/{referenceId}    
+### GET event/reference/{referenceId}    
 
 Get Event by Reference Id 
 
@@ -1808,9 +1795,9 @@ X-Transaction-ID: {string}
 ```
 
 
-# Categories
+## Categories
 
-## POST category
+### POST category
 
 Add New category
 
@@ -1831,7 +1818,7 @@ Headers:
 
     Name: {string}
 
-## PUT category
+### PUT category
 
 Update category
 
@@ -1853,7 +1840,7 @@ Headers:
     Name: {string}
     
 
-## GET category
+### GET category
 
 Get ALL categories
 
@@ -1891,7 +1878,7 @@ Headers:
 ]
 ```
 
-## GET category/{id}
+### GET category/{id}
 
 Get category by Id
 
@@ -1917,7 +1904,7 @@ Headers:
 }
 ```
 
-## DELETE category/{id}
+### DELETE category/{id}
 
 Delete category by Id
 
@@ -2005,7 +1992,7 @@ Headers:
 
 -->
 
-## GET category/{id}/events
+### GET category/{id}/events
 
 Returns the events for the category Id passed into call
 
@@ -2086,9 +2073,9 @@ X-Transaction-ID: {string}
 
 ```
 
-# Chapter Points
+## Chapter Points
 
-## POST chapterpoint
+### POST chapterpoint
 
 Add or Update New Chapter Point
 
@@ -2144,7 +2131,7 @@ Headers:
     X-Transaction-ID: {string}
 
 
-## GET chapterpoint/{id}
+### GET chapterpoint/{id}
 
 Get Chapter Point by id
 
@@ -2185,7 +2172,7 @@ Headers:
     
 **Example JSON response**
 
-## GET chapterpoint
+### GET chapterpoint
 
 Search Chapter Points by title, referenceId, startTime, endTime and tag
 
@@ -2330,7 +2317,7 @@ Headers:
 ]
 ```
 
-## GET chapterpoint/event/{eventId}
+### GET chapterpoint/event/{eventId}
 
 Get all Chapter Points by EventId including Chapter Point Custom Properties
 
@@ -2387,7 +2374,7 @@ Headers:
 ]
 ```
 
-## GET chapterpoint/event/{eventId}/parent/{parentId}
+### GET chapterpoint/event/{eventId}/parent/{parentId}
 
 Get all chapter points by EventId includes all related Chapter Custom properties with optional parentId parameter.  ParentId Null returns root nodes.
 
@@ -2520,7 +2507,7 @@ Headers:
 ```
 
 
-## DELETE chapterpoint/{id}
+### DELETE chapterpoint/{id}
 
 Deletes a chapter point including all children and Chapter Point Custom Property
 
@@ -2537,9 +2524,9 @@ Headers:
 
     X-Transaction-ID: {string}
 
-# Chapter Points Custom Properties
+## Chapter Points Custom Properties
 
-## POST chapterpoint/customproperty
+### POST chapterpoint/customproperty
 
 Add or Update New Chapter Point Custom Property
 
@@ -2571,7 +2558,7 @@ Headers:
 
 
 
-## GET chapterpoint/customproperty/{id}
+### GET chapterpoint/customproperty/{id}
 
 Get Chapter Point Custom Property by id
 
@@ -2597,7 +2584,7 @@ Headers:
 }
 ```
 
-## GET chapterpoint/customproperty/event/{eventId}
+### GET chapterpoint/customproperty/event/{eventId}
 
 Get all Chapter Point Custom Properties by EventId
 
@@ -2637,7 +2624,7 @@ Headers:
 ]
 ```
 
-## GET chapterpoint/{chapterPointId}/customproperty
+### GET chapterpoint/{chapterPointId}/customproperty
 
 Get Chapter Custom Properties by ChapterPointId
 
@@ -2671,7 +2658,7 @@ Headers:
 ]
 ```
 
-## DELETE chapterpoint/customproperty/{id}  
+### DELETE chapterpoint/customproperty/{id}  
 
 Delete Chapter Point Custom Property by Id
 
@@ -2689,7 +2676,7 @@ Headers:
     X-Transaction-ID: {string}
 
 
-## POST document
+### POST document
 
 Add/Update Document Model:
 Add: leave out optional Body Parameters
@@ -2722,7 +2709,7 @@ Headers:
     Order: {int?} - optional
 
 
-## GET Document
+### GET Document
 
 Get ALL documents
 
@@ -2770,7 +2757,7 @@ Headers:
 ]
 ```
 
-## GET document/{id}
+### GET document/{id}
 
 Get document by Id
 
@@ -2798,7 +2785,7 @@ Headers:
 }
 ```
 
-## DELETE Document/{id}
+### DELETE Document/{id}
 
 Delete document by Id
 
@@ -2818,7 +2805,7 @@ Headers:
     
     
 
-## GET Document/event/{id}
+### GET Document/event/{id}
 
 Get document models fo an event by Event Id
 
@@ -2861,7 +2848,7 @@ Headers:
 ```
 
 
-## PUT document/{id}/order/{int}
+### PUT document/{id}/order/{int}
 
 Update Order for a document by document Id
 
@@ -2879,9 +2866,9 @@ Headers:
     X-Transaction-ID: {string}
     
     
-# Event Types
+## Event Types
 
-## POST eventtype
+### POST eventtype
 
 Add new Event Type.
 
@@ -2904,7 +2891,7 @@ Headers:
     Name: {string}
     ReferenceId: {string}
 
-## PUT eventtype/{id}
+### PUT eventtype/{id}
 
 Update an Event Type.
 
@@ -2928,7 +2915,7 @@ Headers:
     ReferenceId: {string}
     
 
-## GET eventtype
+### GET eventtype
 
 Get ALL Event Types.
 
@@ -2976,7 +2963,7 @@ Headers:
 ]
 ```
 
-## GET eventtype/{id}
+### GET eventtype/{id}
 
 Get Event Type by Id
 
@@ -3004,7 +2991,7 @@ Headers:
 }
 ```
 
-## GET eventtype/reference/{referenceid}
+### GET eventtype/reference/{referenceid}
 
 Get Event Type by reference id
 
@@ -3034,7 +3021,7 @@ Headers:
 
 
 
-## DELETE eventtype/{id}
+### DELETE eventtype/{id}
 
 Delecte Event Type by Id
 
@@ -3054,7 +3041,7 @@ Headers:
 
 
 
-## GET eventtype/{id}/events
+### GET eventtype/{id}/events
 
 Returns the events for the event type Id passed into call
 
@@ -3143,11 +3130,11 @@ X-Transaction-ID: {string}
 
 
 
-# Health
+## Health
 
 Get the Health of the system - Ping
 
-## GET health
+### GET health
 
 **Example request**
 
@@ -3163,9 +3150,9 @@ Headers:
     X-Transaction-ID: {string}
     
     
-# Rooms
+## Rooms
 
-## GET room
+### GET room
 
 Get ALL room data
 
@@ -3199,7 +3186,7 @@ Headers:
 }
 ```
 
-## GET room/{id}
+### GET room/{id}
 
 Get room data by Id
 
@@ -3224,7 +3211,7 @@ Headers:
 }
 ```
 
-## GET room/{id}/events
+### GET room/{id}/events
 
 Returns the events for the room Id passed into call.
 
@@ -3305,9 +3292,9 @@ X-Transaction-ID: {string}
 
 
 
-# Tags
+## Tags
 
-## POST tag
+### POST tag
 
 Add a new Tag
 
@@ -3329,7 +3316,7 @@ Headers:
     Name: {string}
     
 
-## PUT tag
+### PUT tag
 
 Update a Tag
 
@@ -3352,7 +3339,7 @@ Headers:
     Name: {string}
 
 
-## DELETE tag/{id}
+### DELETE tag/{id}
 
 Delete a Tag
 
@@ -3370,7 +3357,7 @@ Headers:
     X-Transaction-ID: {string}
     
 
-## GET tag
+### GET tag
 
 Get ALL Tags
 
@@ -3409,7 +3396,7 @@ Headers:
 ]
 ```
 
-## GET tag/{id}
+### GET tag/{id}
 
 Get Tag by Id
 
@@ -3435,7 +3422,7 @@ Headers:
 
 ```
 
-## GET tag/event/{id}
+### GET tag/event/{id}
 
 Get ALL Tags by/for Event Id
 
@@ -3471,7 +3458,7 @@ Headers:
 
 ```
 
-## PUT tag/event/{id}
+### PUT tag/event/{id}
 
 Update Tags by Event Id.
 Refreshes Tag data for Event Id.
@@ -3498,7 +3485,7 @@ Headers:
 
     
 
-## GET tag/exists/{text}
+### GET tag/exists/{text}
 
 Test if Tag exists by Text (Tag Name)
 
@@ -3521,7 +3508,7 @@ Headers:
 
 
 
-## GET tag/{id}/events
+### GET tag/{id}/events
 
 Returns the events for the tag Id passed into call
 
@@ -3680,9 +3667,9 @@ X-Transaction-ID: {string}
 ```
 
 
-# Vuflow 
+## Vuflow 
 
-## GET vuflow/{id}
+### GET vuflow/{id}
 
 Get vuflow data for id
 
@@ -3743,7 +3730,7 @@ configurationJson : "{ "vuflows":
 
 ```
 
-## GET vuflow
+### GET vuflow
 
 Get all vuflow data
 
@@ -3808,7 +3795,7 @@ configurationJson : "{ "vuflows":
 ```
 
 
-## POST vuflow
+### POST vuflow
 
 Add new vuflow data
 
@@ -3834,7 +3821,7 @@ Headers:
     X-Transaction-ID: {string}
 
 
-## PUT vuflow/{id}
+### PUT vuflow/{id}
 
 Update vuflow data
 
@@ -3860,7 +3847,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## DELETE vuflow/{id}
+### DELETE vuflow/{id}
 
 Delete vuflow data
 
@@ -3879,7 +3866,7 @@ Headers:
 
 
     
-## POST cdn
+### POST cdn
 
 Add new CDN Provider
 
@@ -3905,7 +3892,7 @@ Headers:
     X-Transaction-ID: {string}
 
     
-## GET cdn/getcdnproviders
+### GET cdn/getcdnproviders
 
 Get All CDN Providers
 
@@ -3949,7 +3936,7 @@ Headers:
 
 ```
 
-## GET cdn/{id}
+### GET cdn/{id}
 
 Get CDN Provider for Id
 
@@ -3981,7 +3968,7 @@ Headers:
   }
 ]
 ```
-## PUT cdn/{id}
+### PUT cdn/{id}
 
 Update CDN Provider
 
@@ -4006,7 +3993,7 @@ Headers:
 
     X-Transaction-ID: {string}
     
-## DELETE cdn/{id}
+### DELETE cdn/{id}
 
 Delete CDN Provider
 
@@ -4023,7 +4010,7 @@ Headers:
 
     X-Transaction-ID: {string}
   
-## POST cdn/clearcdncache/{id}
+### POST cdn/clearcdncache/{id}
 
 Invalidate CDN Provider cache
 
@@ -4051,9 +4038,9 @@ Headers:
     
 
 
-# Webhooks 
+## Webhooks 
 
-## GET webhook
+### GET webhook
 
 Get All Webhooks in the system
 
@@ -4092,7 +4079,7 @@ Headers:
   }
 ]
 ```
-## GET webhook/event/{eventId}
+### GET webhook/event/{eventId}
 
 Get all event specific Webhooks by event id.
 
@@ -4134,7 +4121,7 @@ Headers:
 ]
 ```
 
-## GET webhook/{id}
+### GET webhook/{id}
 
 Get Webhook by Id
 
@@ -4166,7 +4153,7 @@ Headers:
 ]
 ```
 
-## GET webhook/{id}/event
+### GET webhook/{id}/event
 
 Get event specific Webhook by Id
 
@@ -4199,7 +4186,7 @@ Headers:
 ]
 ```
 
-## DELETE webhook/{id}
+### DELETE webhook/{id}
 
 DELETE Webhook by Id
 
@@ -4216,7 +4203,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## DELETE webhook/{id}/event
+### DELETE webhook/{id}/event
 
 DELETE Event specific Webhook by Id
 
@@ -4235,7 +4222,7 @@ Headers:
 
 
 
-## POST webhook
+### POST webhook
 
 ADD a new Webhook
 
@@ -4263,7 +4250,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## POST webhook/event
+### POST webhook/event
 
 ADD a new event specific Webhook
 
@@ -4292,7 +4279,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## PUT webhook/{id}
+### PUT webhook/{id}
 
 Update Webhook by Id
 
@@ -4321,7 +4308,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## PUT webhook/{id}/event
+### PUT webhook/{id}/event
 
 Update Event specific Webhook by Id
 
@@ -4352,11 +4339,11 @@ Headers:
     X-Transaction-ID: {string}
 
     
-# Playlist 
+## Playlist 
 
 Note: an Event may belong to more than one play list. 
 
-## POST playlist
+### POST playlist
 
 Add new playlist
 
@@ -4380,7 +4367,7 @@ Headers:
     X-Transaction-ID: {string}   
    
    
-## PUT playlist/{id}   
+### PUT playlist/{id}   
 
 Update existing playlist
 
@@ -4405,7 +4392,7 @@ Headers:
 
     X-Transaction-ID: {string}      
    
-## GET playlist   
+### GET playlist   
 
 Get all playlists
 
@@ -4449,7 +4436,7 @@ Headers:
 
 ```
 
-## GET playlist/{id}   
+### GET playlist/{id}   
 
 Get playlist for Id
 
@@ -4486,7 +4473,7 @@ Headers:
 ```
 
 
-## GET playlist/{id}/playlistItems   
+### GET playlist/{id}/playlistItems   
 
 Get playlist items for playlist Id
 
@@ -4536,7 +4523,7 @@ Headers:
 
 ```
 
-## GET playlist/{id}/eventId   
+### GET playlist/{id}/eventId   
 
 Get playlist for Event Id
 
@@ -4572,7 +4559,7 @@ Headers:
 
 
 
-## DELETE playlist/{id}   
+### DELETE playlist/{id}   
 
 Delete playlist for Id
 
@@ -4596,11 +4583,11 @@ Headers:
     X-Transaction-ID: {string}      
 
 
-# Custom Property 
+## Custom Property 
 
 Note: An Event may have none or many Custom Properties.
 
-## POST customproperty
+### POST customproperty
 
 Add a new custom property
 
@@ -4625,7 +4612,7 @@ Headers:
 
     X-Transaction-ID: {string}   
 
-## POST customproperty
+### POST customproperty
 
 Update new custom property
 
@@ -4652,7 +4639,7 @@ Headers:
     X-Transaction-ID: {string}      
 
 
-## GET customproperty/{id}
+### GET customproperty/{id}
 
 Get custom property for custom property id.
 
@@ -4690,7 +4677,7 @@ Headers:
 ]
 ```
 
-## GET customproperty/event/{id}
+### GET customproperty/event/{id}
 
 Get custom properties for Event by id.
 
@@ -4745,7 +4732,7 @@ Headers:
 ]
 ```
 
-## GET customproperty/event/{id}/category/{category}
+### GET customproperty/event/{id}/category/{category}
 
 Get custom properties for Event by id and category
 
@@ -4781,7 +4768,7 @@ Headers:
   }
 ]
 ```
-## GET customproperty/event/{id}/key/{key}
+### GET customproperty/event/{id}/key/{key}
 
 Get custom properties for Event by id and key
 
@@ -4818,7 +4805,7 @@ Headers:
 ]
 ```
 
-## GET customproperty/event/{id}/category/{category}/key/{key}
+### GET customproperty/event/{id}/category/{category}/key/{key}
 
 Get custom properties for Event by id, category and key
 
@@ -4856,7 +4843,7 @@ Headers:
 ```
 
 
-## DELETE customproperty/{id}   
+### DELETE customproperty/{id}   
 
 Delete customproperty for custom property Id
 
@@ -4880,9 +4867,9 @@ Headers:
     X-Transaction-ID: {string}
     
     
-# Update DVR Window Length
+## Update DVR Window Length
 
-## POST event/stream/dvrwindowlength/{id}
+### POST event/stream/dvrwindowlength/{id}
 
 Update the DVR Window Length for the current live stream, supplying the event id.
 
@@ -4905,11 +4892,11 @@ Headers:
     X-Transaction-ID: {string}
     
 
-# Search 
+## Search 
 
 The search API can be used for querying events by keywords and date range. 
 
-## GET search events
+### GET search events
 
 Returns the events based on search parameters
 
@@ -4939,7 +4926,7 @@ X-Transaction-ID: {string}
      - a to date to query events
 
 
-## GET search chapter points
+### GET search chapter points
 
 Returns the chapter points and chapter points custom properties based on search parameters
 
@@ -4973,9 +4960,9 @@ X-Transaction-ID: {string}
      
 
 
-# Create MP4 Download
+## Create MP4 Download
 
-## POST voddownload
+### POST voddownload
 
 Create an MP4 based on a list of event ids
 
@@ -5017,7 +5004,7 @@ Headers:
 
 
 
-## GET voddownload/contentid/{contentid}
+### GET voddownload/contentid/{contentid}
 
 Returns the VOD download given the content ID.
 
@@ -5030,7 +5017,7 @@ X-Transaction-ID: {string}
 ```
 
 
-## GET voddownload/id
+### GET voddownload/id
 
 Returns the VOD download given the ID.
 
@@ -5045,9 +5032,9 @@ X-Transaction-ID: {string}
 
 
 
-# Remixflow 
+## Remixflow 
 
-## GET remixflow/{id}
+### GET remixflow/{id}
 
 Get remixflow data for id
 
@@ -5067,7 +5054,7 @@ Headers:
     
 
 
-## GET Remixflow
+### GET Remixflow
 
 Get all remixflows data
 
@@ -5088,7 +5075,7 @@ Headers:
 
 
 
-## POST Remixflow
+### POST Remixflow
 
 Add new Remixflow data
 
@@ -5112,7 +5099,7 @@ Headers:
     X-Transaction-ID: {string}
 
 
-## PUT remixflow/{id}
+### PUT remixflow/{id}
 
 Update Remixflow data
 
@@ -5136,7 +5123,7 @@ Headers:
 
     X-Transaction-ID: {string}
 
-## DELETE remixflow/{id}
+### DELETE remixflow/{id}
 
 Delete remixflow data
 
@@ -5157,10 +5144,10 @@ Headers:
 
 
 
-# Remix Playlist 
+## Remix Playlist 
 
 
-## POST remix
+### POST remix
 
 Add new remix playlist
 
@@ -5211,7 +5198,7 @@ Headers:
     X-Transaction-ID: {string}   
    
    
-## PUT remix/{id}   
+### PUT remix/{id}   
 
 Update existing remix playlist
 
@@ -5254,7 +5241,7 @@ Headers:
 
    
 
-## GET remix/{id}   
+### GET remix/{id}   
 
 Get remix playlist for Id
 
@@ -5300,7 +5287,7 @@ Headers:
 ```
 
 
-## DELETE remix/{id}   
+### DELETE remix/{id}   
 
 Delete remix playlist for Id
 
