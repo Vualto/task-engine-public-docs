@@ -1921,76 +1921,76 @@ Headers:
 
     X-Transaction-ID: {string}
 
-
-<!---  Commented out as per Chris request
-
-## Clients
-
-### PUT client/environment
-
-Update Primary Environment for client (UAT, LIVEA, LOCAL etc)
-
-**Example request**
-
-Headers:
-
-    X-Auth-Key: {string}
-    X-Transaction-ID: {string}
-
-**Example response**
-
-Headers:
-
-    X-Transaction-ID: {string}
-
-**Body Params**
-
-    PrimaryEnvironment: {string}
-
-### GET client/environment
-
-Get ALL Environments for client (UAT, LIVEA, LOCAL etc)
-
-**Example request**
-
-Headers:
-
-    X-Auth-Key: {string}
-    X-Transaction-ID: {string}
-
-**Example response**
-
-Headers:
-
-    X-Transaction-ID: {string}
-
-**Example JSON response:**
-```josn
-[
-  {
-    "environment": "LOCAL",
-    "current": false,
-    "primary": true
-  },
-  {
-    "environment": "UAT",
-    "current": true,
-    "primary": false
-  },
-  {
-    "environment": "LIVEA",
-    "current": false,
-    "primary": false
-  },
-  {
-    "environment": "LIVEB",
-    "current": false,
-    "primary": false
-  }
-]
-```
-
---->
+[//] # 
+[//] # <!--  Commented out as per Chris request
+[//] # 
+[//] # ## Clients
+[//] # 
+[//] # ### PUT client/environment
+[//] # 
+[//] # Update Primary Environment for client (UAT, LIVEA, LOCAL etc)
+[//] # 
+[//] # **Example request**
+[//] # 
+[//] # Headers:
+[//] # 
+[//] #     X-Auth-Key: {string}
+[//] #     X-Transaction-ID: {string}
+[//] # 
+[//] # **Example response**
+[//] # 
+[//] # Headers:
+[//] # 
+[//] #     X-Transaction-ID: {string}
+[//] # 
+[//] # **Body Params**
+[//] # 
+[//] #     PrimaryEnvironment: {string}
+[//] # 
+[//] # ### GET client/environment
+[//] # 
+[//] # Get ALL Environments for client (UAT, LIVEA, LOCAL etc)
+[//] # 
+[//] # **Example request**
+[//] # 
+[//] # Headers:
+[//] # 
+[//] #     X-Auth-Key: {string}
+[//] #     X-Transaction-ID: {string}
+[//] # 
+[//] # **Example response**
+[//] # 
+[//] # Headers:
+[//] # 
+[//] #     X-Transaction-ID: {string}
+[//] # 
+[//] # **Example JSON response:**
+[//] # ```josn
+[//] # [
+[//] #   {
+[//] #     "environment": "LOCAL",
+[//] #     "current": false,
+[//] #     "primary": true
+[//] #   },
+[//] #   {
+[//] #     "environment": "UAT",
+[//] #     "current": true,
+[//] #     "primary": false
+[//] #   },
+[//] #   {
+[//] #     "environment": "LIVEA",
+[//] #     "current": false,
+[//] #     "primary": false
+[//] #   },
+[//] #   {
+[//] #     "environment": "LIVEB",
+[//] #     "current": false,
+[//] #     "primary": false
+[//] #   }
+[//] # ]
+[//] # ```
+[//] # 
+[//] # -->
 
 ### GET category/{id}/events
 
