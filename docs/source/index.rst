@@ -7,9 +7,11 @@ Welcome to the Task-Engine's documentation!
    
    All Documentation <https://vualto-public-documentation.readthedocs-hosted.com/en/latest/index.html>
 
+Contents:
+---------
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    Reseller API.md
    VIS API.md
