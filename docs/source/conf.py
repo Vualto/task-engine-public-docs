@@ -31,7 +31,7 @@ def setup(app):
 
 # -- Project information -----------------------------------------------------
 
-project = u'Task-Engine Documentation'
+project = u'vualto-task-engine-documentation'
 copyright = u'2018, VUALTO'
 author = u'VUALTO'
 
