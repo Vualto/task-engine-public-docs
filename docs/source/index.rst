@@ -13,6 +13,4 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   Reseller API.md
-   VIS API.md
    Vuworkflow API.md
