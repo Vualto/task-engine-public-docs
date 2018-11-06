@@ -35,7 +35,11 @@ project = u'vualto-task-engine-documentation'
 copyright = u'2018, VUALTO'
 author = u'VUALTO'
 
-html_context = {'home_link': 'https://vualto-public-documentation.readthedocs-hosted.com'}
+html_context = {
+    'home_link': 'https://vualto-public-documentation.readthedocs-hosted.com',
+    'product_logo': '',
+    'base_breadcrumb_label': 'Task-Engine'
+}
 
 # The short X.Y version
 version = u''

@@ -20,9 +20,7 @@
   {% endblock %}
 
   {# FAVICON #}
-  {% if favicon %}
-    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
-  {% endif %}
+  <link rel="shortcut icon" href="{{ pathto('_static/favicon.ico', 1) }}"/>
   {# CANONICAL URL #}
   {% if theme_canonical_url %}
     <link rel="canonical" href="{{ theme_canonical_url }}{{ pagename }}.html"/>
@@ -145,6 +143,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
           {%- block document %}
            <div itemprop="articleBody">
+             {% if product_logo %}
+              <img class="align-right" style="width: 175.0px; height: 32.5px; margin: 0;" alt="productLogo" src="{{ pathto(product_logo, 1) }}">
+             {% endif %}
             {% block body %}{% endblock %}
            </div>
            {% if self.comments()|trim %}
