@@ -164,6 +164,7 @@ The Headers are defined as follows:
 |generate_mp4       |No |This boolean indicates whether an MP4 is generated for the VOD content|false|
 |mp4_filename       |No |Filename for the generated MP4|{content_id}.mp4|
 |create_dref        |No |This boolean indicates whether a dref MP4 is generated for the VOD content|true|
+|generate_vod       |No |This boolean indicates whether VOD content should be created for the capture.|true|
 
 ### 2.1.2.1 vodcapture JSON Request example
 
