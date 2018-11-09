@@ -36,8 +36,6 @@ There is a single endpoint, /job, that handles all requests, only the payload va
 
 **vodstream:**  This workflow will create a server side ISM manifest, with or without DRM, that can be used for on the fly delivery via USP.
 
-<!-- **voddownload:**  The workflow will create packaged content, with or without DRM. This uses an the USP offline packager to create each of the output formats HLS, MSS, DASH, HDS. -->
-
 **vodcapture:**  This workflow allows you to create a frame accurate vod clip by passing in a start and end UTC time stamp. The result will be an MP4 on disk.
 
 **voddeletes3:**  This workflow allows you to delete content on S3.
@@ -126,18 +124,6 @@ The Headers are defined as follows:
   }
 }
 ```
-
-<!-- ## 2.1.2 voddownload
-
-
-| Parameter Name    | Required |  Description | Default |
-| ----------------- | -------- | ------------ | ------- |
-| workflow          | Yes| Specify 'voddownload'.
-| source_folder     | All files to be processed will need to be in a discrete folder, the ‘root’ folder will be specified in the client configuration.                      
-| output_folder     | No| The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration 
-| drm               | No| The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”access” or “all”. If this value isn’t present then no DRM is applied.
-| formats           | No| The output format that is required. This could be “hls” and/or ”mss” and/or ”dash” or “ismv”. This parameter will be reliant on correct drm options being set.
-| rest_endpoints    | Multiple end points can be specified. -->
 
 
 ## 2.1.2 vodcapture
@@ -444,21 +430,3 @@ An example on staging would mean that you could only playback the content using 
 ```
 http://protected.vod.origin.cdn.be/content/vod/054b58a1-8f05-4f08-bb17-b4698e3e9d1d/054b58a1-8f05-4f08-bb17-b4698e3e9d1d_drm_57d82537-1775-4e29-97e4-bba86e0219fb.ism/.m3u8
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
