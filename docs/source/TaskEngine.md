@@ -431,5 +431,3 @@ An example on staging would mean that you could only playback the content using 
 http://protected.vod.origin.cdn.be/content/vod/054b58a1-8f05-4f08-bb17-b4698e3e9d1d/054b58a1-8f05-4f08-bb17-b4698e3e9d1d_drm_57d82537-1775-4e29-97e4-bba86e0219fb.ism/.m3u8
 ```
 
-# 5. Priority
-
