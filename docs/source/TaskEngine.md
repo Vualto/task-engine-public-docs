@@ -253,9 +253,39 @@ The Headers are defined as follows:
   }
 }
 ```
+## 2.2 Priority
 
+The task engine supports ordering of jobs by priority. The priority parameter can be submitted as part of the json payload being submitted. The priority is in ascending order as follows:
 
-## 2.2 vodstream Workflow Trigger Example
+1 - Top Priority  
+.  
+.  
+5 - Default  
+.  
+.  
+10 - Least Priority
+
+The `"priority"` parameter needs to be submitted within the `"job"` section of the json payload as shown below:
+
+```json
+{
+  "client": "demo-client",
+  "job": {
+    "workflow": "vodcapture",
+    "priority": 3
+  },
+  "parameters": {
+    "content_id": "demo1",
+    ...
+    ...
+    ...
+  }
+}
+```
+
+Whenever an execution slot is available, the system will first check by priority and then check the submission time and date of the job. In the case where multiple jobs are executed with the same priority (eg. with the default priority 5), the Task Engine operates in a FIFO (First In First Out) manner.
+
+## 2.3 Workflow Trigger Example
 
 Example of a curl command to trigger ingest for the vodstream workflow:
 
@@ -292,9 +322,9 @@ Example of a curl command to trigger ingest for the vodstream workflow:
         }
       }
 
-This results in the files <content_id>.ism and <content_id>.ismv being produced in the folder: 
+This results in the files `<content_id>_<drm_tag>_<unique_guid>.ism` and `<content_id>_<unique_guid>.ismv` being produced in the folder:
 
-```<configured_root>(/<optional_output_folder>)/<content_id>.```
+```<configured_root>(/<optional_output_folder>)/<content_id>```
 
 The response from this call should be either a 200 OK, with the following payload:
 
