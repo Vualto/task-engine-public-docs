@@ -320,7 +320,7 @@ If the ‘output_folder’ parameter was excluded, then the files would be outpu
 
 **NOTE:** there may be some additional files, depending on the exact processes involved, but the minimum would usually be these.
 
-#3. Rest Endpoint Callbacks
+# 3. Rest Endpoint Callbacks
 
 Specifying the Task Engine ```https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback``` “webhook” in the callback will register the VOD asset within the Vualto vuflow events management system. It’s recommended and this is optional but does mean you can view the VOD event within ```https://admin.vuworkflow.staging.vualto.com```. This is also required for VOD assets to automatically go into private mode (configurable) after ingestion.
 
@@ -393,7 +393,7 @@ Example JSON VOD Delete
 ```
 
 
-#4. Public/Private switching
+# 4. Public/Private switching
 
 VIS API [vuflow protection](http://readme.vualto.com/vis-api/#put-eventvuflowprotectioncontentid)
 
@@ -430,3 +430,6 @@ An example on staging would mean that you could only playback the content using 
 ```
 http://protected.vod.origin.cdn.be/content/vod/054b58a1-8f05-4f08-bb17-b4698e3e9d1d/054b58a1-8f05-4f08-bb17-b4698e3e9d1d_drm_57d82537-1775-4e29-97e4-bba86e0219fb.ism/.m3u8
 ```
+
+# 5. Priority
+
