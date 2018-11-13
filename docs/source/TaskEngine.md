@@ -1,13 +1,5 @@
 # TASK ENGINE API
 
-- [1. Introduction to Task Engine](#1-introduction-to-task-engine)
-    - [1.1 How it works](#11-how-it-works)
-    - [1.2 System Requirements](#12-system-requirements)
-- [2. Integration](#2-integration)
-- [3. Triggers](#3-triggers)
-    - [3.1 Workflow Trigger Example](#31-workflow-trigger-example)
-- [4. Rest Endpoint Callbacks](#4-rest-endpoint-callbacks)
-
 ## 1. Introduction to Task Engine
 
 Task Engine is a product that facilitates easy integration between client systems and the vudrm platform.  It is designed to allow simple or complicated workflows to be constructed and tested easily and quickly.  Task Engine is exposed via a simple API and reports back to the client system via any required mechanism, although usually this is as simple as an HTTP POST to an endpoint.

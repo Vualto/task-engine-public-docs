@@ -1,28 +1,5 @@
 # TASK ENGINE WORKFLOWS
 
-- [1. Vodstream](#1-vodstream)
-  - [1.1 Parameters](#11-parameters)
-  - [1.2 JSON Payload example](#12-json-payload-example)
-  - [1.3 Callback properties](#13-callback-properties)
-- [2. Vodcapture](#2-vodcapture)
-  - [2.1 Parameters](#21-parameters)
-  - [2.2 JSON Payload example](#22-json-payload-example)
-  - [2.3 Callback properties](#23-callback-properties)
-- [3. Voddeletes3](#3-voddeletes3)
-  - [3.1 Parameters](#31-parameters)
-  - [3.2 JSON Payload example](#32-json-payload-example)
-  - [3.3 Callback properties](#33-callback-properties)
-- [4. Drmswitch](#4-drmswitch)
-  - [4.1 Parameters](#41-parameters)
-  - [4.2 Payload example](#42-payload-example)
-  - [4.3 Callback properties](#43-callback-properties)
-- [5. Additional Workflow Features:](#5-additional-workflow-features)
-  - [5.1 Priority](#51-priority)
-  - [5.2 Multiple Clips](#52-multiple-clips)
-  - [5.3 Multiple Sources](#53-multiple-sources)
-  - [5.4 Generate Download Clips](#54-generate-download-clips)
-- [6. Workflow Trigger Example](#6-workflow-trigger-example)
-
 ## 1. Vodstream
 
 This workflow will create a server side manifest, with and/or without DRM, that can be used for on the fly delivery of VOD content via USP.
@@ -335,7 +312,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Full path of the active manifest, for the generated content. |
 
-## 5. Additional Workflow Features: 
+## 5. Additional Workflow Features
 
 ### 5.1 Priority
 
