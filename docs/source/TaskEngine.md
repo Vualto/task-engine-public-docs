@@ -59,7 +59,7 @@ The Headers are defined as follows:
 |-------------------|-----------------------------------------------------------------------|
 | API-KEY           | The API-KEY assigned to the client.  
 
-More information about specific workflows can be found [here](TaskEngineWorkflows.md).
+More information about specific workflows can be found [here](TaskEngineWorkflows.html).
 
 ## 4. Rest Endpoint Callbacks
 
