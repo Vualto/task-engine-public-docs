@@ -4,7 +4,7 @@
 
 This workflow will create a server side manifest, with and/or without DRM, that can be used for on the fly delivery of VOD content via USP.
 
-### 1.1 Parameters
+### 1.1 Vodstream: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -92,7 +92,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 
 This workflow allows you to create a frame accurate vod clip by passing in a start and end UTC time stamp. The result will be an MP4 on disk.
 
-### 2.1 Parameters
+### 2.1 Vodcapture: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
