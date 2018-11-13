@@ -1,18 +1,18 @@
 # TASK ENGINE API
 
-- [Introduction to Task Engine](#introduction-to-task-engine)
-    - [How it works](#how-it-works)
-    - [System Requirements](#system-requirements)
-- [Integration](#integration)
-- [Triggers](#triggers)
-    - [Workflow Trigger Example](#workflow-trigger-example)
-- [Rest Endpoint Callbacks](#rest-endpoint-callbacks)
+- [1. Introduction to Task Engine](#1-introduction-to-task-engine)
+    - [1.1 How it works](#11-how-it-works)
+    - [1.2 System Requirements](#12-system-requirements)
+- [2. Integration](#2-integration)
+- [3. Triggers](#3-triggers)
+    - [3.1 Workflow Trigger Example](#31-workflow-trigger-example)
+- [4. Rest Endpoint Callbacks](#4-rest-endpoint-callbacks)
 
-## Introduction to Task Engine
+## 1. Introduction to Task Engine
 
 Task Engine is a product that facilitates easy integration between client systems and the vudrm platform.  It is designed to allow simple or complicated workflows to be constructed and tested easily and quickly.  Task Engine is exposed via a simple API and reports back to the client system via any required mechanism, although usually this is as simple as an HTTP POST to an endpoint.
 
-### How it works
+### 1.1 How it works
 
 Task Engine breaks a workflow up in to several component parts.  Every piece of work submitted is a job, and each job is broken up in to a series of tasks.  These tasks are then scheduled on to queues which workers then process.
 
@@ -20,13 +20,13 @@ Every job and task have unique identities, and these are exposed back to the cli
 
 When a task is being processed, a callback is sent through the configured mechanism as it starts and when it completes or fails, this way the client system should be able to track the progress of a job as it progresses through the task engine and then perform any relevant tasks when the job as a whole is completed.
 
-### System Requirements
+### 1.2 System Requirements
 
 The Task Engine is designed to run in Docker containers, and is therefore able to run on any Docker-supported Linux host, preferably running whatever the latest version of Docker is at the time (currently 1.12.1).  Any workers that need to run on Windows are currently NOT containerized but are installed as a native Windows service – this will change as Docker support for Windows matures.
 
 When a worker starts a task, it will generally need to copy one or more files to local storage to perform its work in an efficient manner, so it’s critical that hosts have sufficient disk space for processing to take place; this is particularly important when dealing with video transcoding or DRM encryption.  This also means that sometimes running more than one worker per host is not an option.  Vualto will usually advise on disk space requirements once the workflow is fully defined and some representative test content has been processed.
 
-## Integration
+## 2. Integration
 
 There are two main integration points for the task engine:
 
@@ -34,7 +34,7 @@ There are two main integration points for the task engine:
 
 **Callbacks** – how we notify client systems of job progress.
 
-## Triggers
+## 3. Triggers
 
 While the task engine can be configured to use watch folders or other methods of notification (currently outside the scope of this document) to trigger a workflow, the most common route is to have the client system trigger a workflow via an API call.
 
@@ -42,7 +42,7 @@ There is a single endpoint, /job, that handles all requests, only the payload va
  
 Custom workflows are supported, however; these would require additional development. The main differences will be the name of the workflow and the parameters passed in the ‘parameters’ section.
 
-### Workflow Trigger Example
+### 3.1 Workflow Trigger Example
 
 An example call to the the Task Engine API to trigger a workflow would be as follows ( Parameters must be a parameters object):
 
@@ -69,7 +69,7 @@ The Headers are defined as follows:
 
 More information about specific workflows can be found [here](TaskEngineWorkflows.md).
 
-## Rest Endpoint Callbacks
+## 4. Rest Endpoint Callbacks
 
 Specifying the Task Engine `https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback` “webhook” in the callback will register the VOD asset within the Vualto vuflow events management system. It’s recommended and this is optional but does mean you can view the VOD event within `https://admin.vuworkflow.staging.vualto.com`. This is also required for VOD assets to automatically go into private mode (configurable) after ingestion.
 
