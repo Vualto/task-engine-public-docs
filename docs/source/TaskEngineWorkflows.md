@@ -1,10 +1,10 @@
 # TASK ENGINE WORKFLOWS
 
-## 1. Vodstream
+## Vodstream
 
 This workflow will create a server side manifest, with and/or without DRM, that can be used for on the fly delivery of VOD content via USP.
 
-### 1.1 Vodstream: Parameters
+### Vodstream: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -24,7 +24,7 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content.|true|
 | all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true|
 
-### 1.2 JSON Payload example
+### Vodstream: JSON Payload example
 
 ```json
 {
@@ -59,9 +59,9 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 }
 ```
 
-### 1.3 Callback properties
+### Vodstream: Callback properties
 
-#### 1.3.1 Task Callback
+**Task Callback:**
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -75,7 +75,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-#### 1.3.2 Job Callback
+**Job Callback**
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -88,11 +88,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | Full path of the active manifest, for the generated content. |
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 
-## 2. Vodcapture
+## Vodcapture
 
 This workflow allows you to create a frame accurate vod clip by passing in a start and end UTC time stamp. The result will be an MP4 on disk.
 
-### 2.1 Vodcapture: Parameters
+### Vodcapture: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -118,7 +118,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | mp4_filename      |No | Filename for the generated MP4|{content_id}.mp4|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content|<generate_vod>|
 
-### 2.2 JSON Payload example
+### Vodcapture: JSON Payload example
 
 ```json
 {
@@ -163,9 +163,9 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 }
 ```
 
-### 2.3 Callback properties
+### Vodcapture: Callback properties
 
-#### 2.3.1 Task Callback
+**Task Callback**
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -179,7 +179,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-#### 2.3.2 Job Callback
+**Job Callback**
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -192,11 +192,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | Full path of the active manifest, for the generated content. |
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 
-## 3. Voddeletes3
+## Voddeletes3
 
 This workflow allows you to delete content on S3.
 
-### 3.1 Parameters
+### Voddeletes3: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -205,7 +205,7 @@ This workflow allows you to delete content on S3.
 | folder            |Yes| Folder where the content to be deleted resides||
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 
-### 3.2 JSON Payload example
+### Voddeletes3: JSON Payload example
 
 ```json
 {
@@ -224,9 +224,9 @@ This workflow allows you to delete content on S3.
 }
 ```
 
-### 3.3 Callback properties
+### Voddeletes3: Callback properties
 
-#### 3.3.1 Task Callback
+**Task Callback**
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -240,7 +240,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-#### 3.3.2 Job Callback
+**Job Callback**
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -252,11 +252,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Name of the folder deleted from S3. |
 
-## 4. Drmswitch
+## Drmswitch
 
 This workflow allows you to toggle DRM on and off.
 
-### 4.1 Parameters
+### Drmswitch: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -265,7 +265,7 @@ This workflow allows you to toggle DRM on and off.
 | folder            |Yes| Folder where the content to be DRM toggled resides||
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 
-### 4.2 Payload example
+### Drmswitch: Payload example
 
 ```json
 {
@@ -284,9 +284,9 @@ This workflow allows you to toggle DRM on and off.
 }
 ```
 
-### 4.3 Callback properties
+### Drmswitch: Callback properties
 
-#### 4.3.1 Task Callback
+**Task Callback**
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -300,7 +300,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-#### 4.3.2 Job Callback
+**Job Callback**
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -312,9 +312,9 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Full path of the active manifest, for the generated content. |
 
-## 5. Additional Workflow Features
+## Additional Workflow Features
 
-### 5.1 Priority
+### Priority
 
 The Task Engine supports ordering of jobs by priority. The priority parameter can be submitted as part of the json payload being submitted. The priority is in ascending order as follows:
 
@@ -346,7 +346,7 @@ The `"priority"` parameter needs to be submitted within the `"job"` section of t
 
 Whenever an execution slot is available, the system will first check by priority and then check the submission time and date of the job. In the case where multiple jobs are executed with the same priority (eg. with the default priority 5), the Task Engine operates in a FIFO (First In First Out) manner.
 
-### 5.2 Multiple Clips
+### Multiple Clips
 
 The Task Engine includes a feature that will allow multiple clips to be stitched togther into a single clip, in a single job. This can be done by defining multiple objects within the `"clips"` parameter in the json payload for `vodcapture`. This also allows a mixture of live and VoD sources to be captured and stitched toghether into a new clip. The example below shows how the `"clips"` parameter would need to be provided to achive this.
 
@@ -383,7 +383,7 @@ The Task Engine includes a feature that will allow multiple clips to be stitched
 }
 ```
 
-### 5.3 Multiple Sources
+### Multiple Sources
 
 In some cases, a live stream could have multiple origins setup (eg. for load balancing the origin servers). The Task Engine, allows for both streams to be defined as the source for a capture. It is smart enough to find which live stream will provide the best output capture and use that stream as the source. If the Task Engine discovers discontinuities within the streams, it will use segments from both streams to try and generate a clip with the least number of missing fragements.
 
@@ -448,13 +448,13 @@ In this case, `"sources"`  replaces the `"source"` parameter, however; it can st
 }
 ```
 
-### 5.4 Generate Download Clips
+### Generate Download Clips
 
 The Task Engine `vodcapture` workflow supports generating download clips without creating VoD assets. This is done by setting the property `"generate_vod"` to false and `"generate_mp4"` to true. It is important that if `"generate_vod"` is set to false, to not manually override the `"create_dref"` parameter. Setting `"create_dref"` to true will lead to a failed workflow as this requires VoD assets to generate DREF mp4s.
 
 The resulting downlaod will be an MP4 containg all the video, audio and caption tracks defined using the clip's `"filter"` parameter. If no filter is defined, the resulting MP4 will contain all the tracks availble in the stream.
 
-## 6. Workflow Trigger Example
+## Workflow Trigger Example
 
 Example of a curl command to trigger ingest for the vodstream workflow:
 
