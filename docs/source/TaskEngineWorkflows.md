@@ -532,7 +532,8 @@ The schedule_interval can be set via an api call. (where x is time in seconds)
 ```json
 {
   "client": "demo-client",
-  "name": "schedule_interval", "setting": "<x>"
+  "name": "schedule_interval",
+  "setting": "<x>"
 }
 ```
 
