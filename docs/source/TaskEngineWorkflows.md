@@ -521,22 +521,27 @@ The resulting downlaod will be an MP4 containg all the video, audio and caption 
 
 ### Scheduler
 
-The Task Engine supports scheduling of jobs via a run_at attribute. Jobs are moved from a queue_state of 'scheduled' to a queue_state of 'queued' via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 24hrs).
+The Task Engine supports scheduling of jobs via a `run_at` attribute. Jobs are moved from a queue_state of `scheduled` to a queue_state of `queued` via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 1 hour).
 
-The scheduler looks for jobs which have a queue_state of (5, scheduled) and a run_at time in the past
+The scheduler looks for jobs which have a queue_state of `scheduled` and a `run_at` time in the past
 
 The schedule_interval can be set via an api call. (where x is time in seconds)
 
- too: `post '/settings'`
+`post '/settings'`
 
- with: `json {name: schedule_interval, setting: x} ` 
+```json
+{
+  "client": "demo-client",
+  "name": "schedule_interval", "setting": "<x>"
+}
+```
 
-****
-A jobs run_at attribute can be set in multiple ways and defaults to the time it was created at.
+A jobs `run_at` attribute can be set in multiple ways and defaults to the time it was created at.
 
-1.  When submitting a job
+1. When submitting a job
 
 `post /job/:job_id`  
+
 ```json
 {
   "client": "demo-client",
@@ -545,16 +550,18 @@ A jobs run_at attribute can be set in multiple ways and defaults to the time it 
     "run_at": "1970-01-01T00:00:00"
   }
 ```
-2.  When updating an existing job
+
+2. When updating an existing job
 
 `put /jobs/:job_id`
+
 ```json
 {"run_at": "1970-01-01T00:00:00"}
 ```
 
-3.  When submitting a capture with a capture time in the future
+3. When submitting a capture with a clip end time in the future
 
-if a capture is submitted with a capture time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the run_at time is further in the future than the end time. 
+if a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the `"run_at"` time (if specified) is further in the future than the end time.
 
 ## Workflow Trigger Example
 
