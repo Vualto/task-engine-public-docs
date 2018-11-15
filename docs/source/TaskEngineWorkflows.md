@@ -322,7 +322,9 @@ This workflow allows you to create an MP4 from a VOD asset
 | ----------------- | -------- | ------------ | ------- |
 | workflow          |Yes| Specify 'createmp4'.||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
-| source_folder     |Yes| Folder where the content to be DRM toggled resides||
+| source_folder     |Yes| Folder where the VoD source content can be found||
+| output_folder     |No | Folder where the MP4 should be saved| <source_folder>|
+| mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4|
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 
 ### CreateMP4: Payload example
@@ -331,7 +333,7 @@ This workflow allows you to create an MP4 from a VOD asset
 {
   "client": "staging",
   "job": {
-    "workflow": "drmswitch"
+    "workflow": "createmp4"
   },
   "parameters": {
     "content_id": "demo1",
@@ -339,7 +341,9 @@ This workflow allows you to create an MP4 from a VOD asset
     		"rest_endpoints": [
 			"https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
 			"http://your.custom.endpoint"
-		]
+    ],
+    "mp4_filename": "result.mp4",
+    "output_folder": "vualto-test-1/downloads"
   }
 }
 ```
@@ -370,7 +374,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | status            | This will identify the status of the job. It can be either `completed` or `failed`. |
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
-| message           | Full path of the active manifest, for the generated content. |
+| message           | MP4 filename |
+| files             | List of files uploaded to s3 |
 
 ## Additional Workflow Features
 
@@ -421,7 +426,7 @@ The Task Engine includes a feature that will allow multiple clips to be stitched
     "output_folder": "demo_1",
     "clips": [
       {
-        "source": "http://mydomain.com/copyright.ism/manifest",
+        "source": "http://mydomain.com/copyright.ism/manifest"
       },
       {
         "source": "http://mydomain.com/live.isml/manifest",
@@ -436,9 +441,9 @@ The Task Engine includes a feature that will allow multiple clips to be stitched
         "filter": "type==\"audio\"||type==\"video\"&&systemBitrate==1300000"
       }
     ],
-    .
-    .
-    .
+    ...
+    ...
+    ...
   }
 }
 ```
@@ -469,9 +474,9 @@ The streams can be defined in the `"sources"` parameter when executing the `vodc
         "filter": "type==\"audio\"||type==\"video\"&&systemBitrate==1300000"
       }
     ],
-    .
-    .
-    .
+    ...
+    ...
+    ...
   }
 }
 ```
@@ -501,9 +506,9 @@ In this case, `"sources"`  replaces the `"source"` parameter, however; it can st
         "filter": "type==\"audio\"||type==\"video\"&&systemBitrate==1300000"
       }
     ],
-    .
-    .
-    .
+    ...
+    ...
+    ...
   }
 }
 ```
@@ -513,6 +518,43 @@ In this case, `"sources"`  replaces the `"source"` parameter, however; it can st
 The Task Engine `vodcapture` workflow supports generating download clips without creating VoD assets. This is done by setting the property `"generate_vod"` to false and `"generate_mp4"` to true. It is important that if `"generate_vod"` is set to false, to not manually override the `"create_dref"` parameter. Setting `"create_dref"` to true will lead to a failed workflow as this requires VoD assets to generate DREF mp4s.
 
 The resulting downlaod will be an MP4 containg all the video, audio and caption tracks defined using the clip's `"filter"` parameter. If no filter is defined, the resulting MP4 will contain all the tracks availble in the stream.
+
+### Scheduler
+
+The Task Engine supports scheduling of jobs via a run_at attribute. Jobs are moved from a queue_state of 'scheduled' to a queue_state of 'queued' via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 24hrs).
+
+The scheduler looks for jobs which have a queue_state of (5, scheduled) and a run_at time in the past
+
+The schedule_interval can be set via an api call. (where x is time in seconds)
+
+ too: `post '/settings'`
+
+ with: `json {name: schedule_interval, setting: x} ` 
+
+****
+A jobs run_at attribute can be set in multiple ways and defaults to the time it was created at.
+
+1.  When submitting a job
+
+`post /job/:job_id`  
+```json
+{
+  "client": "demo-client",
+  "job": {
+    "workflow": "vodcapture",
+    "run_at": "1970-01-01T00:00:00"
+  }
+```
+2.  When updating an existing job
+
+`put /jobs/:job_id`
+```json
+{"run_at": "1970-01-01T00:00:00"}
+```
+
+3.  When submitting a capture with a capture time in the future
+
+if a capture is submitted with a capture time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the run_at time is further in the future than the end time. 
 
 ## Workflow Trigger Example
 
