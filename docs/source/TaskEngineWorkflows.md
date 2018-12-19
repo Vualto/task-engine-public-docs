@@ -557,7 +557,10 @@ A jobs `run_at` attribute can be set in multiple ways and defaults to the time i
 `put /jobs/:job_id`
 
 ```json
-{"run_at": "1970-01-01T00:00:00"}
+{
+  "client": "demo-client",
+  "run_at": "1970-01-01T00:00:00"
+}
 ```
 
 3. When submitting a capture with a clip end time in the future
