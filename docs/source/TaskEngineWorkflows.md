@@ -562,7 +562,7 @@ The resulting download will be an MP4 containg all the video, audio and caption 
 
 The Task Engine supports scheduling of jobs via a `run_at` attribute. Jobs are moved from a queue_state of `scheduled` to a queue_state of `queued` via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 1 hour).
 
-The scheduler looks for jobs which have a queue_state of `scheduled` and a `run_at` time in the past
+The scheduler-worker looks for jobs which have a queue_state of `scheduled` and a `run_at` time in the past
 
 The schedule_interval can be set via an api call. (where x is time in seconds)
 
@@ -590,8 +590,11 @@ A jobs `run_at` attribute can be set in multiple ways and defaults to the time i
     "run_at": "1970-01-01T00:00:00"
   }
 ```
+If the jobs run_at time is in the future, then this will be logged against the job id and is viewable on the jobs log page.
+This is particularly useful when the run_at time is changed upon submission, due to a clip end time being in the past.
+ex: `Job will run at: 1970-01-01T00:00:00`
 
-2. When updating an existing job
+1. When updating an existing job
 
 `put /jobs/:job_id`
 
