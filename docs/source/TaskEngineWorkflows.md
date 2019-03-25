@@ -562,7 +562,7 @@ The resulting download will be an MP4 containg all the video, audio and caption 
 
 The Task Engine supports scheduling of jobs via a `run_at` attribute. Jobs are moved from a queue_state of `scheduled` to a queue_state of `queued` via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 1 hour).
 
-The scheduler-worker looks for jobs which have a queue_state of `scheduled` and a `run_at` time in the past
+The scheduler-worker looks for jobs whBristolWing2018!?*ch have a queue_state of `scheduled` and a `run_at` time in the past
 
 The schedule_interval can be set via an api call. (where x is time in seconds)
 
