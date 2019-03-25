@@ -23,6 +23,8 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | combine_sources   |No | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests.|true|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content.|true|
 | all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true|
+|encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
+|playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
 
 ### Vodstream: JSON Payload example
 
@@ -99,6 +101,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | workflow          |Yes| Specify 'vodcapture'.||
 | content_id        |Yes| This is the id for the resulting capture.||
 | output_folder     |Yes| This is the folder where the resulting capture wil be saved on S3. This is cleared before the capture is uploaded.||
+| clips             |yes| This is an array of sources, with optional start and end times, please see the example request below.
 | source            |Yes| This would need to be either an HLS, MSS or Dash stream URL to the Live or Archive content. e.g. http://mydomain.com/test.ism/.m3u8 , http://mydomain.com/test.ism/manifest , http://mydomain.com/test.ism/.mpd|| 
 | start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
@@ -117,6 +120,8 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content|false|
 | mp4_filename      |No | Filename for the generated MP4|{content_id}.mp4|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content|<generate_vod>|
+|encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
+|playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
 
 ### Vodcapture: JSON Payload example
 
@@ -325,6 +330,7 @@ This workflow allows you to create an MP4 from a VOD asset
 | source_folder     |Yes| Folder where the VoD source content can be found||
 | output_folder     |No | Folder where the MP4 should be saved| <source_folder>|
 | mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4|
+| retries           |No | Retry limit when attempting to copy from S3|2|
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 
 ### CreateMP4: Payload example
@@ -345,6 +351,39 @@ This workflow allows you to create an MP4 from a VOD asset
     "mp4_filename": "result.mp4",
     "output_folder": "vualto-test-1/downloads"
   }
+}
+```
+
+## build_thumbnails
+
+This workflow allows the generation of a thumbnail sprite and vtt file, which can then be used for video timeline preview thumbnails.
+
+## build_thumbnails: Parameters
+
+| Parameter Name    | Required |  Description | Default |
+| ----------------- | -------- | ------------ | ------- |
+| workflow          |Yes| Specify 'build_thumbnails'.||
+| source_file       |Yes| file name of the asset to generate the sprite/vtt from.||
+| target_file_name  |Yes| partial file names for the generated assets, format: {target_file_name}_{sprite/vtt}.jpg .||
+| output_folder     |Yes| output folder for the created assets to be saved too
+| seconds_between   |NO | Time between thumbnail captures from source in seconds. || 60
+| rest_endpoints    |No | Multiple end points can be specified.||
+
+### build_thumbnails: Payload example
+
+```json
+{
+    "parameters": {
+        "source_file": "vualto-test",
+        "target_file_name": "vualto_demo_file",
+        "output_folder": "vualto_demo_folder",
+        "seconds_between": "10",
+        "rest_endpoints": []
+    },
+    "client": "staging",
+    "job": {
+        "workflow": "build_thumbnails"
+    }
 }
 ```
 
@@ -517,7 +556,7 @@ In this case, `"sources"`  replaces the `"source"` parameter, however; it can st
 
 The Task Engine `vodcapture` workflow supports generating download clips without creating VoD assets. This is done by setting the property `"generate_vod"` to false and `"generate_mp4"` to true. It is important that if `"generate_vod"` is set to false, to not manually override the `"create_dref"` parameter. Setting `"create_dref"` to true will lead to a failed workflow as this requires VoD assets to generate DREF mp4s.
 
-The resulting downlaod will be an MP4 containg all the video, audio and caption tracks defined using the clip's `"filter"` parameter. If no filter is defined, the resulting MP4 will contain all the tracks availble in the stream.
+The resulting download will be an MP4 containg all the video, audio and caption tracks defined using the clip's `"filter"` parameter. If no filter is defined, the resulting MP4 will contain all the tracks availble in the stream.
 
 ### Scheduler
 
