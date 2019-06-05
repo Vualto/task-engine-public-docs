@@ -356,18 +356,18 @@ This workflow allows you to create an MP4 from a VOD asset
 
 ## build_thumbnails
 
-This workflow allows the generation of a thumbnail sprite and vtt file, which can then be used for video timeline preview thumbnails.
+This workflow allows you to generate thumbnail sprites that can be used for video timeline previews.
 
 ## build_thumbnails: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
 | workflow          |Yes| Specify 'build_thumbnails'.||
-| source_file       |Yes| file name of the asset to generate the sprite/vtt from.||
-| target_file_name  |Yes| partial file names for the generated assets, format: {target_file_name}_{sprite/vtt}.jpg .||
-| output_folder     |Yes| output folder for the created assets to be saved too
-| seconds_between   |NO | Time between thumbnail captures from source in seconds. || 60
-| rest_endpoints    |No | Multiple end points can be specified.||
+| source_file       |Yes| File name of the asset to generate the sprite/vtt from (can be a streaming URL).||
+| target_file_name  |Yes| Prefix for the file names of generated assets, format: {target_file_name}_{sprite/vtt}.jpg .||
+| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3. This is cleared before the capture is uploaded.
+| seconds_between   |NO | Time between thumbnail captures in seconds. || 60
+| rest_endpoints    |NO | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 
 ### build_thumbnails: Payload example
 
@@ -562,7 +562,7 @@ The resulting download will be an MP4 containg all the video, audio and caption 
 
 The Task Engine supports scheduling of jobs via a `run_at` attribute. Jobs are moved from a queue_state of `scheduled` to a queue_state of `queued` via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 1 hour).
 
-The scheduler-worker looks for jobs whBristolWing2018!?*ch have a queue_state of `scheduled` and a `run_at` time in the past
+The scheduler-worker looks for jobs which have a queue_state of `scheduled` and a `run_at` time in the past
 
 The schedule_interval can be set via an api call. (where x is time in seconds)
 
@@ -577,6 +577,7 @@ The schedule_interval can be set via an api call. (where x is time in seconds)
 ```
 
 A jobs `run_at` attribute can be set in multiple ways and defaults to the time it was created at.
+Format: yyyy-mm-ddThh:mm:ss
 
 1. When submitting a job
 
@@ -587,12 +588,13 @@ A jobs `run_at` attribute can be set in multiple ways and defaults to the time i
   "client": "demo-client",
   "job": {
     "workflow": "vodcapture",
-    "run_at": "1970-01-01T00:00:00"
+    "run_at": "2019-06-06T10:00:00.000"
   }
+
 ```
-If the jobs run_at time is in the future, then this will be logged against the job id and is viewable on the jobs log page.
+If the job's run_at time is in the future, a log will be added to indicate such. The log will be viewable from the job's log page.
 This is particularly useful when the run_at time is changed upon submission, due to a clip end time being in the past.
-ex: `Job will run at: 1970-01-01T00:00:00`
+ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 1. When updating an existing job
 
@@ -601,7 +603,7 @@ ex: `Job will run at: 1970-01-01T00:00:00`
 ```json
 {
   "client": "demo-client",
-  "run_at": "1970-01-01T00:00:00"
+  "run_at": "2019-06-06T10:00:00.000"
 }
 ```
 
