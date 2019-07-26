@@ -25,6 +25,8 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true|
 |encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
 |playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
+| preview_thumbnails   |No | Generate thumbnail assets which can then be used for video timeline previews.| false |
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 
 ### Vodstream: JSON Payload example
 
@@ -122,6 +124,8 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content|<generate_vod>|
 |encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
 |playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
+| preview_thumbnails   |No | Generate thumbnail assets which can then be used for video timeline previews.| false |
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 
 ### Vodcapture: JSON Payload example
 
@@ -325,13 +329,13 @@ This workflow allows you to create an MP4 from a VOD asset
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'createmp4'.||
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
+| workflow          |Yes| Specify 'createmp4'.|
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.|
 | source_folder     |Yes| Folder where the VoD source content can be found||
 | output_folder     |No | Folder where the MP4 should be saved| <source_folder>|
 | mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4|
 | retries           |No | Retry limit when attempting to copy from S3|2|
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.|
 
 ### CreateMP4: Payload example
 
@@ -354,22 +358,24 @@ This workflow allows you to create an MP4 from a VOD asset
 }
 ```
 
-## build_thumbnails
+## Build_thumbnails
 
-This workflow allows you to generate thumbnail sprites that can be used for video timeline previews.
+This workflow allows you to generate thumbnail assets which can then be used for video timeline previews.
 
-## build_thumbnails: Parameters
+## Build_thumbnails: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'build_thumbnails'.||
-| source_file       |Yes| File name of the asset to generate the sprite/vtt from (can be a streaming URL).||
-| target_file_name  |Yes| Prefix for the file names of generated assets, format: {target_file_name}_{sprite/vtt}.jpg .||
-| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3. This is cleared before the capture is uploaded.
-| seconds_between   |NO | Time between thumbnail captures in seconds. || 60
-| rest_endpoints    |NO | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| workflow          |Yes| Specify 'build_thumbnails'. |
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.|
+| source            |Yes| URL of the HLS source from which to create assets (isml sources must be in a state of `stopped`). |
+| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3| <content_id> |
+| target_filename   |No | Prefix for the file names of generated assets, format: <target_filename>_<sprite/vtt>.jpg| <content_id>_<sprite/vtt>.jpg |
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
+| video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 |
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 
-### build_thumbnails: Payload example
+### Build_thumbnails: Payload example
 
 ```json
 {
