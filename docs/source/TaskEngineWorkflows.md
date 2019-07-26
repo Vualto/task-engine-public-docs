@@ -23,8 +23,8 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | combine_sources   |No | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests.|true|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content.|true|
 | all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true|
-|encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
-|playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
+| encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
+| playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
 | preview_thumbnails   |No | Generate thumbnail assets which can then be used for video timeline previews.| false |
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 
@@ -124,8 +124,8 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content|false|
 | mp4_filename      |No | Filename for the generated MP4|{content_id}.mp4|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content|<generate_vod>|
-|encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
-|playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
+| encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
+| playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
 | preview_thumbnails   |No | Generate thumbnail assets which can then be used for video timeline previews.| false |
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 
