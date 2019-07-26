@@ -589,6 +589,8 @@ The schedule_interval can be set via an api call. (where x is time in seconds)
 ```
 
 A jobs `run_at` attribute can be set in multiple ways and defaults to the time it was created at.
+If the job's `run_at` time is in the future, a log will be added to indicate such.
+
 Format: yyyy-mm-ddThh:mm:ss
 
 1. When submitting a job
@@ -605,9 +607,6 @@ Format: yyyy-mm-ddThh:mm:ss
 }
 ```
 
-If the job's `run_at` time is in the future, a log will be added to indicate such. The log will be viewable from the job's log page.
-This is particularly useful when the run_at time is changed upon submission, due to a clip end time being in the past.
-
 ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 2. When updating an existing job
@@ -623,7 +622,7 @@ ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 3. When submitting a capture with a clip end time in the future
 
-if a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the `run_at` time (if specified) is further in the future than the end time.
+If a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the `run_at` time (if specified) is further in the future than the end time.
 
 ## Workflow Trigger Example
 
