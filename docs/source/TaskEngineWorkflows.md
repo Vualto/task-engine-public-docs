@@ -105,7 +105,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | workflow          |Yes| Specify 'vodcapture'.||
 | content_id        |Yes| This is the id for the resulting capture.||
 | output_folder     |Yes| This is the folder where the resulting capture wil be saved on S3. This is cleared before the capture is uploaded.||
-| clips             |yes| This is an array of sources, with optional start and end times, please see the example request below.
+| clips             |yes| This is an array of sources, with optional start and end times, please see the example request below. ||
 | source            |Yes| This would need to be either an HLS, MSS or Dash stream URL to the Live or Archive content. e.g. http://mydomain.com/test.ism/.m3u8 , http://mydomain.com/test.ism/manifest , http://mydomain.com/test.ism/.mpd|| 
 | start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
@@ -168,7 +168,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
     "create_thumbnail": true,
     "thumbnail_time": "1:34.000",
     "generate_mp4": true,
-    "mp4_filename": "demo_sample.mp4",demo_sample
+    "mp4_filename": "demo_sample.mp4",
     "create_dref": true,
     "preview_thumbnails": true,
     "preview_thumbnails_interval": 20
@@ -604,8 +604,10 @@ Format: yyyy-mm-ddThh:mm:ss
   }
 
 ```
+
 If the job's run_at time is in the future, a log will be added to indicate such. The log will be viewable from the job's log page.
 This is particularly useful when the run_at time is changed upon submission, due to a clip end time being in the past.
+
 ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 1. When updating an existing job
