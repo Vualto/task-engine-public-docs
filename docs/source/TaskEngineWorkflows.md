@@ -58,7 +58,9 @@ This workflow will create a server side manifest, with and/or without DRM, that 
     "mp4_filename": "demo_sample.mp4",
     "combine_sources": true,
     "create_dref": true,
-    "all_audio_tracks": true
+    "all_audio_tracks": true,
+    "preview_thumbnails": true,
+    "preview_thumbnails_interval": 20
   }
 }
 ```
@@ -166,8 +168,10 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
     "create_thumbnail": true,
     "thumbnail_time": "1:34.000",
     "generate_mp4": true,
-    "mp4_filename": "demo_sample.mp4",
-    "create_dref": true
+    "mp4_filename": "demo_sample.mp4",demo_sample
+    "create_dref": true,
+    "preview_thumbnails": true,
+    "preview_thumbnails_interval": 20
   }
 }
 ```
@@ -380,10 +384,12 @@ This workflow allows you to generate thumbnail assets which can then be used for
 ```json
 {
     "parameters": {
-        "source_file": "vualto-test",
-        "target_file_name": "vualto_demo_file",
-        "output_folder": "vualto_demo_folder",
-        "seconds_between": "10",
+        "content_id": "demo1",
+        "source": "http://mydomain.com/example.ism/.m3u8",
+        "output_folder": "vualto-test-1/downloads",
+        "target_filename": "demo_sample",
+        "preview_thumbnails_interval": 20,
+        "video_fps": 24,
         "rest_endpoints": []
     },
     "client": "staging",
