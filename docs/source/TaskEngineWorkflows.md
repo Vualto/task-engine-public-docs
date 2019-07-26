@@ -333,13 +333,13 @@ This workflow allows you to create an MP4 from a VOD asset
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'createmp4'.|
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.|
+| workflow          |Yes| Specify 'createmp4'.||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
 | source_folder     |Yes| Folder where the VoD source content can be found||
-| output_folder     |No | Folder where the MP4 should be saved| <source_folder>|
-| mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4|
-| retries           |No | Retry limit when attempting to copy from S3|2|
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.|
+| output_folder     |No | Folder where the MP4 should be saved| <source_folder>||
+| mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4||
+| retries           |No | Retry limit when attempting to copy from S3|2||
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 
 ### CreateMP4: Payload example
 
@@ -366,18 +366,18 @@ This workflow allows you to create an MP4 from a VOD asset
 
 This workflow allows you to generate thumbnail assets which can then be used for video timeline previews.
 
-## Build_thumbnails: Parameters
+### Build_thumbnails: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'build_thumbnails'. |
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.|
-| source            |Yes| URL of the HLS source from which to create assets (isml sources must be in a state of `stopped`). |
-| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3| <content_id> |
-| target_filename   |No | Prefix for the file names of generated assets, format: <target_filename>_<sprite/vtt>.jpg| <content_id>_<sprite/vtt>.jpg |
-| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
-| video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 |
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
+| workflow          |Yes| Specify 'build_thumbnails'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
+| source            |Yes| URL of the HLS source from which to create assets (isml sources must be in a state of `stopped`). ||
+| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3| <content_id> ||
+| target_filename   |No | Prefix for the file names of generated assets, format: <target_filename>_<sprite/vtt>.jpg| <content_id>_<sprite/vtt>.jpg ||
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 ||
+| video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 ||
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 
 ### Build_thumbnails: Payload example
 
@@ -593,7 +593,7 @@ Format: yyyy-mm-ddThh:mm:ss
 
 1. When submitting a job
 
-`post /job/:job_id`  
+`post '/job/:job_id'`
 
 ```json
 {
@@ -602,17 +602,16 @@ Format: yyyy-mm-ddThh:mm:ss
     "workflow": "vodcapture",
     "run_at": "2019-06-06T10:00:00.000"
   }
-
 ```
 
-If the job's run_at time is in the future, a log will be added to indicate such. The log will be viewable from the job's log page.
+If the job's `run_at` time is in the future, a log will be added to indicate such. The log will be viewable from the job's log page.
 This is particularly useful when the run_at time is changed upon submission, due to a clip end time being in the past.
 
 ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 1. When updating an existing job
 
-`put /jobs/:job_id`
+`put '/jobs/:job_id'`
 
 ```json
 {
@@ -623,7 +622,7 @@ ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 3. When submitting a capture with a clip end time in the future
 
-if a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the `"run_at"` time (if specified) is further in the future than the end time.
+if a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the `run_at` time (if specified) is further in the future than the end time.
 
 ## Workflow Trigger Example
 
