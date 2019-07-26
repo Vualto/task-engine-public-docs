@@ -602,6 +602,7 @@ Format: yyyy-mm-ddThh:mm:ss
     "workflow": "vodcapture",
     "run_at": "2019-06-06T10:00:00.000"
   }
+}
 ```
 
 If the job's `run_at` time is in the future, a log will be added to indicate such. The log will be viewable from the job's log page.
@@ -609,7 +610,7 @@ This is particularly useful when the run_at time is changed upon submission, due
 
 ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
-1. When updating an existing job
+2. When updating an existing job
 
 `put '/jobs/:job_id'`
 
