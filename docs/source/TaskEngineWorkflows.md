@@ -372,7 +372,7 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | ----------------- | -------- | ------------ | ------- |
 | workflow          |Yes| Specify 'build_thumbnails'. ||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
-| source            |Yes| URL of the HLS source from which to create assets (live(.isml) sources must be in a state of `stopped`). ||
+| source            |Yes| URL of the HLS source from which to create assets. Live sources (.isml) must be in a state of `stopped`. ||
 | output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3| <content_id> |
 | target_filename   |No | Prefix for the file names of generated assets, format: <target_filename>_<sprite/vtt>| <content_id> |
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
@@ -622,7 +622,7 @@ ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 3. When submitting a capture with a clip end time in the future
 
-If a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. The exception to this is if the `run_at` time (if provided) is further in the future than the end time.
+If a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. The exception to this is if the `run_at` time is specified and is further in the future than the end time, then the `run_at` time will be used.
 
 ## Workflow Trigger Example
 
