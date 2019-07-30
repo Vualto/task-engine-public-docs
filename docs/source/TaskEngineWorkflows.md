@@ -23,9 +23,9 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | combine_sources   |No | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests.|true|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content.|true|
 | all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true|
-| encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
-| playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
-| preview_thumbnails   |No | Generate thumbnail assets which can then be used for video timeline previews.| false |
+| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
+| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
+| preview_thumbnails |No | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 
 ### Vodstream: JSON Payload example
@@ -124,9 +124,9 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content|false|
 | mp4_filename      |No | Filename for the generated MP4|{content_id}.mp4|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content|<generate_vod>|
-| encrypt_ismv       |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
-| playready_key      |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
-| preview_thumbnails   |No | Generate thumbnail assets which can then be used for video timeline previews.| false |
+| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
+| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
+| preview_thumbnails   |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 
 ### Vodcapture: JSON Payload example
@@ -336,9 +336,9 @@ This workflow allows you to create an MP4 from a VOD asset
 | workflow          |Yes| Specify 'createmp4'.||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
 | source_folder     |Yes| Folder where the VoD source content can be found||
-| output_folder     |No | Folder where the MP4 should be saved| <source_folder>||
-| mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4||
-| retries           |No | Retry limit when attempting to copy from S3|2||
+| output_folder     |No | Folder where the MP4 should be saved| <source_folder>|
+| mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4|
+| retries           |No | Retry limit when attempting to copy from S3|2|
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 
 ### CreateMP4: Payload example
@@ -372,11 +372,11 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | ----------------- | -------- | ------------ | ------- |
 | workflow          |Yes| Specify 'build_thumbnails'. ||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
-| source            |Yes| URL of the HLS source from which to create assets (isml sources must be in a state of `stopped`). ||
-| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3| <content_id> ||
-| target_filename   |No | Prefix for the file names of generated assets, format: <target_filename>_<sprite/vtt>.jpg| <content_id>_<sprite/vtt>.jpg ||
-| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 ||
-| video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 ||
+| source            |Yes| URL of the HLS source from which to create assets (live(.isml) sources must be in a state of `stopped`). ||
+| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3| <content_id> |
+| target_filename   |No | Prefix for the file names of generated assets, format: <target_filename>_<sprite/vtt>| <content_id> |
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
+| video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 
 ### Build_thumbnails: Payload example
@@ -622,7 +622,7 @@ ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 3. When submitting a capture with a clip end time in the future
 
-If a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the `run_at` time (if specified) is further in the future than the end time.
+If a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. The exception to this is if the `run_at` time (if provided) is further in the future than the end time.
 
 ## Workflow Trigger Example
 
