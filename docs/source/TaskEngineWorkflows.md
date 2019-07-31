@@ -23,6 +23,10 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | combine_sources   |No | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests.|true|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content.|true|
 | all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true|
+| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
+| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
+| preview_thumbnails |No | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 
 ### Vodstream: JSON Payload example
 
@@ -54,7 +58,9 @@ This workflow will create a server side manifest, with and/or without DRM, that 
     "mp4_filename": "demo_sample.mp4",
     "combine_sources": true,
     "create_dref": true,
-    "all_audio_tracks": true
+    "all_audio_tracks": true,
+    "preview_thumbnails": true,
+    "preview_thumbnails_interval": 20
   }
 }
 ```
@@ -99,6 +105,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | workflow          |Yes| Specify 'vodcapture'.||
 | content_id        |Yes| This is the id for the resulting capture.||
 | output_folder     |Yes| This is the folder where the resulting capture wil be saved on S3. This is cleared before the capture is uploaded.||
+| clips             |yes| This is an array of sources, with optional start and end times, please see the example request below. ||
 | source            |Yes| This would need to be either an HLS, MSS or Dash stream URL to the Live or Archive content. e.g. http://mydomain.com/test.ism/.m3u8 , http://mydomain.com/test.ism/manifest , http://mydomain.com/test.ism/.mpd|| 
 | start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
@@ -117,6 +124,10 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content|false|
 | mp4_filename      |No | Filename for the generated MP4|{content_id}.mp4|
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content|<generate_vod>|
+| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
+| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
+| preview_thumbnails   |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 
 ### Vodcapture: JSON Payload example
 
@@ -158,7 +169,9 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
     "thumbnail_time": "1:34.000",
     "generate_mp4": true,
     "mp4_filename": "demo_sample.mp4",
-    "create_dref": true
+    "create_dref": true,
+    "preview_thumbnails": true,
+    "preview_thumbnails_interval": 20
   }
 }
 ```
@@ -325,6 +338,7 @@ This workflow allows you to create an MP4 from a VOD asset
 | source_folder     |Yes| Folder where the VoD source content can be found||
 | output_folder     |No | Folder where the MP4 should be saved| <source_folder>|
 | mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4|
+| retries           |No | Retry limit when attempting to copy from S3|2|
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 
 ### CreateMP4: Payload example
@@ -345,6 +359,43 @@ This workflow allows you to create an MP4 from a VOD asset
     "mp4_filename": "result.mp4",
     "output_folder": "vualto-test-1/downloads"
   }
+}
+```
+
+## Build_thumbnails
+
+This workflow allows you to generate thumbnail assets which can then be used for video timeline previews.
+
+### Build_thumbnails: Parameters
+
+| Parameter Name    | Required |  Description | Default |
+| ----------------- | -------- | ------------ | ------- |
+| workflow          |Yes| Specify 'build_thumbnails'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
+| source            |Yes| URL of the HLS source from which to create assets. Live sources (.isml) must be in a state of `stopped`. ||
+| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3| <content_id> |
+| target_filename   |No | Prefix for the file names of generated assets, format: <target_filename>_<sprite/vtt>| <content_id> |
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
+| video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 |
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+
+### Build_thumbnails: Payload example
+
+```json
+{
+    "parameters": {
+        "content_id": "demo1",
+        "source": "http://mydomain.com/example.ism/.m3u8",
+        "output_folder": "vualto-test-1/downloads",
+        "target_filename": "demo_sample",
+        "preview_thumbnails_interval": 20,
+        "video_fps": 24,
+        "rest_endpoints": []
+    },
+    "client": "staging",
+    "job": {
+        "workflow": "build_thumbnails"
+    }
 }
 ```
 
@@ -517,13 +568,13 @@ In this case, `"sources"`  replaces the `"source"` parameter, however; it can st
 
 The Task Engine `vodcapture` workflow supports generating download clips without creating VoD assets. This is done by setting the property `"generate_vod"` to false and `"generate_mp4"` to true. It is important that if `"generate_vod"` is set to false, to not manually override the `"create_dref"` parameter. Setting `"create_dref"` to true will lead to a failed workflow as this requires VoD assets to generate DREF mp4s.
 
-The resulting downlaod will be an MP4 containg all the video, audio and caption tracks defined using the clip's `"filter"` parameter. If no filter is defined, the resulting MP4 will contain all the tracks availble in the stream.
+The resulting download will be an MP4 containg all the video, audio and caption tracks defined using the clip's `"filter"` parameter. If no filter is defined, the resulting MP4 will contain all the tracks availble in the stream.
 
 ### Scheduler
 
 The Task Engine supports scheduling of jobs via a `run_at` attribute. Jobs are moved from a queue_state of `scheduled` to a queue_state of `queued` via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 1 hour).
 
-The scheduler looks for jobs which have a queue_state of `scheduled` and a `run_at` time in the past
+The scheduler-worker looks for jobs which have a queue_state of `scheduled` and a `run_at` time in the past
 
 The schedule_interval can be set via an api call. (where x is time in seconds)
 
@@ -538,34 +589,40 @@ The schedule_interval can be set via an api call. (where x is time in seconds)
 ```
 
 A jobs `run_at` attribute can be set in multiple ways and defaults to the time it was created at.
+If the job's `run_at` time is in the future, a log will be added to indicate such.
+
+Format: yyyy-mm-ddThh:mm:ss
 
 1. When submitting a job
 
-`post /job/:job_id`  
+`post '/job/:job_id'`
 
 ```json
 {
   "client": "demo-client",
   "job": {
     "workflow": "vodcapture",
-    "run_at": "1970-01-01T00:00:00"
+    "run_at": "2019-06-06T10:00:00.000"
   }
+}
 ```
+
+ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 2. When updating an existing job
 
-`put /jobs/:job_id`
+`put '/jobs/:job_id'`
 
 ```json
 {
   "client": "demo-client",
-  "run_at": "1970-01-01T00:00:00"
+  "run_at": "2019-06-06T10:00:00.000"
 }
 ```
 
 3. When submitting a capture with a clip end time in the future
 
-if a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. Unless the `"run_at"` time (if specified) is further in the future than the end time.
+If a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. The exception to this is if the `run_at` time is specified and is further in the future than the end time, then the `run_at` time will be used.
 
 ## Workflow Trigger Example
 
