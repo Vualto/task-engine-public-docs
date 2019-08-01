@@ -8,31 +8,36 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'vodstream'.|
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.|
-| source_folder     |Yes| Location of the source files. All files to be processed will need to be in a discrete folder, the ‘root’ folder will be specified in the client configuration.|
-| delete_source     |No | This boolean indicates whether the source should be deleted from s3 after the job has completed.| false|
-| encrypted         |No | This boolean indicates whether the active manifest, for a job, should be the encrypted manifest.| true|
-| output_folder     |No | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. | source_folder|
-| drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present then no DRM is applied.|
+| workflow          |Yes| Specify 'vodstream'.||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
+| source_folder     |Yes| Location of the source files. All files to be processed will need to be in a discrete folder, the ‘root’ folder will be specified in the client configuration.||
+| delete_source     |No | This boolean indicates whether the source should be deleted from source storage after the job has completed.| false |
+| encrypted         |No | This boolean indicates whether the active manifest, for a job, should be the encrypted manifest.| true |
+| output_folder     |No | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. | source_folder |
+| drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present then no DRM is applied.||
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
-| create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content.|true|
-| thumbnail_time    |No | Time at which the thumbnail will be taken.|first frame|
-| generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content.|false|
-| mp4_filename      |No | Filename for the generated MP4, if generate_mp4 is st to true.|{content_id}.mp4|
-| combine_sources   |No | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests.|true|
-| create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content.|true|
-| all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true|
-| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
-| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
-| preview_thumbnails |No | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
-| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
+| create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content.| true |
+| thumbnail_time    |No | Time at which the thumbnail will be taken.| first frame |
+| generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content.| false |
+| mp4_filename      |No | Filename for the generated MP4, if generate_mp4 is set to true.| {content_id}.mp4 |
+| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track.| false |
+| combine_sources   |No | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests.| true |
+| create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content.| true |
+| all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true |
+| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM.| false |
+| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.||
+| preview_thumbnails          |No | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
+| preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds.| 10 |
+| apply_track_properties      |No | This boolean indicates whether custom track propertes (set when submitting the job or in central configuration) should be applied to the VOD asset.| false |
+| track_properties  |No | This is used to define track properties to be applied to the VOD (See [Track Properties](#track-properties) section)||
+| source_storage    |No | This is used to indicate where the source content is stored (see [Storage Support](#storage-support) section).| `S3` (system default) |
+| destination_storage         |No | This is used to indicate the destinantion for the VOD assets (see [Storage Support](#storage-support) section).| <source_storage> |
 
 ### Vodstream: JSON Payload example
 
 ```json
 {
-  "client": "staging",
+  "client": "demo-client",
   "job": {
     "workflow": "vodstream"
   },
@@ -56,18 +61,22 @@ This workflow will create a server side manifest, with and/or without DRM, that 
     "thumbnail_time": "1:34.000",
     "generate_mp4": true,
     "mp4_filename": "demo_sample.mp4",
+    "mezzanine": true,
     "combine_sources": true,
     "create_dref": true,
     "all_audio_tracks": true,
     "preview_thumbnails": true,
-    "preview_thumbnails_interval": 20
+    "preview_thumbnails_interval": 20,
+    "apply_track_properties": true,
+    "source_storage": "local",
+    "desination_storage": "S3",
   }
 }
 ```
 
 ### Vodstream: Callback properties
 
-**Task Callback:**
+#### Task Callback
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -81,7 +90,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-**Job Callback**
+#### Job Callback
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -104,7 +113,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | ----------------- | -------- | ------------ | ------- |
 | workflow          |Yes| Specify 'vodcapture'.||
 | content_id        |Yes| This is the id for the resulting capture.||
-| output_folder     |Yes| This is the folder where the resulting capture wil be saved on S3. This is cleared before the capture is uploaded.||
+| output_folder     |Yes| This is the folder where the resulting capture wil be saved on the destination storage. This is cleared before the capture is uploaded.||
 | clips             |yes| This is an array of sources, with optional start and end times, please see the example request below. ||
 | source            |Yes| This would need to be either an HLS, MSS or Dash stream URL to the Live or Archive content. e.g. http://mydomain.com/test.ism/.m3u8 , http://mydomain.com/test.ism/manifest , http://mydomain.com/test.ism/.mpd|| 
 | start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
@@ -123,17 +132,21 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | thumbnail_time    |No | Time at which the thumbnail will be taken.|first frame|
 | generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content|false|
 | mp4_filename      |No | Filename for the generated MP4|{content_id}.mp4|
+| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track.| false |
 | create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content|<generate_vod>|
 | encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
 | playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
-| preview_thumbnails   |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
-| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
+| preview_thumbnails          |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
+| preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds.| 10 |
+| apply_track_properties      |No | This boolean indicates whether custom track propertes (set when submitting the job or in central configuration) should be applied to the VOD asset.| false |
+| track_properties  |No | This is used to define track properties to be applied to the VOD (See [Track Properties](#track-properties) section)||
+| destination_storage         |No | This is used to indicate the destinantion for the VOD assets (see [Storage Support](#storage-support) section).| `S3` (system default) |
 
 ### Vodcapture: JSON Payload example
 
 ```json
 {
-  "client": "staging",
+  "client": "demo-client",
   "job": {
     "workflow": "vodcapture"
   },
@@ -178,7 +191,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 
 ### Vodcapture: Callback properties
 
-**Task Callback**
+#### Task Callback
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -192,7 +205,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-**Job Callback**
+#### Job Callback
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -205,41 +218,42 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | Full path of the active manifest, for the generated content. |
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 
-## Voddeletes3
+## Voddelete
 
-This workflow allows you to delete content on S3.
+This workflow allows you to delete VOD assets from storage.
 
-### Voddeletes3: Parameters
+### Voddelete: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'voddeletes3'.||
+| workflow          |Yes| Specify 'voddelete'.||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
 | folder            |Yes| Folder where the content to be deleted resides||
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
+| source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](#storage-support) section).| `S3` (system default) |
 
-### Voddeletes3: JSON Payload example
+### Voddelete: JSON Payload example
 
 ```json
 {
-  "client": "staging",
+  "client": "demo-client",
   "job": {
-    "workflow": "voddeletes3"
+    "workflow": "voddelete"
   },
   "parameters": {
     "content_id": "demo1",
     "folder": "vualto-test-1",
     "rest_endpoints": [
-			"https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
-			"http://your.custom.endpoint"
-		]
+      "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
+      "http://your.custom.endpoint"
+    ]
   }
 }
 ```
 
-### Voddeletes3: Callback properties
+### Voddelete: Callback properties
 
-**Task Callback**
+#### Task Callback
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -253,7 +267,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-**Job Callback**
+#### Job Callback
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -263,7 +277,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | status            | This will identify the status of the job. It can be either `completed` or `failed`. |
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
-| message           | Name of the folder deleted from S3. |
+| message           | Name of the folder deleted from storage. |
 
 ## Drmswitch
 
@@ -277,29 +291,30 @@ This workflow allows you to toggle DRM on and off.
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
 | folder            |Yes| Folder where the content to be DRM toggled resides||
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
+| source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](#storage-support) section).| `S3` (system default) |
 
 ### Drmswitch: Payload example
 
 ```json
 {
-  "client": "staging",
+  "client": "demo-client",
   "job": {
     "workflow": "drmswitch"
   },
   "parameters": {
     "content_id": "demo1",
     "folder": "vualto-test-1",
-    		"rest_endpoints": [
-			"https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
-			"http://your.custom.endpoint"
-		]
+    "rest_endpoints": [
+      "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
+      "http://your.custom.endpoint"
+    ]
   }
 }
 ```
 
 ### Drmswitch: Callback properties
 
-**Task Callback**
+#### Task Callback
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -313,7 +328,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-**Job Callback**
+#### Job Callback
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -338,14 +353,17 @@ This workflow allows you to create an MP4 from a VOD asset
 | source_folder     |Yes| Folder where the VoD source content can be found||
 | output_folder     |No | Folder where the MP4 should be saved| <source_folder>|
 | mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4|
-| retries           |No | Retry limit when attempting to copy from S3|2|
+| retries           |No | Retry limit when attempting to copy from the source storage|2|
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
+| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track.| false |
+| source_storage    |No | This is used to indicate where the source VOD is stored (see [Storage Support](#storage-support) section).| `S3` (system default) |
+| destination_storage         |No | This is used to indicate the destinantion for the generated MP4 (see [Storage Support](#storage-support) section).| <source_storage> |
 
 ### CreateMP4: Payload example
 
 ```json
 {
-  "client": "staging",
+  "client": "demo-client",
   "job": {
     "workflow": "createmp4"
   },
@@ -361,6 +379,35 @@ This workflow allows you to create an MP4 from a VOD asset
   }
 }
 ```
+
+### CreateMP4: Callback properties
+
+#### Task Callback
+
+Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
+
+| Property Name     | Required |
+| ----------------- | -------- |
+| job_id            | Unique job identifier generated by the Task Engine. |
+| task_id           | Unique task identifier generated by the Task Engine. |
+| task_name         | Name of the task that triggered the callback. |
+| workflow          | Name of the workflow being executed. |
+| event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
+| content_id        | Content ID provided when the job was submitted. |
+| message           | Any message assoicated with the event. This will usually contain exception messages. |
+
+#### Job Callback
+
+Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
+
+| Property Name     | Required |
+| ----------------- | -------- |
+| job_id            | Unique job identifier generated by the Task Engine. |
+| status            | This will identify the status of the job. It can be either `completed` or `failed`. |
+| workflow          | Name of the workflow being executed. |
+| content_id        | Content ID provided when the job was submitted. |
+| message           | MP4 filename |
+| files             | List of files uploaded to the destination storage |
 
 ## Build_thumbnails
 
@@ -378,6 +425,7 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
 | video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| destination_storage         |No | This is used to indicate the destinantion for the generated thumbnail assets (see [Storage Support](#storage-support) section).| `S3` (system default) |
 
 ### Build_thumbnails: Payload example
 
@@ -392,16 +440,15 @@ This workflow allows you to generate thumbnail assets which can then be used for
         "video_fps": 24,
         "rest_endpoints": []
     },
-    "client": "staging",
+    "client": "demo-client",
     "job": {
         "workflow": "build_thumbnails"
     }
 }
 ```
+### Build_thumbnails: Callback properties
 
-### CreateMP4: Callback properties
-
-**Task Callback**
+#### Task Callback
 
 Task callbacks are triggered after each task within a workflow is completed. Below is a list of the defualt properties for the callback:
 
@@ -415,7 +462,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message assoicated with the event. This will usually contain exception messages. |
 
-**Job Callback**
+#### Job Callback
 
 Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
 
@@ -425,8 +472,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | status            | This will identify the status of the job. It can be either `completed` or `failed`. |
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
-| message           | MP4 filename |
-| files             | List of files uploaded to s3 |
+| message           | List of thumbnail assets uploaded to the destination storage |
 
 ## Additional Workflow Features
 
@@ -468,7 +514,7 @@ The Task Engine includes a feature that will allow multiple clips to be stitched
 
 ```json
 {
-  "client": "staging",
+  "client": "demo-client",
   "job": {
     "workflow": "vodcapture"
   },
@@ -507,7 +553,7 @@ The streams can be defined in the `"sources"` parameter when executing the `vodc
 
 ```json
 {
-  "client": "staging",
+  "client": "demo-client",
   "job": {
     "workflow": "vodcapture"
   },
@@ -536,7 +582,7 @@ In this case, `"sources"`  replaces the `"source"` parameter, however; it can st
 
 ```json
 {
-  "client": "staging",
+  "client": "demo-client",
   "job": {
     "workflow": "vodcapture"
   },
@@ -624,6 +670,86 @@ ex: `Job will run at: "2019-06-06T10:00:00.000"`
 
 If a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. The exception to this is if the `run_at` time is specified and is further in the future than the end time, then the `run_at` time will be used.
 
+### Track Properties
+
+There are instances when track properties need to be added to specific tracks within the VOD manifest. This usually occurs when custom track descriptions or track roles need to be set. The Task Engine supports adding track properties to audio and subtitle tracks. Filtering of tracks is based on type (`audio` or `textStream`) and a combination of language and/or track role. The filters and values can be set in Vualto's Central Configuration so they can easily be applied to all VODs being captured or ingested. They can also be defined as part of the job submission. The value set will overwrite the exisitng value for the property, if it already exists. Below are some samples of how the filters can be defined. 
+
+Setting the defined track description where the audio language is not set or set to `und` (undefined).
+
+```json
+"track_properties": {
+  "audio": {
+    "und|": {
+      "track_description": "Original Audio Track"
+    }
+  }
+}
+```
+
+Setting the defined track description and track name where the language is set `eng` and the role is set to `description`.
+
+```json
+"track_properties": {
+  "audio": {
+    "eng_description": {
+      "track_name" : "Audio Description - English",
+      "track_description": "English Audio Descriptive"
+    }
+  }
+}
+```
+
+Setting the defined track role and description to the subtitle track where the language is set to `eng`.
+
+```json
+"track_properties": {
+  "textStream": {
+    "eng": {
+      "track_role" : "caption",
+      "track_description": "English CC"
+    }
+  }
+}
+```
+
+Setting a combination of properties to both audio and subtitle tracks.
+
+```json
+"track_properties": {
+  "audio": {
+    "und|": {
+      "track_description": "Original Audio"
+    },
+    "eng_alternate": {
+      "track_name": "English Alt",
+      "track_description": "English Alternate track"
+    },
+    "eng": {
+      "track_role" : "main",
+    }
+  },
+  "textStream": {
+    "eng": {
+      "track_role" : "caption",
+      "track_description": "English CC"
+    }
+  }
+}
+```
+
+Support is confirmed for `track_description`, `track_role` and `track_name` properties, but other properties may be supported.
+
+### Storage Support
+
+The Task Engine supports multiple storage types for ingesting content and saving VOD. Support has also been added so a combination of storage types can be used for the same job. This can be done by setting the `source_storage` and `destination_storage` in the job payload (for supported workflows). Eg. Ingesting content from local storage and save VOD assets on S3 would require `source_storage` to be set to `local` and `destination_storage` to be set to `S3`.
+
+The system defualt storage type is Amazon S3, however; the default can be customised per client as well as set on a job per job basis. Additional setup may be required when using `local` storage, as the folders will need to be mapped to the worker docker containers.
+
+Natively supported storage types:
+
+- Amazon S3 (`S3`)
+- On premises infrastructure (`local`)
+  
 ## Workflow Trigger Example
 
 Example of a curl command to trigger ingest for the vodstream workflow:
