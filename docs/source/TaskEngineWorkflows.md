@@ -69,7 +69,7 @@ This workflow will create a server side manifest, with and/or without DRM, that 
     "preview_thumbnails_interval": 20,
     "apply_track_properties": true,
     "source_storage": "local",
-    "desination_storage": "S3",
+    "destination_storage": "S3"
   }
 }
 ```
