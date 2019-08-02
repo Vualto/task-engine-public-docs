@@ -8,30 +8,30 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'vodstream'.||
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
-| source_folder     |Yes| Location of the source files. All files to be processed will need to be in a discrete folder, the ‘root’ folder will be specified in the client configuration.||
-| delete_source     |No | This boolean indicates whether the source should be deleted from source storage after the job has completed.| false |
-| encrypted         |No | This boolean indicates whether the active manifest, for a job, should be the encrypted manifest.| true |
+| workflow          |Yes| Specify 'vodstream'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
+| source_folder     |Yes| Location of the source files. All files to be processed will need to be in a discrete folder, the ‘root’ folder will be specified in the client configuration. ||
+| delete_source     |No | This boolean indicates whether the source should be deleted from source storage after the job has completed. | false |
+| encrypted         |No | This boolean indicates whether the active manifest, for a job, should be the encrypted manifest. | true |
 | output_folder     |No | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. | source_folder |
-| drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present then no DRM is applied.||
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
-| create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content.| true |
-| thumbnail_time    |No | Time at which the thumbnail will be taken.| first frame |
-| generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content.| false |
-| mp4_filename      |No | Filename for the generated MP4, if generate_mp4 is set to true.| {content_id}.mp4 |
-| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track.| false |
-| combine_sources   |No | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests.| true |
-| create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content.| true |
-| all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured| true |
-| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM.| false |
-| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.||
-| preview_thumbnails          |No | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
-| preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds.| 10 |
-| apply_track_properties      |No | This boolean indicates whether custom track propertes (set when submitting the job or in central configuration) should be applied to the VOD asset.| false |
-| track_properties  |No | This is used to define track properties to be applied to the VOD (See [Track Properties](#track-properties) section)||
-| source_storage    |No | This is used to indicate where the source content is stored (see [Storage Support](#storage-support) section).| `S3` (system default) |
-| destination_storage         |No | This is used to indicate the destinantion for the VOD assets (see [Storage Support](#storage-support) section).| <source_storage> |
+| drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present then no DRM is applied. ||
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content. | true |
+| thumbnail_time    |No | Time at which the thumbnail will be taken. | first frame |
+| generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content. | false |
+| mp4_filename      |No | Filename for the generated MP4, if generate_mp4 is set to true. | {content_id}.mp4 |
+| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. | false |
+| combine_sources   |No | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests. | true |
+| create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content. | true |
+| all_audio_tracks  |No | This boolean indicates whether all audio tracks are captured or only the audio tracks with the highest bitrates for each language are captured. | true |
+| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM. | false |
+| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM. ||
+| preview_thumbnails          |No | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. | false |
+| preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds. | 10 |
+| apply_track_properties      |No | This boolean indicates whether custom track propertes (set when submitting the job or in central configuration) should be applied to the VOD asset. | false |
+| track_properties  |No | This is used to define track properties to be applied to the VOD (See [Track Properties](#track-properties) section). ||
+| source_storage    |No | This is used to indicate where the source content is stored (see [Storage Support](#storage-support) section). | `S3` (system default) |
+| destination_storage         |No | This is used to indicate the destinantion for the VOD assets (see [Storage Support](#storage-support) section). | <source_storage> |
 
 ### Vodstream: JSON Payload example
 
@@ -111,36 +111,37 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'vodcapture'.||
-| content_id        |Yes| This is the id for the resulting capture.||
-| output_folder     |Yes| This is the folder where the resulting capture wil be saved on the destination storage. This is cleared before the capture is uploaded.||
+| workflow          |Yes| Specify 'vodcapture'. ||
+| content_id        |Yes| This is the id for the resulting capture. ||
+| output_folder     |Yes| This is the folder where the resulting capture wil be saved on the destination storage. This is cleared before the capture is uploaded. ||
 | clips             |yes| This is an array of sources, with optional start and end times, please see the example request below. ||
-| source            |Yes| This would need to be either an HLS, MSS or Dash stream URL to the Live or Archive content. e.g. http://mydomain.com/test.ism/.m3u8 , http://mydomain.com/test.ism/manifest , http://mydomain.com/test.ism/.mpd|| 
-| start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
-| end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
-| filter            |No | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000"||
-| encrypted         |No | This boolean allows you to set the encrypted manifest as active after the capture is complete| false|
-| drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied.||
-| frame_accurate    |No | This boolean allows the capture to be done using frame accuracy.|true|
-| copy_ts           |No | This boolean indicates whether the timestamps should be included in the resulting manifests.|false|
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
-| key_id            |No | Should the stream be DRM’d we would require the KeyID ||
-| content_key       |No | Should the stream be DRM’d we would require the Content Key ||
-| output_file       |No | Name of the output ismv file| <content_id>_capture.ismv |
-| generate_vod      |No | This boolean indicates whether VOD manifests are generated for the capture.|true|
-| create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content|true|
-| thumbnail_time    |No | Time at which the thumbnail will be taken.|first frame|
-| generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content|false|
-| mp4_filename      |No | Filename for the generated MP4|{content_id}.mp4|
-| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track.| false |
-| create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content|<generate_vod>|
-| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM	 |false|
-| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM.|""|
-| preview_thumbnails          |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews.| false |
-| preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds.| 10 |
-| apply_track_properties      |No | This boolean indicates whether custom track propertes (set when submitting the job or in central configuration) should be applied to the VOD asset.| false |
-| track_properties  |No | This is used to define track properties to be applied to the VOD (See [Track Properties](#track-properties) section)||
-| destination_storage         |No | This is used to indicate the destinantion for the VOD assets (see [Storage Support](#storage-support) section).| `S3` (system default) |
+| source            |Yes| This would need to be either an HLS, MSS or Dash stream URL to the Live or Archive content. e.g. http://mydomain.com/test.ism/.m3u8 , http://mydomain.com/test.ism/manifest , http://mydomain.com/test.ism/.mpd. || 
+| start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”. ||
+| end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss”. ||
+| filter            |No | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000". ||
+| encrypted         |No | This boolean allows you to set the encrypted manifest as active after the capture is complete. | false |
+| drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied. ||
+| frame_accurate    |No | This boolean allows the capture to be done using frame accuracy. | true |
+| copy_ts           |No | This boolean indicates whether the timestamps should be included in the resulting manifests. | false |
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| key_id            |No | Should the stream be DRM’d we would require the KeyID. ||
+| content_key       |No | Should the stream be DRM’d we would require the Content Key. ||
+| output_file       |No | Name of the output ismv file. | <content_id>_capture.ismv |
+| generate_vod      |No | This boolean indicates whether VOD manifests are generated for the capture. | true |
+| create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content. | true |
+| thumbnail_time    |No | Time at which the thumbnail will be taken. | first frame |
+| generate_mp4      |No | This boolean indicates whether an MP4 is generated for the VOD content. | false |
+| mp4_filename      |No | Filename for the generated MP4. | {content_id}.mp4 |
+| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. | false |
+| create_dref       |No | This boolean indicates whether a dref MP4 is generated for the VOD content. | <generate_vod> |
+| encrypt_ismv      |No | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM. | false |
+| playready_key     |No | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM. ||
+| empty_target      |No | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. | true |
+| preview_thumbnails          |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. | false |
+| preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds. | 10 |
+| apply_track_properties      |No | This boolean indicates whether custom track propertes (set when submitting the job or in central configuration) should be applied to the VOD asset. | false |
+| track_properties  |No | This is used to define track properties to be applied to the VOD (See [Track Properties](#track-properties) section). ||
+| destination_storage         |No | This is used to indicate the destinantion for the VOD assets (see [Storage Support](#storage-support) section). | `S3` (system default) |
 
 ### Vodcapture: JSON Payload example
 
@@ -226,11 +227,11 @@ This workflow allows you to delete VOD assets from storage.
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'voddelete'.||
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
-| folder            |Yes| Folder where the content to be deleted resides||
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
-| source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](#storage-support) section).| `S3` (system default) |
+| workflow          |Yes| Specify 'voddelete'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
+| folder            |Yes| Folder where the content to be deleted is currently saved. ||
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](#storage-support) section). | `S3` (system default) |
 
 ### Voddelete: JSON Payload example
 
@@ -287,11 +288,11 @@ This workflow allows you to toggle DRM on and off.
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'drmswitch'.||
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
-| folder            |Yes| Folder where the content to be DRM toggled resides||
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
-| source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](#storage-support) section).| `S3` (system default) |
+| workflow          |Yes| Specify 'drmswitch'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
+| folder            |Yes| Folder where the content to be DRM toggled is stored. ||
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](#storage-support) section). | `S3` (system default) |
 
 ### Drmswitch: Payload example
 
@@ -348,16 +349,16 @@ This workflow allows you to create an MP4 from a VOD asset
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
-| workflow          |Yes| Specify 'createmp4'.||
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
-| source_folder     |Yes| Folder where the VoD source content can be found||
-| output_folder     |No | Folder where the MP4 should be saved| <source_folder>|
-| mp4_filename      |No | The name of the resulting mp4 file| <content_id>.mp4|
-| retries           |No | Retry limit when attempting to copy from the source storage|2|
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
-| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track.| false |
-| source_storage    |No | This is used to indicate where the source VOD is stored (see [Storage Support](#storage-support) section).| `S3` (system default) |
-| destination_storage         |No | This is used to indicate the destinantion for the generated MP4 (see [Storage Support](#storage-support) section).| <source_storage> |
+| workflow          |Yes| Specify 'createmp4'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
+| source_folder     |Yes| Folder where the VoD source content can be found. ||
+| output_folder     |No | Folder where the MP4 should be saved. | <source_folder> |
+| mp4_filename      |No | The name of the resulting mp4 file. | <content_id>.mp4 |
+| retries           |No | Retry limit when attempting to copy from the source storage. | 2 |
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. | false |
+| source_storage    |No | This is used to indicate where the source VOD is stored (see [Storage Support](#storage-support) section). | `S3` (system default) |
+| destination_storage         |No | This is used to indicate the destinantion for the generated MP4 (see [Storage Support](#storage-support) section). | <source_storage> |
 
 ### CreateMP4: Payload example
 
@@ -370,7 +371,7 @@ This workflow allows you to create an MP4 from a VOD asset
   "parameters": {
     "content_id": "demo1",
     "folder": "vualto-test-1",
-    		"rest_endpoints": [
+    "rest_endpoints": [
 			"https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
 			"http://your.custom.endpoint"
     ],
@@ -406,8 +407,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | status            | This will identify the status of the job. It can be either `completed` or `failed`. |
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
-| message           | MP4 filename |
-| files             | List of files uploaded to the destination storage |
+| message           | MP4 filename. |
+| files             | List of files uploaded to the destination storage. |
 
 ## Build_thumbnails
 
@@ -418,14 +419,14 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
 | workflow          |Yes| Specify 'build_thumbnails'. ||
-| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
 | source            |Yes| URL of the HLS source from which to create assets. Live sources (.isml) must be in a state of `stopped`. ||
-| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3| <content_id> |
-| target_filename   |No | Prefix for the file names of generated assets, format: <target_filename>_<sprite/vtt>| <content_id> |
-| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds.| 10 |
+| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3. | <content_id> |
+| target_filename   |No | Prefix for the file names of generated assets, eg: `<target_filename>_sprite.jpg` .| <content_id> |
+| preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds. | 10 |
 | video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
-| destination_storage         |No | This is used to indicate the destinantion for the generated thumbnail assets (see [Storage Support](#storage-support) section).| `S3` (system default) |
+| destination_storage         |No | This is used to indicate the destinantion for the generated thumbnail assets (see [Storage Support](#storage-support) section). | `S3` (system default) |
 
 ### Build_thumbnails: Payload example
 
@@ -472,7 +473,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | status            | This will identify the status of the job. It can be either `completed` or `failed`. |
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
-| message           | List of thumbnail assets uploaded to the destination storage |
+| message           | List of thumbnail assets uploaded to the destination storage. |
 
 ## Additional Workflow Features
 
