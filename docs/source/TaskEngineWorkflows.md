@@ -424,7 +424,7 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3. | <content_id> |
 | target_filename   |No | Prefix for the file names of generated assets, eg: `<target_filename>_sprite.jpg` .| <content_id> |
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds. | 10 |
-| video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 0 |
+| video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 24 |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | destination_storage         |No | This is used to indicate the destinantion for the generated thumbnail assets (see [Storage Support](#storage-support) section). | `S3` (system default) |
 
