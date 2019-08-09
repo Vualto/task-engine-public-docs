@@ -421,7 +421,7 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | workflow          |Yes| Specify 'build_thumbnails'. ||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
 | source            |Yes| URL of the HLS source from which to create assets. Live sources (.isml) must be in a state of `stopped`. ||
-| output_folder     |Yes| This is the folder where the resulting assets wil be saved on S3. | <content_id> |
+| output_folder     |Yes| This is the folder where the resulting assets wil be saved on the destination storage. | <content_id> |
 | target_filename   |No | Prefix for the file names of generated assets, eg: `<target_filename>_sprite.jpg` .| <content_id> |
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds. | 10 |
 | video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 24 |
