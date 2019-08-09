@@ -477,7 +477,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 
 ## Vodremix
 
-This workflow allows you to create a frame accurate vod clip by passing in a start and end UTC time stamp. The result will be an MP4 on disk.
+This workflow allows you to create a virtual VOD asset that is just a playlist referencing other VOD streams or video files.
 
 ### Vodremix: Parameters
 
@@ -486,7 +486,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | workflow          |Yes| Specify 'vodremix'.||
 | content_id        |Yes| This is the id for the resulting vod.||
 | output_folder     |Yes| This is the folder where the resulting vod wil be saved on S3. This is cleared before the capture is uploaded.||
-| source            |Yes| This would need to be either a VOD stream or the URL to a video file. Must be accessible from both Task Engine and the Origin the resulting VOD must be played with. E.g. http://mydomain.com/manifest.ism/manifest, https://bucket-name.s3-eu-west-1.amazonaws.com/path/test.mp4|| 
+| source            |Yes| This would need to be either a VOD stream or the URL to a video file. Must be accessible from both Task Engine and the Origin. E.g. http://mydomain.com/manifest.ism/manifest, https://bucket-name.s3-eu-west-1.amazonaws.com/path/test.mp4|| 
 | start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
 | output_file       |No | Name of the output .mp4 file. | remix.mp4 |
