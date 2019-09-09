@@ -121,7 +121,7 @@ This workflow allows you to create a frame accurate vod clip by passing in a sta
 | filter            |No | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000". ||
 | encrypted         |No | This boolean allows you to set the encrypted manifest as active after the capture is complete. | false |
 | drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied. ||
-| frame_accurate    |No | This boolean allows the capture to be done using frame accuracy. | true |
+| frame_accurate    |No | This boolean allows the capture to be performed with frame accuracy. | true |
 | copy_ts           |No | This boolean indicates whether the timestamps should be included in the resulting manifests. | false |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | key_id            |No | Should the stream be DRM’d we would require the KeyID. ||
@@ -489,6 +489,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | source            |Yes| This would need to be either a VOD stream or the URL to a video file. Must be accessible from both Task Engine and the Origin. E.g. http://mydomain.com/manifest.ism/manifest, https://bucket-name.s3-eu-west-1.amazonaws.com/path/test.mp4|| 
 | start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
+| frame_accurate    |No | This boolean indicates whether the specified clip will be packaged using frame accuracy. | false |
 | output_file       |No | Name of the output .mp4 file. | remix.mp4 |
 | drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied.||
 | destination_storage         |No | This is used to indicate the destinantion for the VOD assets (see [Storage Support](#storage-support) section). | `S3` (system default) |
@@ -518,6 +519,12 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
         "source": "http://mydomain.com/manifest.ism/manifest",
         "start": "2018-06-06T10:40:00.000",
         "end": "2018-06-06T11:00:00.000"
+      },
+      {
+        "source": "http://mydomain.com/manifest.ism/manifest",
+        "start": "2018-06-06T11:00:00.000",
+        "end": "2018-06-06T11:10:00.000",
+        "frame_accurate": true,
       }
     ],
     "drm": [
