@@ -523,7 +523,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
         "end": "2018-06-06T11:00:00.000"
       },
       {
-        "source": "http://mydomain.com/manifest.ism/manifest",
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism",
         "start": "2018-06-06T11:00:00.000",
         "end": "2018-06-06T11:10:00.000",
         "frame_accurate": true,
