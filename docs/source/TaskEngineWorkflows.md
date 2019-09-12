@@ -494,7 +494,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
 | frame_accurate    |No | This boolean indicates whether the specified clip will be trimmed using frame accuracy. | false |
-| output_description|No | Use this clip for the target profile. There should be only one clip with this set to true. | false |
+| output_description|No | This boolean indicates that this clip should be used to set the target profile. There should be only one clip with this set to true. | false |
 | output_file       |No | Name of the output .mp4 file. | remix.mp4 |
 | drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied.||
 | destination_storage         |No | This is used to indicate the destination for the VOD assets (see [Storage Support](#storage-support) section). | `S3` (system default) |
@@ -853,7 +853,7 @@ Natively supported storage types:
   
 ## Workflow Trigger Example
 
-Example of a curl command to trigger ingest for the Vodstream workflow:
+Example of a curl command to trigger ingest for the [Vodstream](#vodstream) workflow:
 
 ```curl
 curl -X POST \
