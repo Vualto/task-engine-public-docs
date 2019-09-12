@@ -489,6 +489,8 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | source            |Yes| This would need to be either a VOD stream or the URL to a video file. Must be accessible from both Task Engine and the Origin. E.g. http://mydomain.com/manifest.ism/manifest, https://bucket-name.s3-eu-west-1.amazonaws.com/path/test.mp4|| 
 | start             |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | end               |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
+| frame_accurate    |No | This boolean indicates whether the specified clip will be trimmed using frame accuracy. | false |
+| output_description|No | Use this clip for the target profile. There should be only one clip with this set to true. | false |
 | output_file       |No | Name of the output .mp4 file. | remix.mp4 |
 | drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied.||
 | destination_storage         |No | This is used to indicate the destinantion for the VOD assets (see [Storage Support](#storage-support) section). | `S3` (system default) |
@@ -507,17 +509,24 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
     "output_folder": "demo_1",
     "clips": [
       {
-        "source": "http://mydomain.com/manifest.ism/manifest",
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism",
         "start": "2018-06-06T10:00:00.000",
         "end": "2018-06-06T10:30:00.000"
       },
       {
-        "source": "https://bucket.s3-eu-west-1.amazonaws.com/ad.mp4"
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/ad.mp4",
+        "output_description": true
       },
       {
-        "source": "http://mydomain.com/manifest.ism/manifest",
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism",
         "start": "2018-06-06T10:40:00.000",
         "end": "2018-06-06T11:00:00.000"
+      },
+      {
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism",
+        "start": "2018-06-06T11:00:00.000",
+        "end": "2018-06-06T11:10:00.000",
+        "frame_accurate": true,
       }
     ],
     "drm": [
