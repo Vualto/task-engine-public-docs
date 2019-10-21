@@ -33,7 +33,7 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | source_storage    |No | This is used to indicate where the source content is stored (see [Storage Support](#storage-support) section). | `S3` (system default) |
 | destination_storage         |No | This is used to indicate the destination for the VOD assets (see [Storage Support](#storage-support) section). | <source_storage> |
 | encode_source     |No | This boolean indicates whether the source is to be encoded into multiple bitrates/resolutions. | false |
-| encoding_profile  |No | This is used to indicate which encoding profiles are used when encoding the source. | "Default-h264" |
+| encoding_profile  |No | This is used to indicate which encoding profiles are used when encoding the source. | "H264" |
 | encoding_mode     |No | This is used to indicate which Bitmovin encoding mode is used (See [here](https://bitmovin.com/bitmovin-video-encoding-v2/) for more details). | "STANDARD" |
 
 ### Vodstream: JSON Payload example
