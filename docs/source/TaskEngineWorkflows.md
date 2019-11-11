@@ -14,7 +14,8 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | delete_source     |No | This boolean indicates whether the source should be deleted from source storage after the job has completed. | false |
 | encrypted         |No | This boolean indicates whether the active manifest, for a job, should be the encrypted manifest. | true |
 | output_folder     |No | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. | source_folder |
-| drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present then no DRM is applied. ||
+| drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present then no DRM is applied. | ["clear"] |
+| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document| false |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content. | true |
 | thumbnail_time    |No | Time at which the thumbnail will be taken. | first frame |
@@ -123,7 +124,8 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | clip: end         |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z or Offsets e.g. “hh:mm:ss”. ||
 | clip: filter      |No | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000". ||
 | encrypted         |No | This boolean allows you to set the encrypted manifest as active after the capture is complete. | false |
-| drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied. ||
+| drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied. | ["clear"] |
+| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document| false |
 | frame_accurate    |No | This boolean allows the capture to be done using frame accuracy. | true |
 | copy_ts           |No | This boolean indicates whether the timestamps should be included in the resulting manifests. | false |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
@@ -497,7 +499,8 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | clip: frame_accurate    |No | This boolean indicates whether the specified clip will be trimmed using frame accuracy. | false |
 | clip: output_description|No | This boolean indicates that this clip should be used to set the target profile. There should be only one clip with this set to true. | false |
 | output_file       |No | Name of the output .mp4 file. | remix.mp4 |
-| drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied.||
+| drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied.| ["clear"] |
+| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document| false |
 | destination_storage         |No | This is used to indicate the destination for the VOD assets (see [Storage Support](#storage-support) section). | `S3` (system default) |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 
