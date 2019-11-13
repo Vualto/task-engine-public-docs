@@ -14,6 +14,7 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | delete_source     |No | This boolean indicates whether the source should be deleted from source storage after the job has completed. | false |
 | encrypted         |No | This boolean indicates whether the active manifest, for a job, should be the encrypted manifest. | true |
 | output_folder     |No | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. | source_folder |
+
 | drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present then no DRM is applied. | ["clear"] |
 | cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document| false |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
@@ -36,6 +37,7 @@ This workflow will create a server side manifest, with and/or without DRM, that 
 | encode_source     |No | This boolean indicates whether the source is to be encoded into multiple bitrates/resolutions. | false |
 | encoding_profile  |No | This is used to indicate which encoding profiles are used when encoding the source. | "H264" |
 | encoding_mode     |No | This is used to indicate which Bitmovin encoding mode is used (See [here](https://bitmovin.com/bitmovin-video-encoding-v2/) for more details). | "STANDARD" |
+
 
 ### Vodstream: JSON Payload example
 
@@ -454,6 +456,7 @@ This workflow allows you to generate thumbnail assets which can then be used for
 ```
 
 ### Build_thumbnails: Callback properties
+
 
 #### Task Callback
 
