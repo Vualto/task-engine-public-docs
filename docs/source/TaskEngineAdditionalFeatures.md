@@ -292,5 +292,5 @@ The process is pretty much the same for all of the above. A sprite is generated 
 
 Different players reference the VTT file differently. The following are some examples of how some players reference them:
 
-- Bitmovin: https://bitmovin.com/demos/thumbnail-seeking
-- THEOPlayer: https://docs.portal.theoplayer.com/docs/next/add-ons/user-engagement/text-track/text-track-5-how-to-implement-thumbnails/#__docusaurus 
+- [Bitmovin](https://bitmovin.com/demos/thumbnail-seeking)
+- [THEOPlayer](https://docs.portal.theoplayer.com/docs/next/add-ons/user-engagement/text-track/text-track-5-how-to-implement-thumbnails/#__docusaurus) 
