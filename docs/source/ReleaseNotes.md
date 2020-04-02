@@ -4,12 +4,17 @@
 
 - Added workflows for:
   - generating gifs
-  - capturing frames
-  - deleting multiple assets without deleting the entire VOD.
-- Added support for multiple file formats when ingesting and encoding using Bitmovin. Full list of supported source files are mp4, mov, mpg, mkv and avi.
+  - capturing single frames as jpgs
+  - deleting multiple assets without deleting an entire VOD.
+- Added support for multiple file formats when ingesting and encoding using Bitmovin.
+  - Full list of supported source files are:
+    - mp4
+    - mov
+    - mpg
+    - mkv
+    - avi
 - Added number of failed jobs in the health check endpoint response.
 - Bugfix: Added index to audio tracks when ingesting mp4s. This is to ensure each track name is unique.
-- Bugfix: Missing exceptions reference in the KeyProvider.
 - Added support for USP 1.10.18
 
 ## 1.167.2 - 04/11/2019
@@ -67,8 +72,8 @@
     - Eg. Source for ingest can be a local MP4 and the destination for the packaged content is S3.
 - Rewrite of DRM switch.
 - Added vodcapture.json optional parameter "output_root" to specify the output root key.
-- Added vodcapture.json optional parameter "empty_target" to specify whether to delete output folder or not.
-- New versioning of the Task Engine.
+- Added vodcapture.json optional parameter "empty_target" to specify whether to delete the contents of the output folder or not.
+- New versioning system for the Task Engine.
 
 ## 165 - 15/02/2019
 
