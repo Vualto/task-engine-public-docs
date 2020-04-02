@@ -38,7 +38,7 @@ author = u'VUALTO'
 html_context = {
     'home_link': 'https://vualto-public-documentation.readthedocs-hosted.com',
     'product_logo': '',
-    'base_breadcrumb_label': 'Task-Engine'
+    'base_breadcrumb_label': 'Task Engine'
 }
 
 # The short X.Y version
