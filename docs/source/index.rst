@@ -1,4 +1,4 @@
-Welcome to the Task-Engine's documentation!
+Welcome to the VUALTO Task Engine documentation!
 ===========================================
 
 .. toctree::
