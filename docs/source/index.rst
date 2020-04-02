@@ -17,6 +17,6 @@ Contents:
    TaskEngineWorkflows.md
    TaskEngineAdditionalFeatures.md
 
-   :maxdepth: 1
+   :titlesonly:
 
    ReleaseNotes.md
