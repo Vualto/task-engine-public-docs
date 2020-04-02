@@ -16,3 +16,7 @@ Contents:
    TaskEngine.md
    TaskEngineWorkflows.md
    TaskEngineAdditionalFeatures.md
+
+.. toctree::
+   :maxdepth: 1
+   ReleaseNotes.md
