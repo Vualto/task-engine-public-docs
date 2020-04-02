@@ -17,9 +17,6 @@ Contents:
    TaskEngineWorkflows.md
    TaskEngineAdditionalFeatures.md
 
-Footer:
----------
-
 .. toctree::
    :titlesonly:
 
