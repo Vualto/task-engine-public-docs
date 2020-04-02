@@ -15,3 +15,4 @@ Contents:
 
    TaskEngine.md
    TaskEngineWorkflows.md
+   TaskEngineAdditionalFeatures.md
