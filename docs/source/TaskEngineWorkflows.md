@@ -696,7 +696,7 @@ This workflow allows you to capture a single frame from a stream.
       "source": "http://mydomain.com/example.ism/.m3u8",
       "frame_time": "00:00:07.0400000",
       "output_folder": "/demo-content/assets",
-      "gif_filename": "frame.jpg",
+      "image_filename": "frame.jpg",
       "rest_endpoints": [
         "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
         "http://your.custom.endpoint"
