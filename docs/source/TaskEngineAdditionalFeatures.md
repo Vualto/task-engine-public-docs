@@ -34,6 +34,14 @@ The `"priority"` parameter needs to be submitted within the `"job"` section of t
 
 Whenever an execution slot is available, the system will first check by priority and then check the submission time and date of the job. In the case where multiple jobs are executed with the same priority (eg. with the default priority 5), the Task Engine operates in a FIFO (First In First Out) manner.
 
+### Priority Slots
+
+To further enhance support for priority jobs, a new setting has been added to reserve job slots for default to top priority (1 - 5) jobs. This will allow a client to schedule as many low priority jobs as required while still having job slots free for default and priority jobs.
+
+The advantage of using priority slots is to stop the queue from being held up by low priority jobs. This is especially useful if long running jobs are given a lower priority than the default as they can be queued up without exhausting the setup's concurrency availability.
+
+**Important note**: This will not increase the number of max concurrent jobs but it will reserve some fo the concurrency for jobs with priority between 1 and 5. As an example, if a setup has 5 maximum concurrent jobs and the priority slots is set to 2, any job can ustilise 3 concurrency slots but only jobs with priority between 1 and 5 can use the 2 priority slots.
+
 ## Multiple Clips
 
 The Task Engine includes a feature that will allow multiple clips to be stitched together into a single clip, in a single job. This can be done by defining multiple objects within the `"clips"` parameter in the json payload for `vodcapture`. This also allows a mixture of live and VoD sources to be captured and stitched together into a new clip. The example below shows how the `"clips"` parameter would need to be provided to achieve this.
@@ -198,7 +206,7 @@ If a capture is submitted with a clip end time that is in the future, it will be
 
 ## Track Properties
 
-There are instances when track properties need to be added to specific tracks within the VOD manifest. This usually occurs when custom track descriptions or track roles need to be set. The Task Engine supports adding track properties to audio and subtitle tracks. Filtering of tracks is based on type (`audio` or `textStream`) and a combination of language and/or track role. The filters and values can be set in Vualto's Central Configuration so they can easily be applied to all VODs being captured or ingested. They can also be defined as part of the job submission. The value set will overwrite the existing value for the property, if it already exists. Below are some samples of how the filters can be defined.
+There are instances when track properties need to be added to specific tracks within the VOD manifest. This usually occurs when custom track descriptions or track roles need to be set. The Task Engine supports adding track properties to audio and subtitle tracks. Filtering of tracks is based on type (`audio` or `textstream`) and a combination of language and/or track role. The filters and values can be set in Vualto's Central Configuration so they can easily be applied to all VODs being captured or ingested. They can also be defined as part of the job submission. The value set will overwrite the existing value for the property, if it already exists. Below are some samples of how the filters can be defined.
 
 Setting the defined track description where the audio language is not set or set to `und` (undefined).
 
@@ -229,7 +237,7 @@ Setting the defined track role and description to the subtitle track where the l
 
 ```json
 "track_properties": {
-  "textStream": {
+  "textstream": {
     "eng": {
       "track_role" : "caption",
       "track_description": "English CC"
@@ -254,7 +262,7 @@ Setting a combination of properties to both audio and subtitle tracks.
       "track_role" : "main",
     }
   },
-  "textStream": {
+  "textstream": {
     "eng": {
       "track_role" : "caption",
       "track_description": "English CC"

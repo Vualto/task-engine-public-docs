@@ -1,5 +1,22 @@
 # RELEASE NOTES
 
+## 1.169.2 - 07/07/2020
+
+- General release build.
+
+## 1.169.1 - 07/07/2020
+
+- Build fixes
+
+## 1.169.0 - 06/07/2020
+
+- API enhancements for UI integrations
+- Updated to a newer Ruby version
+- Support for specifying Bitmovin encoding region
+- Bitmovin encodings now have client labels assigned
+- Queue reservation functionality for priority jobs
+- Optimised thumbnail and VTT generation for timeline preview thumbnails
+
 ## 1.168.1 - 17/03/2020
 
 - Added workflows for:
