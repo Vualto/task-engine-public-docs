@@ -38,7 +38,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | encode_source     |No | This boolean indicates whether the source is to be encoded into multiple bitrates/resolutions. | false |
 | encoding_profile  |No | This is used to indicate which encoding profiles are used when encoding the source. | "H264" |
 | encoding_mode     |No | This is used to indicate which Bitmovin encoding mode is used (See [here](https://bitmovin.com/bitmovin-video-encoding-v2/) for more details). | "STANDARD" |
-
+| encoding_region   |No | This is used to indicate in which region Bitmovin's encoding process should be executed. |  |
 
 ### Vodstream: JSON Payload example
 
@@ -785,6 +785,7 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| files   |         | List of assets deleted |
 
 #### Job Callback
 

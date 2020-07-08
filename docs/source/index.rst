@@ -1,4 +1,4 @@
-Welcome to the Task-Engine's documentation!
+Welcome to the VUALTO Task Engine documentation!
 ===========================================
 
 .. toctree::
@@ -16,3 +16,9 @@ Contents:
    TaskEngine.md
    TaskEngineWorkflows.md
    TaskEngineAdditionalFeatures.md
+   
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+
+   ReleaseNotes.md
