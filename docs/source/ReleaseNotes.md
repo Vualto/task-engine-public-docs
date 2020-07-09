@@ -1,5 +1,9 @@
 # RELEASE NOTES
 
+## 1.169.3 - 09/07/2020
+
+- Dashboard hotfix
+
 ## 1.169.2 - 07/07/2020
 
 - General release build.
