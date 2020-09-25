@@ -42,7 +42,7 @@ The advantage of using priority slots is to stop the queue from being held up by
 
 **Important note**: This will not increase the number of max concurrent jobs but it will reserve some fo the concurrency for jobs with priority between 1 and 5. As an example, if a setup has 5 maximum concurrent jobs and the priority slots is set to 2, any job can ustilise 3 concurrency slots but only jobs with priority between 1 and 5 can use the 2 priority slots.
 
-## Multiple Clips
+## Stitching Clips
 
 The Task Engine includes a feature that will allow multiple clips to be stitched together into a single clip, in a single job. This can be done by defining multiple objects within the `"clips"` parameter in the json payload for `vodcapture`. This also allows a mixture of live and VoD sources to be captured and stitched together into a new clip. The example below shows how the `"clips"` parameter would need to be provided to achieve this.
 
