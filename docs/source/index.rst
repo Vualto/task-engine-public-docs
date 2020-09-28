@@ -14,6 +14,7 @@ Contents:
    :maxdepth: 2
 
    TaskEngine.md
+   TaskEngineAPI.md
    TaskEngineWorkflows.md
    TaskEngineAdditionalFeatures.md
    
