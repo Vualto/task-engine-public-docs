@@ -1,9 +1,3 @@
----
-title: "Task Engine API"
-author: "Jonathan Mallett"
-date: "30/09/2020"
----
-
 # Task Engine API
 
 The Task Engine endpoints will always return a JSON response unless explicitly indicated otherwise.
