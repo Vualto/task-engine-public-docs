@@ -14,8 +14,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 **<summary>Details</summary>**
 
-**Required Headers: None**
-
+**Required Headers: None** <br />
 **Optional Headers: None**
 
 ```json
@@ -118,8 +117,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 **<summary>Details</summary>**
 
-**Required Headers:None**
-
+**Required Headers:None**<br />
 **Optional Headers:**
 
 - `client` - client name, used to filter by client-name in multi-tenant setups.
@@ -258,10 +256,8 @@ This endpoint is used to return a list of jobs from the Task Engine database. Fi
 
 **<summary>Details</summary>**
 
-**Required Headers: None**
-
-**Optional Headers:None**
-
+**Required Headers: None**<br />
+**Optional Headers:None**<br />
 **Query String Parameters:**
 
 - `items` - the maximum number of jobs to return
@@ -345,8 +341,7 @@ This endpoints returns information about the specified job.
 
 **<summary>Details</summary>**
 
-**Required Headers: None**
-
+**Required Headers: None**<br />
 **Optional Headers: None**
 
 Successful response for `/jobs/123`
