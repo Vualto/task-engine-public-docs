@@ -6,14 +6,13 @@ The Task Engine endpoints will always return a JSON response unless explicitly i
 
 ### GET: `/`
 
-#### Requires Authentication: No
-
 This endpoint will check if the Task Engine endpoint is reachable.
 
 <details>
 
 **<summary>Details</summary>**
 
+**Requires Authentication: No**<br />
 **Required Headers: None** <br />
 **Optional Headers: None**
 
@@ -27,14 +26,13 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 ### GET: `/health`
 
-#### Requires Authentication: Yes
-
 The health endpoint will run checks on the different Task Engine components and returns the status of each service. The endpoint will also return some information about the Task Engine and some statistics about jobs and tasks.
 
 <details>
 
 **<summary>Details</summary>**
 
+**Requires Authentication: Yes**<br />
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -109,14 +107,13 @@ Successful Response:
 
 ### GET: `/dashboard`
 
-#### Requires Authentication: No
-
 The dashboard endpoint returns information about the current Task Engine queue status. The information includes lists of started, queued and scheduled jobs as well as the setting information for the maximum concurrent jobs and the number of priority reserved slots and the Task Engine version running.
 
 <details>
 
 **<summary>Details</summary>**
 
+**Requires Authentication: No**<br />
 **Required Headers:None**<br />
 **Optional Headers:**
 
@@ -202,8 +199,6 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 ### POST: `/job`
 
-#### Requires Authentication: Yes
-
 This endpoint is used to submit jobs to the Task Engine. It is the endpoint used most often. The payload for this endpoint varies substantially depending on the workflow to be executed. More information on the payload properties for each workflow can be found [here](TaskEngineWorkflows.html).
 
 Successful job submission will return an `accepted` result and the job id. An error message is returned when a job submission fails.
@@ -212,6 +207,7 @@ Successful job submission will return an `accepted` result and the job id. An er
 
 **<summary>Details</summary>**
 
+**Requires Authentication: Yes**<br />
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -248,14 +244,13 @@ Successful Response:
 
 ### GET: `/jobs`
 
-#### Requires Authentication: No
-
 This endpoint is used to return a list of jobs from the Task Engine database. Filtering is supported through query string parameters but by default the the endpoint will return the last 10 successfully submitted jobs.
 
 <details>
 
 **<summary>Details</summary>**
 
+**Requires Authentication: No**<br />
 **Required Headers: None**<br />
 **Optional Headers:None**<br />
 **Query String Parameters:**
@@ -333,14 +328,13 @@ Successful response for `/jobs?limit=3&client=demo-client&state=2`
 
 ### GET: `/jobs/<job_id>`
 
-#### Requires Authentication: No
-
 This endpoints returns information about the specified job.
 
 <details>
 
 **<summary>Details</summary>**
 
+**Requires Authentication: No**<br />
 **Required Headers: None**<br />
 **Optional Headers: None**
 
@@ -399,14 +393,13 @@ Successful response for `/jobs/123`
 
 ### PUT: `/job/<job_id>`
 
-#### Requires Authentication: Yes
-
 This endpoint is used to update specific fields of a job. The response will return the job id and the result of the update.
 
 <details>
 
 **<summary>Details</summary>**
 
+**Requires Authentication: Yes**<br />
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -454,14 +447,13 @@ Successful Response:
 
 ### POST: `/jobs/<job id>/rerun`
 
-#### Requires Authentication: Yes
-
 This endpoint is used to rerun a job with exactly the same parameters. When rerunning a job, the original job will be set to broken.
 
 <details>
 
 **<summary>Details</summary>**
 
+**Requires Authentication: Yes**<br />
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -492,14 +484,13 @@ Successful Response:
 
 ### GET: `/logs/<job id>`
 
-#### Requires Authentication: No
-
 This endpoint is used to retrieve the logs for the specified job.
 
 <details>
 
 **<summary>Details</summary>**
 
+**Requires Authentication: No**<br />
 **Required Headers:**
 
 - `Accept` - set to `application/json`
@@ -835,12 +826,9 @@ Successful Response:
 
 </details><br /><br />
 
-
 ## Scheduler Endpoints
 
 ### GET: `/schedules`
-
-#### Requires Authentication: Yes
 
 Returns a list of the currently active schedules. More information about the Task Engine scheduler can be found [here](TaskEngineAdditionalFeatures.html#Scheduler)
 
@@ -848,6 +836,7 @@ Returns a list of the currently active schedules. More information about the Tas
 
 **<summary>Details</summary>**
 
+**Requires Authentication: Yes**<br />
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -894,6 +883,7 @@ This endpoint allows for activating or deactivating schedules. More information 
 
 **<summary>Details</summary>**
 
+**Requires Authentication: Yes**<br />
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -932,14 +922,11 @@ Successful Response:
 }
 ```
 
-
 </details><br /><br />
 
 ## Settings Endpoints
 
 ### POST: `/settings`
-
-#### Requires Authentication: Yes
 
 This settings endpoint is used to update or create new Task Engine settings. Only one setting can be added or updated at a time. Check the details below to the default settings, their values and their purpose.
 
@@ -955,6 +942,7 @@ System default settings:
 - `retry_delay` - The delay, in seconds, between retries for failed Resque tasks. Default: 5
 - `retry_limit` - The number of times a Resque task should be retried before a job is failed. Default: 3
 
+**Requires Authentication: Yes**<br />
 **Required Headers:**
 
 - `client` - client name, required for authentication
