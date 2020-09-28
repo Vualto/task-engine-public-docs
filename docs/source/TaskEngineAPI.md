@@ -1,10 +1,16 @@
+---
+title: "Task Engine API"
+author: "Jonathan Mallett"
+date: "30/09/2020"
+---
+
 # Task Engine API
 
 The Task Engine endpoints will always return a JSON response unless explicitly indicated otherwise.
 
 ## Status Endpoints
 
-#### GET: `/`
+### GET: `/`
 
 This endpoint will check if the Task Engine endpoint is reachable.
 
@@ -24,7 +30,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 </details><br /><br />
 
-#### GET: `/health`
+### GET: `/health`
 
 The health endpoint will run checks on the different Task Engine components and returns the status of each service. The endpoint will also return some information about the Task Engine and some statistics about jobs and tasks.
 
@@ -105,7 +111,7 @@ Successful Response:
 
 </details><br /><br />
 
-#### GET: `/dashboard`
+### GET: `/dashboard`
 
 The dashboard endpoint returns information about the current Task Engine queue status. The information includes lists of started, queued and scheduled jobs as well as the setting information for the maximum concurrent jobs and the number of priority reserved slots and the Task Engine version running.
 
@@ -197,7 +203,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 ## Job Endpoints
 
-#### POST: `/job`
+### POST: `/job`
 
 This endpoint is used to submit jobs to the Task Engine. It is the endpoint used most often. The payload for this endpoint varies substantially depending on the workflow to be executed. More information on the payload properties for each workflow can be found [here](TaskEngineWorkflows.html).
 
@@ -242,7 +248,7 @@ Successful Response:
 
 </details><br /><br />
 
-#### GET: `/jobs`
+### GET: `/jobs`
 
 This endpoint is used to return a list of jobs from the Task Engine database. Filtering is supported through query string parameters but by default the the endpoint will return the last 10 successfully submitted jobs.
 
@@ -326,7 +332,7 @@ Successful response for `/jobs?limit=3&client=demo-client&state=2`
 
 </details><br /><br />
 
-#### GET: `/jobs/<job_id>`
+### GET: `/jobs/<job_id>`
 
 This endpoints returns information about the specified job.
 
@@ -391,7 +397,7 @@ Successful response for `/jobs/123`
 
 </details><br /><br />
 
-#### PUT: `/job/<job_id>`
+### PUT: `/job/<job_id>`
 
 This endpoint is used to update specific fields of a job. The response will return the job id and the result of the update.
 
@@ -445,7 +451,7 @@ Successful Response:
 
 </details><br /><br />
 
-#### POST: `/jobs/<job id>/rerun`
+### POST: `/jobs/<job id>/rerun`
 
 This endpoint is used to rerun a job with exactly the same parameters. When rerunning a job, the original job will be set to broken.
 
@@ -482,7 +488,7 @@ Successful Response:
 
 ## Log Endpoints
 
-#### GET: `/logs/<job id>`
+### GET: `/logs/<job id>`
 
 This endpoint is used to retrieve the logs for the specified job.
 
@@ -828,7 +834,7 @@ Successful Response:
 
 ## Scheduler Endpoints
 
-#### GET: `/schedules`
+### GET: `/schedules`
 
 Returns a list of the currently active schedules. More information about the Task Engine scheduler can be found [here](TaskEngineAdditionalFeatures.html#Scheduler)
 
@@ -875,7 +881,7 @@ Successful Response:
 
 </details><br /><br />
 
-#### PUT: `/scheduler`
+### PUT: `/scheduler`
 
 This endpoint allows for activating or deactivating schedules. More information about the Task Engine scheduler can be found [here](TaskEngineAdditionalFeatures.html#Scheduler)
 
@@ -926,7 +932,7 @@ Successful Response:
 
 ## Settings Endpoints
 
-#### POST: `/settings`
+### POST: `/settings`
 
 This settings endpoint is used to update or create new Task Engine settings. Only one setting can be added or updated at a time. Check the details below to the default settings, their values and their purpose.
 
