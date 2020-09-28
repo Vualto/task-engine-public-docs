@@ -945,6 +945,8 @@ This settings endpoint is used to update or create new Task Engine settings. Onl
 
 <details>
 
+**<summary>Details</summary>**
+
 System default settings:
 
 - `max_jobs` - The maximum number of concurrent jobs. Default: 2
