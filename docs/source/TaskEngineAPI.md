@@ -14,7 +14,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 **<summary>Details</summary>**
 
-**Required Headers: None**  
+**Required Headers: None**   
 **Optional Headers: None**
 
 ```json
@@ -118,7 +118,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 **<summary>Details</summary>**
 
-**Required Headers:None** \
+**Required Headers:None**  \
 **Optional Headers:**
 
 - `client` - client name, used to filter by client-name in multi-tenant setups.
