@@ -4,9 +4,10 @@ The Task Engine endpoints will always return a JSON response unless explicitly i
 
 ## Status Endpoints
 
-### GET: `/`
+#### GET: `/`
 
-**Requires Authentication: No**
+##### Requires Authentication: No
+
 This endpoint will check if the Task Engine endpoint is reachable.
 
 <details>
@@ -14,6 +15,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 **<summary>Details</summary>**
 
 **Required Headers: None**
+
 **Optional Headers: None**
 
 ```json
@@ -24,10 +26,9 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 </details>
 
+#### GET: `/health`
 
-### GET: `/health`
-
-**Requires Authentication: Yes**
+##### Requires Authentication: Yes
 
 The health endpoint will run checks on the different Task Engine components and returns the status of each service. The endpoint will also return some information about the Task Engine and some statistics about jobs and tasks.
 
@@ -107,9 +108,9 @@ Successful Response:
 
 </details>
 
-### GET: `/dashboard`
+#### GET: `/dashboard`
 
-**Requires Authentication: No**
+##### Requires Authentication: No
 
 The dashboard endpoint returns information about the current Task Engine queue status. The information includes lists of started, queued and scheduled jobs as well as the setting information for the maximum concurrent jobs and the number of priority reserved slots and the Task Engine version running.
 
@@ -200,9 +201,9 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 ## Job Endpoints
 
-### POST: `/job`
+#### POST: `/job`
 
-**Requires Authentication: Yes**
+##### Requires Authentication: Yes
 
 This endpoint is used to submit jobs to the Task Engine. It is the endpoint used most often. The payload for this endpoint varies substantially depending on the workflow to be executed. More information on the payload properties for each workflow can be found [here](TaskEngineWorkflows.html).
 
@@ -246,9 +247,9 @@ Successful Response:
 
 </details>
 
-### GET: `/jobs`
+#### GET: `/jobs`
 
-**Requires Authentication: No**
+##### Requires Authentication: No
 
 This endpoint is used to return a list of jobs from the Task Engine database. Filtering is supported through query string parameters but by default the the endpoint will return the last 10 successfully submitted jobs.
 
@@ -331,9 +332,9 @@ Successful response for `/jobs?limit=3&client=demo-client&state=2`
 
 </details>
 
-### GET: `/jobs/<job_id>`
+#### GET: `/jobs/<job_id>`
 
-**Requires Authentication: No**
+##### Requires Authentication: No
 
 This endpoints returns information about the specified job.
 
@@ -397,9 +398,9 @@ Successful response for `/jobs/123`
 
 </details>
 
-### PUT: `/job/<job_id>`
+#### PUT: `/job/<job_id>`
 
-**Requires Authentication: Yes**
+##### Requires Authentication: Yes
 
 This endpoint is used to update specific fields of a job. The response will return the job id and the result of the update.
 
@@ -452,9 +453,9 @@ Successful Response:
 
 </details>
 
-### POST: `/jobs/<job id>/rerun`
+#### POST: `/jobs/<job id>/rerun`
 
-**Requires Authentication: Yes**
+##### Requires Authentication: Yes
 
 This endpoint is used to rerun a job with exactly the same parameters. When rerunning a job, the original job will be set to broken.
 
@@ -490,9 +491,9 @@ Successful Response:
 
 ## Log Endpoints
 
-### GET: `/logs/<job id>`
+#### GET: `/logs/<job id>`
 
-**Requires Authentication: No**
+##### Requires Authentication: No
 
 This endpoint is used to retrieve the logs for the specified job.
 
@@ -838,9 +839,9 @@ Successful Response:
 
 ## Scheduler Endpoints
 
-### GET: `/schedules`
+#### GET: `/schedules`
 
-**Requires Authentication: Yes**
+##### Requires Authentication: Yes
 
 Returns a list of the currently active schedules. More information about the Task Engine scheduler can be found [here](TaskEngineAdditionalFeatures.html#Scheduler)
 
@@ -886,7 +887,7 @@ Successful Response:
 
 </details>
 
-### PUT: `/scheduler`
+#### PUT: `/scheduler`
 
 This endpoint allows for activating or deactivating schedules. More information about the Task Engine scheduler can be found [here](TaskEngineAdditionalFeatures.html#Scheduler)
 
@@ -937,9 +938,9 @@ Successful Response:
 
 ## Settings Endpoints
 
-### POST: `/settings`
+#### POST: `/settings`
 
-**Requires Authentication: Yes**
+##### Requires Authentication: Yes
 
 This settings endpoint is used to update or create new Task Engine settings. Only one setting can be added or updated at a time. Check the details below to the default settings, their values and their purpose.
 
