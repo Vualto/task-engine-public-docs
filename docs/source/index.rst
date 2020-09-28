@@ -14,15 +14,7 @@ Contents:
    :maxdepth: 2
 
    TaskEngine.md
-
-.. toctree::
-   :maxdepth: 1
-   
    TaskEngineAPI.md
-
-.. toctree::
-   :maxdepth: 2
-
    TaskEngineWorkflows.md
    TaskEngineAdditionalFeatures.md
    
