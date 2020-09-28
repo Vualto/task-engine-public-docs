@@ -14,7 +14,8 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 **<summary>Details</summary>**
 
-**Required Headers: None**   
+**Required Headers: None**
+
 **Optional Headers: None**
 
 ```json
@@ -23,8 +24,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 }
 ```
 
-</details>
-<br /> <br />
+</details><br /><br />
 
 ### GET: `/health`
 
@@ -106,7 +106,7 @@ Successful Response:
 }
 ```
 
-</details>
+</details><br /><br />
 
 ### GET: `/dashboard`
 
@@ -118,7 +118,8 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 **<summary>Details</summary>**
 
-**Required Headers:None**  \
+**Required Headers:None**
+
 **Optional Headers:**
 
 - `client` - client name, used to filter by client-name in multi-tenant setups.
@@ -197,7 +198,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 }
 ```
 
-</details>
+</details><br /><br />
 
 ## Job Endpoints
 
@@ -245,7 +246,7 @@ Successful Response:
     "Unable to create job request"
 ```
 
-</details>
+</details><br /><br />
 
 ### GET: `/jobs`
 
@@ -257,8 +258,10 @@ This endpoint is used to return a list of jobs from the Task Engine database. Fi
 
 **<summary>Details</summary>**
 
-**Required Headers: None**\
-**Optional Headers:None**\
+**Required Headers: None**
+
+**Optional Headers:None**
+
 **Query String Parameters:**
 
 - `items` - the maximum number of jobs to return
@@ -330,7 +333,7 @@ Successful response for `/jobs?limit=3&client=demo-client&state=2`
 }
 ```
 
-</details>
+</details><br /><br />
 
 ### GET: `/jobs/<job_id>`
 
@@ -342,7 +345,8 @@ This endpoints returns information about the specified job.
 
 **<summary>Details</summary>**
 
-**Required Headers: None**\
+**Required Headers: None**
+
 **Optional Headers: None**
 
 Successful response for `/jobs/123`
@@ -396,7 +400,7 @@ Successful response for `/jobs/123`
 }
 ```
 
-</details>
+</details><br /><br />
 
 ### PUT: `/job/<job_id>`
 
@@ -451,7 +455,7 @@ Successful Response:
 }
 ```
 
-</details>
+</details><br /><br />
 
 ### POST: `/jobs/<job id>/rerun`
 
@@ -487,7 +491,7 @@ Successful Response:
 }
 ```
 
-</details>
+</details><br /><br />
 
 ## Log Endpoints
 
@@ -834,7 +838,7 @@ Successful Response:
 }
 ```
 
-</details>
+</details><br /><br />
 
 
 ## Scheduler Endpoints
@@ -885,7 +889,7 @@ Successful Response:
 }
 ```
 
-</details>
+</details><br /><br />
 
 ### PUT: `/scheduler`
 
@@ -934,7 +938,7 @@ Successful Response:
 ```
 
 
-</details>
+</details><br /><br />
 
 ## Settings Endpoints
 
