@@ -7,14 +7,13 @@ The Task Engine endpoints will always return a JSON response unless explicitly i
 ### GET: `/`
 
 **Requires Authentication: No**
-
 This endpoint will check if the Task Engine endpoint is reachable.
 
 <details>
 
 **<summary>Details</summary>**
 
-**Required Headers: None**\
+**Required Headers: None**
 **Optional Headers: None**
 
 ```json
@@ -24,6 +23,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 ```
 
 </details>
+
 
 ### GET: `/health`
 
