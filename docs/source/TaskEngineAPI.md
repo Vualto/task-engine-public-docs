@@ -1,4 +1,4 @@
-# Task Engine API
+# TASK ENGINE API
 
 The Task Engine endpoints will always return a JSON response unless explicitly indicated otherwise.
 
