@@ -16,8 +16,8 @@ Contents:
    TaskEngine.md
 
 .. toctree::
-   :maxdepth: 0
-
+   :titlesonly:
+   
    TaskEngineAPI.md
 
 .. toctree::
