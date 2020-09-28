@@ -14,8 +14,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 **<summary>Details</summary>**
 
-**Required Headers: None**
-
+**Required Headers: None**  
 **Optional Headers: None**
 
 ```json
@@ -25,6 +24,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 ```
 
 </details>
+  
 
 #### GET: `/health`
 
