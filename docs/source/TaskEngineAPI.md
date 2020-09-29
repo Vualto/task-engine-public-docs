@@ -199,9 +199,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 ### POST: `/job`
 
-This endpoint is used to submit jobs to the Task Engine. It is the endpoint used most often. The payload for this endpoint varies substantially depending on the workflow to be executed. More information on the payload properties for each workflow can be found [here](TaskEngineWorkflows.html).
-
-Successful job submission will return an `accepted` result and the job id. An error message is returned when a job submission fails.
+This endpoint is used to submit jobs to the Task Engine. It is the endpoint used most often. The payload for this endpoint varies substantially depending on the workflow to be executed. More information on the payload properties for each workflow can be found [here](TaskEngineWorkflows.html). Successful job submission will return an `accepted` result and the job id. An error message is returned when a job submission fails.
 
 <details>
 
