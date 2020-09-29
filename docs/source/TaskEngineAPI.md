@@ -10,7 +10,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: No**<br />
 **Required Headers: None** <br />
@@ -30,7 +30,7 @@ The health endpoint will run checks on the different Task Engine components and 
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: Yes**<br />
 **Required Headers:**
@@ -111,7 +111,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: No**<br />
 **Required Headers:None**<br />
@@ -203,7 +203,7 @@ This endpoint is used to submit jobs to the Task Engine. It is the endpoint used
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: Yes**<br />
 **Required Headers:**
@@ -246,7 +246,7 @@ This endpoint is used to return a list of jobs from the Task Engine database. Fi
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: No**<br />
 **Required Headers: None**<br />
@@ -330,7 +330,7 @@ This endpoints returns information about the specified job.
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: No**<br />
 **Required Headers: None**<br />
@@ -395,7 +395,7 @@ This endpoint is used to update specific fields of a job. The response will retu
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: Yes**<br />
 **Required Headers:**
@@ -449,7 +449,7 @@ This endpoint is used to rerun a job with exactly the same parameters. When reru
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: Yes**<br />
 **Required Headers:**
@@ -486,7 +486,7 @@ This endpoint is used to retrieve the logs for the specified job.
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: No**<br />
 **Required Headers:**
@@ -832,7 +832,7 @@ Returns a list of the currently active schedules. More information about the Tas
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: Yes**<br />
 **Required Headers:**
@@ -879,7 +879,7 @@ This endpoint allows for activating or deactivating schedules. More information 
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 **Requires Authentication: Yes**<br />
 **Required Headers:**
@@ -930,7 +930,7 @@ This settings endpoint is used to update or create new Task Engine settings. Onl
 
 <details>
 
-**<summary>Details</summary>**
+<summary>Details</summary>
 
 System default settings:
 
