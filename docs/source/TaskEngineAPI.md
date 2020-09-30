@@ -410,8 +410,8 @@ The list of job fields that can be updated:
 
 - `queue_state` - The queue state for a job can be updated. This can be used to pause or break a job by specifying the values `paused` or `broken` respectively
 - `run_at` - Updating the run_at field for a job changes when the job will be queued. The date must be in UTC and in the following format `yyyy-MM-ddTHH:mm:ss.fff`
-- `priority` - Updating the priority for a job. More information on job priority can be found [here](TaskEngineAdditionalFeatures.html#priority)
-- `sempahore_url` - This url can be used as part of the scheduling process. More information on the semaphore url can be found [here](TaskEngineAdditionalFeatures.html#semaphore-url)
+- `priority` - Updating the priority for a job. More information on job priority can be found [here](TaskEngineWorkflowFeatures.html#priority)
+- `sempahore_url` - This url can be used as part of the scheduling process. More information on the semaphore url can be found [here](TaskEngineWorkflowFeatures.html#semaphore-url)
 
 Sample payload:
 
@@ -828,7 +828,7 @@ Successful Response:
 
 ### GET: `/schedules`
 
-Returns a list of the currently active schedules. More information about the Task Engine scheduler can be found [here](TaskEngineAdditionalFeatures.html#Scheduler)
+Returns a list of the currently active schedules. More information about the Task Engine scheduler can be found [here](TaskEngineWorkflowFeatures.html#Scheduler)
 
 <details>
 
@@ -875,7 +875,7 @@ Successful Response:
 
 ### PUT: `/scheduler`
 
-This endpoint allows for activating or deactivating schedules. More information about the Task Engine scheduler can be found [here](TaskEngineAdditionalFeatures.html#Scheduler)
+This endpoint allows for activating or deactivating schedules. More information about the Task Engine scheduler can be found [here](TaskEngineWorkflowFeatures.html#Scheduler)
 
 <details>
 
@@ -935,7 +935,7 @@ This settings endpoint is used to update or create new Task Engine settings. Onl
 System default settings:
 
 - `max_jobs` - The maximum number of concurrent jobs. Default: 2
-- `priority_slots` - The number of concurrent job slots that should be reserved for high priority jobs. More information can be found [here](TaskEngineAdditionalFeatures.html#priority-slots). Default 0
+- `priority_slots` - The number of concurrent job slots that should be reserved for high priority jobs. More information can be found [here](TaskEngineWorkflowFeatures.html#priority-slots). Default 0
 - `schedule_interval` - The interval, in seconds, between the scheduler executions. Default: 60
 - `retry_delay` - The delay, in seconds, between retries for failed Resque tasks. Default: 5
 - `retry_limit` - The number of times a Resque task should be retried before a job is failed. Default: 3
