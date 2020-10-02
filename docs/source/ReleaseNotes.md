@@ -7,24 +7,24 @@
 - Running jobs can be paused using the update job endpoint and setting the queue_state to paused.
 - SSL certificate verification of callbacks can be disabled.
 
-### Vodstream
+### VOD Stream
 
 - Bugfix: The filename for audio tracks was not being checked for a language code when the language is missing within the metadata.
 
-### Vodcapture
+### VOD Capture
 
 - Stream decryption keys (`key_id` and `content_key`) now need to be specified as part of the clip object. This allows for the capture and stitching from two streams encrypted with different keys.
 - Native support for capturing from local ingested streams through a new `local_source` property within clip objects.
 
-### Voddelete
+### VOD Delete
 
 - The `content_id` parameter is now optional.
 
-### Drmswitch
+### DRM Switch
 
 - For VUDRM clients, if a clear or DRMed manifest is missing when trying to switch DRM on or of, the manifest will be generated dynamically.
 
-### Vodnpvr
+### VOD NPVR
 
 - New workflow for capturing VOD from Vualto archiver segments.
 - This workflow is intelligent in that a segment is only uploaded once even if it is used by multiple VODs.
@@ -97,7 +97,7 @@
 - Added `output_root` option to all workflows.
 - API error codes updated.
 - CPIX support for DRM packaging.
-- Completed vodremix workflow.
+- Completed [vodremix](TaskEngineWorkflows.md#vod-remix) workflow.
 
 ## 1.166.8 - 04/09/2019
 

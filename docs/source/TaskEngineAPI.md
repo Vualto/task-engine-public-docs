@@ -418,7 +418,7 @@ The list of job fields that can be updated:
 - `queue_state` - The queue state for a job can be updated. This can be used to pause or break a job by specifying the values `paused` or `broken` respectively
 - `run_at` - Updating the run_at field for a job changes when the job will be queued. The date must be in UTC and in the following format `yyyy-MM-ddTHH:mm:ss.fff`
 - `priority` - Updating the priority for a job. More information on job priority can be found [here](TaskEngineWorkflowFeatures.html#priority)
-- `sempahore_url` - This url can be used as part of the scheduling process. More information on the semaphore url can be found [here](TaskEngineWorkflowFeatures.html#semaphore-url)
+- `sempahore_url` - This url can be used as part of the scheduling process. More information on the semaphore url can be found [here](TaskEngineWorkflowFeatures.html#scheduler)
 
 Sample payload:
 

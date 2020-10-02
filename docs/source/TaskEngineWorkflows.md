@@ -1,10 +1,10 @@
 # TASK ENGINE WORKFLOWS
 
-## Vodstream
+## VOD Stream
 
 This workflow will generate a VOD asset from an offline source (eg. MP4). A server side manifest is created, with and/or without DRM, that can be used for on the fly delivery of VOD content via the Unified Streaming Platform.
 
-### Vodstream: Parameters
+### VOD Stream: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -41,7 +41,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | encoding_region   |No | This is used to indicate in which region Bitmovin's encoding process should be executed. |  |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
-### Vodstream: JSON Payload example
+### VOD Stream: JSON Payload example
 
 ```json
 {
@@ -82,7 +82,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 }
 ```
 
-### Vodstream: Callback properties
+### VOD Stream: Callback properties
 
 #### Task Callback
 
@@ -112,11 +112,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Vodcapture
+## VOD Capture
 
 This workflow allows you to create a frame accurate VOD clip by passing in a start and end time. If the source stream contains time stamps, UTC time stamps can be used for the start and end times. The result will be a new VOD asset and/or a downloadable MP4.
 
-### Vodcapture: Parameters
+### VOD Capture: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -154,7 +154,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds. | 10 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
-### Vodcapture: JSON Payload example
+### VOD Capture: JSON Payload example
 
 ```json
 {
@@ -200,7 +200,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 }
 ```
 
-### Vodcapture: Callback properties
+### VOD Capture: Callback properties
 
 #### Task Callback
 
@@ -230,11 +230,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Voddelete
+## VOD Delete
 
 This workflow allows you to a delete VOD asset from storage.
 
-### Voddelete: Parameters
+### VOD Delete: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -245,7 +245,7 @@ This workflow allows you to a delete VOD asset from storage.
 | source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
-### Voddelete: JSON Payload example
+### VOD Delete: JSON Payload example
 
 ```json
 {
@@ -264,7 +264,7 @@ This workflow allows you to a delete VOD asset from storage.
 }
 ```
 
-### Voddelete: Callback properties
+### VOD Delete: Callback properties
 
 #### Task Callback
 
@@ -293,11 +293,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | Name of the folder deleted from storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Drmswitch
+## DRM Switch
 
 This workflow allows you to toggle DRM on and off for a VOD asset. Missing manifests will be generated when required. If the VOD asset does not have a DRM manifest and DRM is being enabled, a list of DRM systems needs to be provided as part of the payload.
 
-### Drmswitch: Parameters
+### DRM Switch: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -310,7 +310,7 @@ This workflow allows you to toggle DRM on and off for a VOD asset. Missing manif
 | source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
-### Drmswitch: Payload example
+### DRM Switch: Payload example
 
 ```json
 {
@@ -333,7 +333,7 @@ This workflow allows you to toggle DRM on and off for a VOD asset. Missing manif
 }
 ```
 
-### Drmswitch: Callback properties
+### DRM Switch: Callback properties
 
 #### Task Callback
 
@@ -502,11 +502,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | List of thumbnail assets uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Vodremix
+## VOD Remix
 
 This workflow allows you to create a virtual VOD asset that is just a playlist referencing other VOD streams or video files.
 
-### Vodremix: Parameters
+### VOD Remix: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -529,7 +529,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | remote_execute_timeout_seconds    |No | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. | 0 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
-### Vodremix: JSON Payload example
+### VOD Remix: JSON Payload example
 
 ```json
 {
@@ -578,7 +578,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 }
 ```
 
-### Vodremix: Callback properties
+### VOD Remix: Callback properties
 
 #### Task Callback
 
@@ -825,13 +825,13 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | List of files to requested for deletion the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Vodnpvr
+## VOD NPVR
 
 This workflow will generate a VOD asset from segments captured through the Vualto Archiver. Segments are shared across different VOD assets which reduces storage requirements and processing time. 
 
-A server side manifest is created, with and/or without DRM, that can be used for on the fly delivery of VOD content via the Unified Streaming Platform. The `vodnpvr` workflow includes support to inherit the DRM keys form a specified Vualto Archiver profile and stores it as a custom manifest. This workflow will include any SCTE35 markers that occurred during each segment.
+A server side manifest is created, with and/or without DRM, that can be used for on the fly delivery of VOD content via the Unified Streaming Platform. The [VOD NPVR](TaskEngineWorkflows.md#vod-npvr) workflow includes support to inherit the DRM keys form a specified Vualto Archiver profile and stores it as a custom manifest. This workflow will include any SCTE35 markers that occurred during each segment.
 
-### Vodnpvr: Parameters
+### VOD NPVR: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -858,7 +858,7 @@ A server side manifest is created, with and/or without DRM, that can be used for
 | enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
-### Vodnpvr: JSON Payload example
+### VOD NPVR: JSON Payload example
 
 ```json
 {
@@ -897,7 +897,7 @@ A server side manifest is created, with and/or without DRM, that can be used for
 }
 ```
 
-### Vodnpvr: Callback properties
+### VOD NPVR: Callback properties
 
 #### Task Callback
 
@@ -930,7 +930,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 
 ## Workflow Trigger Example
 
-Example of a curl command to trigger ingest for the [Vodstream](#vodstream) workflow:
+Example of a curl command to trigger ingest for the [VOD Stream](#vod-stream) workflow:
 
 ```curl
 curl -X POST \

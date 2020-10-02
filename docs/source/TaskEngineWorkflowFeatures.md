@@ -44,7 +44,7 @@ The advantage of using priority slots is to stop the queue from being held up by
 
 ## Stitching Clips
 
-The Task Engine includes a feature that will allow multiple clips to be stitched together into a single clip, in a single job. This can be done by defining multiple objects within the `"clips"` parameter in the json payload for `vodcapture`. This also allows a mixture of live and VoD sources to be captured and stitched together into a new clip. The example below shows how the `"clips"` parameter would need to be provided to achieve this.
+The Task Engine includes a feature that will allow multiple clips to be stitched together into a single clip, in a single job. This can be done by defining multiple objects within the `"clips"` parameter in the json payload for [VOD Capture](TaskEngineWorkflows.md#vod-capture). This also allows a mixture of live and VoD sources to be captured and stitched together into a new clip. The example below shows how the `"clips"` parameter would need to be provided to achieve this.
 
 ```json
 {
@@ -83,7 +83,7 @@ The Task Engine includes a feature that will allow multiple clips to be stitched
 
 In some cases, a live stream could have multiple origins setup (eg. for load balancing the origin servers). The Task Engine, allows for both streams to be defined as the source for a capture. It is smart enough to find which live stream will provide the best output capture and use that stream as the source. If the Task Engine discovers discontinuities within the streams, it will use segments from both streams to try and generate a clip with the least number of missing fragments.
 
-The streams can be defined in the `"sources"` parameter when executing the `vodcapture` workflow.
+The streams can be defined in the `"sources"` parameter when executing the [VOD Capture](TaskEngineWorkflows.md#vod-capture) workflow.
 
 ```json
 {
@@ -146,15 +146,15 @@ In this case, `"sources"`  replaces the `"source"` parameter, however; it can st
 
 ## Generate Download Clips
 
-The Task Engine `vodcapture` workflow supports generating download clips without creating VoD assets. This is done by setting the property `"generate_vod"` to false and `"generate_mp4"` to true. It is important that if `"generate_vod"` is set to false, to not manually override the `"create_dref"` parameter. Setting `"create_dref"` to true will lead to a failed workflow as this requires VoD assets to generate DREF mp4s.
+The Task Engine [VOD Capture](TaskEngineWorkflows.md#vod-capture) workflow supports generating download clips without creating VoD assets. This is done by setting the property `"generate_vod"` to false and `"generate_mp4"` to true. It is important that if `"generate_vod"` is set to false, to not manually override the `"create_dref"` parameter. Setting `"create_dref"` to true will lead to a failed workflow as this requires VoD assets to generate DREF mp4s.
 
 The resulting download will be an MP4 containing all the video, audio and caption tracks defined using the clip's `"filter"` parameter. If no filter is defined, the resulting MP4 will contain all the tracks available in the stream.
 
 ## Scheduler
 
-The Task Engine supports scheduling of jobs via a `run_at` attribute. Jobs are moved from a queue_state of `scheduled` to a queue_state of `queued` via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 1 hour).
+The Task Engine supports scheduling of jobs via the `run_at` and `sempahore_url` job attributes. Jobs are moved from a queue_state of `scheduled` to a queue_state of `queued` via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 1 hour).
 
-The scheduler-worker looks for jobs which have a queue_state of `scheduled` and a `run_at` time in the past
+The scheduler-worker looks for jobs which have a queue_state of `scheduled`, a `run_at` time in the past and a `semphore_url` that returns a successful response (2XX/3XX).
 
 The schedule_interval can be set via an api call. (where x is time in seconds)
 
@@ -168,10 +168,7 @@ The schedule_interval can be set via an api call. (where x is time in seconds)
 }
 ```
 
-A jobs `run_at` attribute can be set in multiple ways and defaults to the time it was created at.
-If the job's `run_at` time is in the future, a log will be added to indicate such.
-
-Format: `yyyy-mm-ddThh:mm:ss`
+A jobs `run_at` and `semaphore_url` attributes can be set in multiple ways. The `run_at` defaults to the time the job was created. If the job's `run_at` time is in the future, a log will be added to indicate such. The `run_at` time format should be `yyyy-MM-ddTHH:mm:ss.fff`.
 
 1. When submitting a job
 
@@ -182,12 +179,13 @@ Format: `yyyy-mm-ddThh:mm:ss`
   "client": "demo-client",
   "job": {
     "workflow": "vodcapture",
-    "run_at": "2019-06-06T10:00:00.000"
+    "run_at": "2040-06-06T10:00:00.000",
+    "semaphore_url": "https://www.vualto.com/"
   }
 }
 ```
 
-ex: `Job will run at: "2019-06-06T10:00:00.000"`
+In the above example the job will be queued at 10:00AM on the 6th of June 2040 and when `https://www.vualto.com/` returns a successful response. The following message `Job will run at: "2040-06-06T10:00:00.000"` will be logged against the job.
 
 2. When updating an existing job
 
@@ -196,7 +194,8 @@ ex: `Job will run at: "2019-06-06T10:00:00.000"`
 ```json
 {
   "client": "demo-client",
-  "run_at": "2019-06-06T10:00:00.000"
+  "run_at": "2040-06-06T10:00:00.000",
+  "semaphore_url": "https://www.vualto.com/"
 }
 ```
 
@@ -290,8 +289,8 @@ Natively supported storage types:
 
 Preview thumbnails refers to the thumbnails that appear on the a video player's timeline as the user hovers over the progress bar. These can be generated on 3 different occasions:
 
-- When capturing content, by setting the `preview_thumbnails` property to `true` when submitting a [vodcapure](TaskEngineWorkflows.html#vodcapture) job.
-- When ingesting content, by setting the `preview_thumbnails` property to `true` when submitting a [vodstream](TaskEngineWorkflows.html#vodstream) job.
+- When capturing content, by setting the `preview_thumbnails` property to `true` when submitting a [VOD Capture](TaskEngineWorkflows.html#vod-capture) job.
+- When ingesting content, by setting the `preview_thumbnails` property to `true` when submitting a [VOD Stream](TaskEngineWorkflows.html#vod-stream) job.
 - By submitting a separate [build thumbnails](TaskEngineWorkflows.html#build-thumbnails) job.
 
 The process is pretty much the same for all of the above. A sprite is generated with thumbnails at every 'x' second intervals (default is 10 seconds) and a VTT file which relates each thumbnail within the sprite to corresponding time within the stream. These files must be made accessible to the players. On cloud platforms, this is usually done by create a CDN for .jgp and .vtt files. The [Vualto Assets API](https://docs.vualto.com/projects/VIS/en/latest/assets.html) can be used to retrieve the URL for the VTT file.
