@@ -433,11 +433,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Build thumbnails
+## Build Thumbnails
 
 This workflow allows you to generate thumbnail assets which can then be used for video timeline previews.
 
-### Build thumbnails: Parameters
+### Build Thumbnails: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -452,7 +452,7 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | destination_storage         |No | This is used to indicate the destination for the generated thumbnail assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
-### Build thumbnails: Payload example
+### Build Thumbnails: Payload example
 
 ```json
 {
@@ -472,7 +472,7 @@ This workflow allows you to generate thumbnail assets which can then be used for
 }
 ```
 
-### Build thumbnails: Callback properties
+### Build Thumbnails: Callback properties
 
 
 #### Task Callback

@@ -291,7 +291,7 @@ Preview thumbnails refers to the thumbnails that appear on the a video player's 
 
 - When capturing content, by setting the `preview_thumbnails` property to `true` when submitting a [VOD Capture](TaskEngineWorkflows.html#vod-capture) job.
 - When ingesting content, by setting the `preview_thumbnails` property to `true` when submitting a [VOD Stream](TaskEngineWorkflows.html#vod-stream) job.
-- By submitting a separate [build thumbnails](TaskEngineWorkflows.html#build-thumbnails) job.
+- By submitting a separate [Build Thumbnails](TaskEngineWorkflows.html#build-thumbnails) job.
 
 The process is pretty much the same for all of the above. A sprite is generated with thumbnails at every 'x' second intervals (default is 10 seconds) and a VTT file which relates each thumbnail within the sprite to corresponding time within the stream. These files must be made accessible to the players. On cloud platforms, this is usually done by create a CDN for .jgp and .vtt files. The [Vualto Assets API](https://docs.vualto.com/projects/VIS/en/latest/assets.html) can be used to retrieve the URL for the VTT file.
 
