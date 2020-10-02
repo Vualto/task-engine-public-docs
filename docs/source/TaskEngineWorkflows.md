@@ -4,7 +4,9 @@
 
 This workflow will generate a VOD asset from an offline source (eg. MP4). A server side manifest is created, with and/or without DRM, that can be used for on the fly delivery of VOD content via the Unified Streaming Platform.
 
-### Vodstream: Parameters
+<details>
+
+<summary><h3>Vodstream: Parameters</h3></summary>
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -39,6 +41,8 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | encoding_profile  |No | This is used to indicate which encoding profiles are used when encoding the source. | "H264" |
 | encoding_mode     |No | This is used to indicate which Bitmovin encoding mode is used (See [here](https://bitmovin.com/bitmovin-video-encoding-v2/) for more details). | "STANDARD" |
 | encoding_region   |No | This is used to indicate in which region Bitmovin's encoding process should be executed. |  |
+
+</details>
 
 ### Vodstream: JSON Payload example
 
