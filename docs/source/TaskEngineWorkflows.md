@@ -4,9 +4,7 @@
 
 This workflow will generate a VOD asset from an offline source (eg. MP4). A server side manifest is created, with and/or without DRM, that can be used for on the fly delivery of VOD content via the Unified Streaming Platform.
 
-<details>
-
-<summary><h3>Vodstream: Parameters</h3></summary>
+### Vodstream: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -17,8 +15,8 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | encrypted (deprecated) |No | Deprecated and replaced by `enable_drm` for clarity. | |
 | enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
 | output_folder     |No | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. | source_folder |
-| drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present then no DRM is applied. | ["clear"] |
-| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document| false |
+| drm               |No | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. | ["clear"] |
+| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document. | false |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content. | true |
 | thumbnail_time    |No | Time at which the thumbnail will be taken. | first frame |
@@ -41,8 +39,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | encoding_profile  |No | This is used to indicate which encoding profiles are used when encoding the source. | "H264" |
 | encoding_mode     |No | This is used to indicate which Bitmovin encoding mode is used (See [here](https://bitmovin.com/bitmovin-video-encoding-v2/) for more details). | "STANDARD" |
 | encoding_region   |No | This is used to indicate in which region Bitmovin's encoding process should be executed. |  |
-
-</details>
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Vodstream: JSON Payload example
 
@@ -113,6 +110,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Full path of the active manifest, for the generated content. |
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Vodcapture
 
@@ -132,8 +130,8 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | clip: filter      |No | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000". ||
 | encrypted (deprecated) |No | Deprecated and replaced by `enable_drm` for clarity. | |
 | enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
-| drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied. | ["clear"] |
-| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document| false |
+| drm               |No | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. | ["clear"] |
+| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document. | false |
 | frame_accurate    |No | This boolean allows the capture to be done using frame accuracy. | true |
 | copy_ts           |No | This boolean indicates whether the timestamps should be included in the resulting manifests. | false |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
@@ -154,6 +152,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | track_properties  |No | This is used to define track properties to be applied to the VOD (See [Track Properties](TaskEngineWorkflowFeatures.html#track-properties) section). ||
 | preview_thumbnails          |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. | false |
 | preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds. | 10 |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Vodcapture: JSON Payload example
 
@@ -229,6 +228,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Full path of the active manifest, for the generated content. |
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Voddelete
 
@@ -243,6 +243,7 @@ This workflow allows you to a delete VOD asset from storage.
 | folder            |Yes| Folder where the content to be deleted is currently saved. ||
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Voddelete: JSON Payload example
 
@@ -290,10 +291,11 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Name of the folder deleted from storage. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Drmswitch
 
-This workflow allows you to toggle DRM on and off for a VOD asset. For DRM switching to work as expected, DRM parameters will have needed to be provided when generating the VOD asset (either through [vodcapture](#vodcapture) or [vodstream](#vodstream)).
+This workflow allows you to toggle DRM on and off for a VOD asset. Missing manifests will be generated when required. If the VOD asset does not have a DRM manifest and DRM is being enabled, a list of DRM systems needs to be provided as part of the payload.
 
 ### Drmswitch: Parameters
 
@@ -302,8 +304,11 @@ This workflow allows you to toggle DRM on and off for a VOD asset. For DRM switc
 | workflow          |Yes| Specify 'drmswitch'. ||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
 | folder            |Yes| Folder where the content to be DRM toggled is stored. ||
+| drm               |No | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`. | [] |
+| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document| false |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | source_storage    |No | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Drmswitch: Payload example
 
@@ -316,6 +321,10 @@ This workflow allows you to toggle DRM on and off for a VOD asset. For DRM switc
   "parameters": {
     "content_id": "demo1",
     "folder": "vualto-test-1",
+    "drm": [
+      "fairplay",
+      "cenc"
+    ],
     "rest_endpoints": [
       "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
       "http://your.custom.endpoint"
@@ -351,6 +360,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Full path of the active manifest, for the generated content. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Create MP4
 
@@ -364,12 +374,13 @@ This workflow allows you to create an MP4 from a VOD asset.
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
 | source_folder     |Yes| Folder where the VoD source content can be found. ||
 | output_folder     |No | Folder where the MP4 should be saved. | <source_folder> |
+| retries           |No | Retry limit when attempting to copy from the source storage. | 0 |
 | mp4_filename      |No | The name of the resulting mp4 file. | <content_id>.mp4 |
-| retries           |No | Retry limit when attempting to copy from the source storage. | 2 |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | mezzanine         |No | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. | false |
 | source_storage    |No | This is used to indicate where the source VOD is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
 | destination_storage         |No | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | <source_storage> |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Create MP4: Payload example
 
@@ -420,6 +431,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | MP4 filename. |
 | files             | List of files uploaded to the destination storage. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Build thumbnails
 
@@ -432,12 +444,13 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | workflow          |Yes| Specify 'build_thumbnails'. ||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
 | source            |Yes| URL of the HLS source from which to create assets. Live sources (.isml) must be in a state of `stopped`. ||
-| target_filename   |No | Prefix for the file names of generated assets, eg: `<target_filename>_sprite.jpg` .| <content_id> |
+| filename_prefix   |No | Prefix for the file names of generated assets, eg: `<target_filename>_sprite.jpg` .| <content_id> |
 | output_folder     |Yes| This is the folder where the resulting assets will be saved on the destination storage. | <content_id> |
 | preview_thumbnails_interval   |No | Interval time between thumbnail captures in seconds. | 10 |
 | video_fps         |No | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. | 24 |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | destination_storage         |No | This is used to indicate the destination for the generated thumbnail assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Build thumbnails: Payload example
 
@@ -487,6 +500,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | List of thumbnail assets uploaded to the destination storage. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Vodremix
 
@@ -504,14 +518,16 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | clip: start       |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | clip: end         |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
 | clip: frame_accurate    |No | This boolean indicates whether the specified clip will be trimmed using frame accuracy. | false |
-| clip: output_description|No | This boolean indicates that this clip should be used to set the target profile. There should be only one clip with this set to true. | false |
+| clip: output_description |No | This boolean indicates that this clip should be used to set the target profile. There should be only one clip with this set to true. | false |
 | output_file       |No | Name of the output .mp4 file. | remix.mp4 |
-| drm               |No | The type of Output DRM that is required. This could be “playready” and/or  ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes".  If this value isn’t present then no DRM is applied.| ["clear"] |
-| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document| false |
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
+| drm               |No | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. | ["clear"] |
+| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document. | false |
 | empty_target      |No | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. | true |
 | enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
-| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.||
 | destination_storage         |No | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
+| remote_execute_timeout_seconds    |No | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. | 0 |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Vodremix: JSON Payload example
 
@@ -587,6 +603,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | status            | This will identify the status of the job. It can be either `completed` or `failed`. |
 | workflow          | Name of the workflow being executed. |
 | output            | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Generate GIF
 
@@ -612,6 +629,7 @@ This workflow allows you to create animated GIFs from a VOD stream.
 | playback_speed    |No | This indicates the speed at which the GIF should be played back. Eg. `1.5` for GIF playback that is 1 and a half faster than the actual speed. | 1 |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | destination_storage         |No | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Generate GIF: Payload example
 
@@ -668,7 +686,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | GIF filename. |
 | files             | List of files uploaded to the destination storage. |
-
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Capture Frame
 
@@ -686,6 +704,7 @@ This workflow allows you to capture a single frame from a stream.
 | image_filename    |Yes| The name of the resulting image file. ||
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | destination_storage         |No | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Capture Frame: Payload example
 
@@ -737,6 +756,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Image filename. |
 | files             | List of files uploaded to the destination storage. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Asset Delete
 
@@ -751,6 +771,7 @@ This workflow allows you to delete individual assets without deleting an entire 
 | files             |Yes| Array of files to be deleted from S3 ||
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | source_storage    |No | This is used to indicate where the source VOD is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### Asset Delete: Payload example
 
@@ -802,6 +823,110 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | List of files to requested for deletion the destination storage. |
+| custom_data       | Returns the custom data submitted to the workflow. |
+
+## Vodnpvr
+
+This workflow will generate a VOD asset from segments captured through the Vualto Archiver. Segments are shared across different VOD assets which reduces storage requirements and processing time. 
+
+A server side manifest is created, with and/or without DRM, that can be used for on the fly delivery of VOD content via the Unified Streaming Platform. The `vodnpvr` workflow includes support to inherit the DRM keys form a specified Vualto Archiver profile and stores it as a custom manifest. This workflow will include any SCTE35 markers that occurred during each segment.
+
+### Vodnpvr: Parameters
+
+| Parameter Name    | Required |  Description | Default |
+| ----------------- | -------- | ------------ | ------- |
+| workflow          |Yes| Specify 'vodnpvr'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
+| clips             |yes| This is an array of sources, with optional start and end times, please see the example request below. ||
+| clip: capture_id  |Yes| This would be the capture id for the Vualto Archiver event to be used as the source ||
+| clip: start       |Yes| UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z ||
+| clip: end         |Yes| UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z ||
+| output_folder     |Yes| The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. ||
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| apply_custom_drm  |No | This boolean indicates whether a custom DRM manifest using drm keys from the specified Vualto Archiver profile. | false |
+| profile_id        |No | This is the id for the profile used for the custom DRM manifest. ||
+| custom_manifest_name  |No | The name to be given to the custom DRM manifest. | `custom.ism` |
+| drm               |No | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present the the normal DRM manifest is not created. | ["clear"] |
+| cpix              |No | This boolean indicates whether DRM will be handled using a CPIX document. | false |
+| empty_target      |No | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. | true |
+| source_storage    |No | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
+| destination_storage         |No | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | <source_storage> |
+| remote_execute_timeout_seconds    |No | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. | 0 |
+| overwrite_segments |No | This boolean indicates whether segments already in use by other VOD assets should be overwritten when generating the current VOD asset. | false |
+| custom_package_options    |No | This contains package options required to support SCTE35 markers within remix profiles. | `--timed_metadata --splice_media` |
+| missing_content_limit |No | The limit in seconds of missing content over which the VOD asset generation is abandoned. Missing content is usually caused by discontinuities from the Archiver source stream | 5.0 |
+| enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
+
+### Vodnpvr: JSON Payload example
+
+```json
+{
+  "client": "demo-client",
+  "job": {
+    "workflow": "vodnpvr"
+  },
+  "parameters": {
+    "content_id": "vudrm_1",
+    "clips": [
+        {
+            "start": "2020-09-08T14:10:00Z",
+            "end": "2020-09-08T14:44:00Z",
+            "capture_id": "test4"
+        }
+    ],
+    "output_root": "output_root",
+    "apply_custom_drm": true,
+    "profile_id": "test4_drm",
+    "custom_manifest_name": "manifest.ism",
+    "drm": [
+      "fairplay",
+      "cenc",
+      "clear"
+    ],
+    "cpix": false,
+    "missing_content_limit": 700,
+    "output_folder": "vudrm/test4_1599574200000_1599576240000",
+    "rest_endpoints": [
+      "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
+      "http://aaa.com/end",
+      "http://bbb.com/end"
+    ],
+    "custom_data": { "custom_ref" : "ref-123" }
+  }
+}
+```
+
+### Vodnpvr: Callback properties
+
+#### Task Callback
+
+Task callbacks are triggered after each task within a workflow is completed. Below is a list of the default properties for the callback:
+
+| Property Name     | Required |
+| ----------------- | -------- |
+| job_id            | Unique job identifier generated by the Task Engine. |
+| task_id           | Unique task identifier generated by the Task Engine. |
+| task_name         | Name of the task that triggered the callback. |
+| workflow          | Name of the workflow being executed. |
+| event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
+| content_id        | Content ID provided when the job was submitted. |
+| message           | Any message associated with the event. This will usually contain exception messages. |
+
+#### Job Callback
+
+Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
+
+| Property Name     | Required |
+| ----------------- | -------- |
+| job_id            | Unique job identifier generated by the Task Engine. |
+| status            | This will identify the status of the job. It can be either `completed` or `failed`. |
+| workflow          | Name of the workflow being executed. |
+| content_id        | Content ID provided when the job was submitted. |
+| message           | Full path of the active manifest, for the generated content. |
+| files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
+| segments          | Segments used for the VOD asset. |
+| custom_data       | Returns the custom data submitted to the workflow. |
 
 ## Workflow Trigger Example
 
