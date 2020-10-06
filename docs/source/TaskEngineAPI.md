@@ -27,7 +27,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 ### GET: `/health`
 
-The health endpoint will run checks on the different Task Engine components and returns the status of each service. The endpoint will also return some information about the Task Engine and some statistics about jobs and tasks.
+The health endpoint will run checks on the different Task Engine components and returns the status of each service. The endpoint will also return some information about the Task Engine and statistics about jobs and tasks.
 
 <details>
 
@@ -91,6 +91,7 @@ Successful Response:
         "queued": 4,
         "started": 8,
         "scheduled": 7,
+        "paused": 0,
         "max_jobs": 8,
         "priority_slots": 3
     }
@@ -109,7 +110,7 @@ Successful Response:
 
 ### GET: `/dashboard`
 
-The dashboard endpoint returns information about the current Task Engine queue status. The information includes lists of started, queued and scheduled jobs as well as the setting information for the maximum concurrent jobs and the number of priority reserved slots and the Task Engine version running.
+The dashboard endpoint returns information about the current Task Engine queue status. The information includes lists of started, queued and scheduled jobs as well as the setting information for the maximum concurrent jobs and the number of priority reserved job slots. The Task Engine version is also returned.
 
 <details>
 
@@ -202,7 +203,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 ### POST: `/job`
 
-This endpoint is used to submit jobs to the Task Engine. It is the endpoint used most often. The payload for this endpoint varies substantially depending on the workflow to be executed. More information on the payload properties for each workflow can be found [here](TaskEngineWorkflows.html). Successful job submission will return an `accepted` result and the job id. An error message is returned when a job submission fails.
+This endpoint is used to submit jobs to the Task Engine. It is the endpoint used most often. The payload for this endpoint varies substantially depending on the workflow being submitted. More information on the payload properties for each workflow can be found [here](TaskEngineWorkflows.html). Successful job submission will return an `accepted` result and the job id. An error message is returned when a job submission fails.
 
 <details>
 
@@ -222,16 +223,16 @@ Successful Response:
 
 ```json
 {
-    "id": "123", // job id
+    "id": "<job id>",
     "result": "accepted"
 }
-```
+
 
 400 - Error Response:
 
 ```json
 {
-    "id": "123", // job id
+    "id": "<job id>",
     "error": "<error message>"
 }
 ```
@@ -246,7 +247,7 @@ Successful Response:
 
 ### GET: `/jobs`
 
-This endpoint is used to return a list of jobs from the Task Engine database. Filtering is supported through query string parameters but by default the the endpoint will return the last 10 successfully submitted jobs.
+This endpoint is used to return a list of jobs from the Task Engine database. Filtering is supported through query string parameters. The default search (no parameters) will return the last 10 jobs.
 
 <details>
 
@@ -259,9 +260,9 @@ This endpoint is used to return a list of jobs from the Task Engine database. Fi
 **Query String Parameters:**
 
 - `items` - the maximum number of jobs to return
-- `order_by` - field used to order the query by a job property
-- `asc` - filed used to order the results in ascending order. Accepts 1 (true) or 0 (false)
-- `state` - filter by job state. The ID needs to be specified
+- `order_by` - order the query by a job property
+- `asc` - order the results in ascending or descending order. Accepts 1 (true) or 0 (false)
+- `state` - filter by job state. One of the following IDs needs to be specified
   - 0 - queued
   - 1 - started
   - 2 - completed
@@ -271,8 +272,8 @@ This endpoint is used to return a list of jobs from the Task Engine database. Fi
   - 6 - paused
 - `from` - used to filter by date range, based on the job creation date
 - `to` - used to filter by date range, based on the job creation date
-- `failed` - filter to only returned failed jobs. If used with a state, jobs will only be returned if state is set to 2 (completed)
-- `search` - a search term used to filter by eg. the content id for a submitted job
+- `failed` - returned failed jobs. If used with a state, jobs will only be returned if state is set to 2 (completed)
+- `search` - search term used to filter by eg. the content id for a submitted job
 - `job_ids` - comma separated job ids
 - `client` - client name to filter by
 
@@ -289,6 +290,7 @@ Successful response for `/jobs?limit=3&client=demo-client&state=2`
         "created_at": "2020-09-24T11:55:33.755Z",
         "updated_at": "2020-09-24T12:17:33.566Z",
         "queue_state": "completed",
+        "parameters": "<parameters submitted when creating the job>",
         "failed": false,
         "run_at": "2020-09-24T11:55:33.755Z"
     },
@@ -301,6 +303,7 @@ Successful response for `/jobs?limit=3&client=demo-client&state=2`
         "created_at": "2020-09-24T11:55:32.971Z",
         "updated_at": "2020-09-24T12:05:18.937Z",
         "queue_state": "completed",
+        "parameters": "<parameters submitted when creating the job>",
         "failed": false,
         "run_at": "2020-09-24T11:55:32.971Z"
     },
@@ -313,6 +316,7 @@ Successful response for `/jobs?limit=3&client=demo-client&state=2`
         "created_at": "2020-09-24T11:55:32.031Z",
         "updated_at": "2020-09-24T12:18:33.641Z",
         "queue_state": "completed",
+        "parameters": "<parameters submitted when creating the job>",
         "failed": false,
         "run_at": "2020-09-24T11:55:32.031Z"
     }
@@ -352,31 +356,7 @@ Successful response for `/jobs/123`
     "priority": 5,
     "position": 1,
     "top_of_queue": false,
-    "parameters": {
-        "content_id": "832751d6-f94f-44b3-b30d-0281bebfb0ea",
-        "output_folder": "832751d6-f94f-44b3-b30d-0281bebfb0ea",
-        "clips": [
-            {
-                "source": "http://demo.video.stream/live/41f7b71b-fd1a-431e-ab07-0e39909d4fd1/live.isml/Manifest",
-                "start": "2019-09-18T16:55:53.000",
-                "end": "2019-09-18T17:08:20.520"
-            }
-        ],
-        "encrypted": false,
-        "frame_accurate": true,
-        "copy_ts": true,
-        "rest_endpoints": [
-            "https://vis.controlhub.demo-client.vualto.com/api/event/vuflow/taskenginecallback",
-            "https://admin.controlhub.demo-client.vualto.com/vod/PublishVuflowData"
-        ],
-        "generate_vod": true,
-        "create_thumbnail": true,
-        "thumbnail_time": "00:04:03.120",
-        "generate_mp4": false,
-        "create_dref": true,
-        "mezzanine": true,
-        "apply_track_properties": false
-    },
+    "parameters": "<parameters submitted when creating the job>",
     "created_at": "2019-09-18T17:13:47.713Z",
     "updated_at": "2019-09-18T17:16:05.215Z",
     "queue_state": "completed",
@@ -394,10 +374,10 @@ Successful response for `/jobs/123`
 ```
 
 </details><br /><br />
-
+       
 ### PUT: `/job/<job_id>`
 
-This endpoint is used to update specific fields of a job. The response will return the job id and the result of the update.
+This endpoint is used to update job fields. Only a specific selection of fields can be updated after a job has been submitted. The response will return the job id and the result of the update.
 
 <details>
 
@@ -452,7 +432,7 @@ Successful Response:
 
 ### POST: `/jobs/<job id>/rerun`
 
-This endpoint is used to rerun a job with exactly the same parameters. When rerunning a job, the original job will be set to broken.
+This endpoint is used to rerun a job with exactly the same parameters. When rerunning a job, the original job's queue state will be set to broken since the content it generated will no longer be valid.
 
 <details>
 
@@ -532,246 +512,9 @@ Successful Response:
         "task_id": 24100,
         "visible": true
     },
-    {
-        "id": 691466,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "Task 'get_filenames' started",
-        "created_at": "2020-07-06T12:48:50.089Z",
-        "updated_at": "2020-07-06T12:48:50.089Z",
-        "task_id": 24100,
-        "visible": true
-    },
-    {
-        "id": 691469,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "Root key: output_root Root Folder: content/vod",
-        "created_at": "2020-07-06T12:48:50.110Z",
-        "updated_at": "2020-07-06T12:48:50.110Z",
-        "task_id": 24100,
-        "visible": true
-    },
-    {
-        "id": 691470,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "'get_filenames' completed successfully",
-        "created_at": "2020-07-06T12:48:50.204Z",
-        "updated_at": "2020-07-06T12:48:50.204Z",
-        "task_id": 24100,
-        "visible": true
-    },
-    {
-        "id": 691474,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "callback",
-        "message": "No client definitions. Using common definitions.",
-        "created_at": "2020-07-06T12:48:51.100Z",
-        "updated_at": "2020-07-06T12:48:51.100Z",
-        "task_id": 24100,
-        "visible": true
-    },
-    {
-        "id": 691476,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "No client definitions. Using common definitions.",
-        "created_at": "2020-07-06T12:48:51.197Z",
-        "updated_at": "2020-07-06T12:48:51.197Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691477,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "Task 'prepare_switch' started",
-        "created_at": "2020-07-06T12:48:51.203Z",
-        "updated_at": "2020-07-06T12:48:51.203Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691479,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "switching to DRM manifest",
-        "created_at": "2020-07-06T12:48:51.211Z",
-        "updated_at": "2020-07-06T12:48:51.211Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691480,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "Activating content/vod/a40fdaff-f904-4ea5-b893-a89152708952/1594039706_9529e5b3-14f0-4b3a-bb9c-97f5615a0d96_a40fdaff-f904-4ea5-b893-a89152708952.drm. New manifest: a40fdaff-f904-4ea5-b893-a89152708952_drm_7109e03e-9a62-4cbb-858f-6d79305e2d08.ism",
-        "created_at": "2020-07-06T12:48:51.213Z",
-        "updated_at": "2020-07-06T12:48:51.213Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691481,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "switching to DRM manifest",
-        "created_at": "2020-07-06T12:48:51.216Z",
-        "updated_at": "2020-07-06T12:48:51.216Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691482,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "Activiating content/vod/a40fdaff-f904-4ea5-b893-a89152708952/1594039706_9529e5b3-14f0-4b3a-bb9c-97f5615a0d96_a40fdaff-f904-4ea5-b893-a89152708952_aes.drm. New manifest: a40fdaff-f904-4ea5-b893-a89152708952_drm_7109e03e-9a62-4cbb-858f-6d79305e2d08_aes.ism",
-        "created_at": "2020-07-06T12:48:51.218Z",
-        "updated_at": "2020-07-06T12:48:51.218Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691483,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "De-activiating content/vod/a40fdaff-f904-4ea5-b893-a89152708952/a40fdaff-f904-4ea5-b893-a89152708952_nodrm_771f5e37-97c0-476c-a1f7-43cceeb60585.ism. New name: 1594039731_bd0c779e-a4a6-45d2-bbe9-8485b4e61703_a40fdaff-f904-4ea5-b893-a89152708952.nodrm",
-        "created_at": "2020-07-06T12:48:51.220Z",
-        "updated_at": "2020-07-06T12:48:51.220Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691484,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "'prepare_switch' completed successfully",
-        "created_at": "2020-07-06T12:48:51.226Z",
-        "updated_at": "2020-07-06T12:48:51.226Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691486,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "callback",
-        "message": "No client definitions. Using common definitions.",
-        "created_at": "2020-07-06T12:48:51.366Z",
-        "updated_at": "2020-07-06T12:48:51.366Z",
-        "task_id": 24100,
-        "visible": true
-    },
-    {
-        "id": 691491,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "callback",
-        "message": "No client definitions. Using common definitions.",
-        "created_at": "2020-07-06T12:48:51.602Z",
-        "updated_at": "2020-07-06T12:48:51.602Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691494,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "No client definitions. Using common definitions.",
-        "created_at": "2020-07-06T12:48:51.820Z",
-        "updated_at": "2020-07-06T12:48:51.820Z",
-        "task_id": 24102,
-        "visible": true
-    },
-    {
-        "id": 691495,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "Task 'rename_manifests' started",
-        "created_at": "2020-07-06T12:48:51.828Z",
-        "updated_at": "2020-07-06T12:48:51.828Z",
-        "task_id": 24102,
-        "visible": true
-    },
-    {
-        "id": 691498,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "Root key: output_root Root Folder: content/vod",
-        "created_at": "2020-07-06T12:48:51.851Z",
-        "updated_at": "2020-07-06T12:48:51.851Z",
-        "task_id": 24102,
-        "visible": true
-    },
-    {
-        "id": 691499,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "worker",
-        "message": "S3 folder: content/vod/a40fdaff-f904-4ea5-b893-a89152708952, Active Manifest a40fdaff-f904-4ea5-b893-a89152708952_drm_7109e03e-9a62-4cbb-858f-6d79305e2d08.ism",
-        "created_at": "2020-07-06T12:48:51.854Z",
-        "updated_at": "2020-07-06T12:48:51.854Z",
-        "task_id": 24102,
-        "visible": true
-    },
-    {
-        "id": 691502,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "callback",
-        "message": "No client definitions. Using common definitions.",
-        "created_at": "2020-07-06T12:48:51.869Z",
-        "updated_at": "2020-07-06T12:48:51.869Z",
-        "task_id": 24101,
-        "visible": true
-    },
-    {
-        "id": 691512,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "callback",
-        "message": "No client definitions. Using common definitions.",
-        "created_at": "2020-07-06T12:48:52.178Z",
-        "updated_at": "2020-07-06T12:48:52.178Z",
-        "task_id": 24102,
-        "visible": true
-    },
+    ...
+    ...
+    ...
     {
         "id": 691516,
         "job_id": 123,
@@ -805,18 +548,6 @@ Successful Response:
         "message": "No client definitions. Using common definitions.",
         "created_at": "2020-07-06T12:48:53.421Z",
         "updated_at": "2020-07-06T12:48:53.421Z",
-        "task_id": 24102,
-        "visible": true
-    },
-    {
-        "id": 691523,
-        "job_id": 123,
-        "severity": 1,
-        "severity_description": "INFO",
-        "progname": "callback",
-        "message": "No client definitions. Using common definitions.",
-        "created_at": "2020-07-06T12:48:53.653Z",
-        "updated_at": "2020-07-06T12:48:53.653Z",
         "task_id": 24102,
         "visible": true
     },
@@ -909,7 +640,7 @@ Sample Payload:
 
 ```json
 {
-    "schedule": "queue_scheduled_jobs", // schedule name
+    "schedule": "<schedule name>",
     "active": true
 }
 ```
@@ -937,7 +668,7 @@ Successful Response:
 
 ### POST: `/settings`
 
-This settings endpoint is used to update or create new Task Engine settings. Only one setting can be added or updated at a time. Check the details below to the default settings, their values and their purpose.
+This settings endpoint is used to update or create new Task Engine settings. Only one setting can be added or updated at a time.
 
 <details>
 
@@ -948,9 +679,9 @@ System default settings:
 
 - `max_jobs` - The maximum number of concurrent jobs. Default: 2
 - `priority_slots` - The number of concurrent job slots that should be reserved for high priority jobs. More information can be found [here](TaskEngineWorkflowFeatures.html#priority-slots). Default: 0
-- `schedule_interval` - The interval, in seconds, between the scheduler executions. Default: 60
+- `schedule_interval` - The interval, in seconds, between scheduler executions. Default: 60
 - `retry_delay` - The delay, in seconds, between retries for failed Resque tasks. Default: 5
-- `retry_limit` - The number of times a Resque task should be retried before a job is failed. Default: 3
+- `retry_limit` - The number of times a Resque task should be retried before a job is abandoned. Default: 3
 
 **Requires Authentication: Yes**<br />
 **Required Headers:**
