@@ -1,5 +1,9 @@
 # RELEASE NOTES
 
+## 1.170.2 - 21/10/2020
+
+- Bugfix: Fixed issue causing some scheduled jobs to never be queued.
+
 ## 1.170.1 - 30/09/2020
 
 - File properties in callbacks are returned as a JSON array instead of a string containing an array.
