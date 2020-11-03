@@ -26,7 +26,7 @@
 
 ### DRM Switch
 
-- For VUDRM clients, if a clear or DRMed manifest is missing when trying to switch DRM on or of, the manifest will be generated dynamically.
+- For VUDRM clients, if a clear or DRMed manifest is missing when trying to switch DRM on or off, the manifest will be generated dynamically.
 
 ### VOD NPVR
 
