@@ -128,6 +128,8 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | clip: start       |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z or Offsets e.g. “hh:mm:ss”. ||
 | clip: end         |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z or Offsets e.g. “hh:mm:ss”. ||
 | clip: filter      |No | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000". ||
+| clip: key_id      |No | Should the stream be DRM’d we would require the KeyID. ||
+| clip: content_key |No | Should the stream be DRM’d we would require the Content Key. ||
 | encrypted (deprecated) |No | Deprecated and replaced by `enable_drm` for clarity. | |
 | enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
 | drm               |No | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. | ["clear"] |
@@ -135,8 +137,6 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | frame_accurate    |No | This boolean allows the capture to be done using frame accuracy. | true |
 | copy_ts           |No | This boolean indicates whether the timestamps should be included in the resulting manifests. | false |
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
-| key_id            |No | Should the stream be DRM’d we would require the KeyID. ||
-| content_key       |No | Should the stream be DRM’d we would require the Content Key. ||
 | generate_vod      |No | This boolean indicates whether VOD manifests are generated for the capture. | true |
 | create_thumbnail  |No | This boolean indicates whether a thumbnail should be created for the content. | true |
 | thumbnail_time    |No | Time at which the thumbnail will be taken. | first frame |
@@ -170,7 +170,9 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
         "source": "http://mydomain.com/live.isml/manifest",
         "start": "2018-06-06T10:00:00.000",
         "end": "2018-06-06T10:30:00.000",
-        "filter": "type==\"audio\"||type==\"video\"&&systemBitrate==1300000"
+        "filter": "type==\"audio\"||type==\"video\"&&systemBitrate==1300000",
+        "key_id": "346AS5847333DDSHKFSDS7633429CD33",
+        "content_key": "346AS5847333DDSHKFSDS7633429CD33"
       }
     ],
     "enable_drm": false,
@@ -187,8 +189,6 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
       "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
       "http://your.custom.endpoint"
     ],
-    "key_id": "346AS5847333DDSHKFSDS7633429CD33",
-    "content_key": "346AS5847333DDSHKFSDS7633429CD33",
     "create_thumbnail": true,
     "thumbnail_time": "1:34.000",
     "generate_mp4": true,
