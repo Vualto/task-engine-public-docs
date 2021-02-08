@@ -1,5 +1,13 @@
 # RELEASE NOTES
 
+## 1.170.4 - 18/11/2020
+
+- Bugfix: Fixed failing re-run job endpoint.
+  
+## 1.170.3 - 18/11/2020
+
+- Bugfix: Transcoding file extension check was case sensitive. 
+  
 ## 1.170.2 - 21/10/2020
 
 - Bugfix: Fixed issue causing some scheduled jobs to never be queued.
