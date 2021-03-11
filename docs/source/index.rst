@@ -6,7 +6,7 @@ TASK ENGINE Documentation
    :hidden:
    
    ALL DOCUMENTATION <https://docs.vualto.com>
-   Task Engine <https://docs.vualto.com/projects/task-engine/en/latest/index.html>
+   TASK ENGINE <https://docs.vualto.com/projects/task-engine/en/latest/index.html>
 
 The Task Engine is a product that facilitates the creation of VOD from online and offline sources. It is designed to allow simple or complicated custom workflows to be developed, deployed and maintained easily and quickly. The Task Engine is exposed via a REST API and reports back to the client system via a callback mechanism.
 
