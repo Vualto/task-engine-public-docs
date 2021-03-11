@@ -25,7 +25,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   UserGuide.rst
    DeveloperDocumentation.rst
    ReleaseNotes.md
    Support.md
