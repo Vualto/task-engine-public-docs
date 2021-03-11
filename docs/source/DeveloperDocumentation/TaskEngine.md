@@ -1,4 +1,4 @@
-# Integration
+# INTEGRATION
 
 There are two main integration points for the Task Engine:
 

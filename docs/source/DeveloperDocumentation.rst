@@ -7,7 +7,7 @@ As mentioned in the index page the Task Engine facilitates the creation of VOD f
    :maxdepth: 2
 
    VCH API<https://docs.vualto.com/projects/VIS/en/latest/>
-   Clip2VU <https://docs.vualto.com/projects/clip2vu/en/latest/>
+   CLIP2VU <https://docs.vualto.com/projects/clip2vu/en/latest/>
    MEDIA SYNDICATION<https://docs.vualto.com/projects/media-syndication/en/latest/>
    DeveloperDocumentation/TaskEngine.md
    DeveloperDocumentation/TaskEngineAPI.md
