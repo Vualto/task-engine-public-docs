@@ -1,4 +1,4 @@
-# Support
+# SUPPORT
 
 ## How to contact us
 
