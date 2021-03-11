@@ -12,7 +12,7 @@ For all critical issues please contact support via one of the numbers below.
 
 If there is a problem, please include as much information about the issue as possible.
 
-### System Requirements
+## System Requirements
 
 The Task Engine is designed to run in Docker containers, and is therefore able to run on any Docker-supported Linux host. Recent releases of the Task Engine are also compatible with Kubernetes deployments and are fully integrated with Rancher for easy deployment and upgrade management. Any workers that need to run on Windows are currently **not** containerized but are installed as a native Windows service. Windows workers are a requirement for frame accurate captures.
 
