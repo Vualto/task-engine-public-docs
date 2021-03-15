@@ -1,6 +1,6 @@
 # TASK ENGINE WORKFLOW FEATURES
 
-## Priority
+## PRIORITY
 
 The Task Engine supports ordering of jobs by priority. The priority parameter can be submitted as part of the json payload being submitted. The priority is in ascending order as follows:
 
@@ -42,7 +42,7 @@ The advantage of using priority slots is to stop the queue from being held up by
 
 **Important note**: This will not increase the number of max concurrent jobs but it will reserve some fo the concurrency for jobs with priority between 1 and 5. As an example, if a setup has 5 maximum concurrent jobs and the priority slots is set to 2, any job can ustilise 3 concurrency slots but only jobs with priority between 1 and 5 can use the 2 priority slots.
 
-## Stitching Clips
+## STITCHING CLIPS
 
 The Task Engine includes a feature that will allow multiple clips to be stitched together into a single clip, in a single job. This can be done by defining multiple objects within the `"clips"` parameter in the json payload for [VOD Capture](TaskEngineWorkflows.md#vod-capture). This also allows a mixture of live and VoD sources to be captured and stitched together into a new clip. The example below shows how the `"clips"` parameter would need to be provided to achieve this.
 
@@ -79,7 +79,7 @@ The Task Engine includes a feature that will allow multiple clips to be stitched
 }
 ```
 
-## Multiple Sources
+## MULTIPLE SOURCES
 
 In some cases, a live stream could have multiple origins setup (eg. for load balancing the origin servers). The Task Engine, allows for both streams to be defined as the source for a capture. It is smart enough to find which live stream will provide the best output capture and use that stream as the source. If the Task Engine discovers discontinuities within the streams, it will use segments from both streams to try and generate a clip with the least number of missing fragments.
 
@@ -144,13 +144,13 @@ In this case, `"sources"`  replaces the `"source"` parameter, however; it can st
 }
 ```
 
-## Generate Download Clips
+## GENERATE DOWNLOAD CLIPS
 
 The Task Engine [VOD Capture](TaskEngineWorkflows.md#vod-capture) workflow supports generating download clips without creating VoD assets. This is done by setting the property `"generate_vod"` to false and `"generate_mp4"` to true. It is important that if `"generate_vod"` is set to false, to not manually override the `"create_dref"` parameter. Setting `"create_dref"` to true will lead to a failed workflow as this requires VoD assets to generate DREF mp4s.
 
 The resulting download will be an MP4 containing all the video, audio and caption tracks defined using the clip's `"filter"` parameter. If no filter is defined, the resulting MP4 will contain all the tracks available in the stream.
 
-## Scheduler
+## SCHEDULER
 
 The Task Engine supports scheduling of jobs via the `run_at` and `sempahore_url` job attributes. Jobs are moved from a queue_state of `scheduled` to a queue_state of `queued` via a scheduler-worker. The interval at which this runs is pulled from the database settings table (schedule_interval, default: 1 hour).
 
@@ -203,7 +203,7 @@ In the above example the job will be queued at 10:00AM on the 6th of June 2040 a
 
 If a capture is submitted with a clip end time that is in the future, it will be automatically scheduled to run at the end time of the clip which is furthest in the future. The exception to this is if the `run_at` time is specified and is further in the future than the end time, then the `run_at` time will be used.
 
-## Track Properties
+## TRACK PROPERTIES
 
 There are instances when track properties need to be added to specific tracks within the VOD manifest. This usually occurs when custom track descriptions or track roles need to be set. The Task Engine supports adding track properties to audio and subtitle tracks. Filtering of tracks is based on type (`audio` or `textstream`) and a combination of language and/or track role. The filters and values can be set in Vualto's Central Configuration so they can easily be applied to all VODs being captured or ingested. They can also be defined as part of the job submission. The value set will overwrite the existing value for the property, if it already exists. Below are some samples of how the filters can be defined.
 
@@ -272,7 +272,7 @@ Setting a combination of properties to both audio and subtitle tracks.
 
 Support is confirmed for `track_description`, `track_role` and `track_name` properties, but other properties may be supported.
 
-## Storage Support
+## STORAGE SUPPORT
 
 The Task Engine supports multiple storage types for ingesting content and saving VOD. Support has also been added so a combination of storage types can be used for the same job. This can be done by setting the `source_storage` and `destination_storage` in the job payload (for supported workflows). Eg. Ingesting content from local storage and save VOD assets on S3 would require `source_storage` to be set to `local` and `destination_storage` to be set to `S3`.
 
@@ -285,7 +285,7 @@ Natively supported storage types:
 - On premises infrastructure (`local`)
 
 
-## Preview Thumbnails
+## PREVIEW THUMBNAILS
 
 Preview thumbnails refers to the thumbnails that appear on the a video player's timeline as the user hovers over the progress bar. These can be generated on 3 different occasions:
 
