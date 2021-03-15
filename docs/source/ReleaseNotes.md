@@ -1,17 +1,17 @@
 # RELEASE NOTES
 
-* [November 2020](#november-2020)
-* [October 2020](#october-2020)
-* [September 2020](#september-2020)
-* [July 2020](#july-2020)
-* [March 2020](#march-2020)
-* [November 2019](#november-2019)
-* [October 2019](#october-2019)
-* [September 2019](#september-2019)
-* [August 2019](#august-2019)
-* [February 2019](#february-2019)
+* [NOVEMBER 2020](#november-2020)
+* [OCTOBER 2020](#october-2020)
+* [SEPTEMBER 2020](#september-2020)
+* [JULY 2020](#july-2020)
+* [MARCH 2020](#march-2020)
+* [NOVEMBER 2019](#november-2019)
+* [OCTOBER 2019](#october-2019)
+* [SEPTEMBER 2019](#september-2019)
+* [AUGUST 2019](#august-2019)
+* [FEBRUARY 2019](#february-2019)
 
-## November 2020
+## NOVEMBER 2020
 
 ###### v1.170.4 
 
@@ -21,13 +21,13 @@
 
 - Bugfix: Transcoding file extension check was case sensitive. 
 
-## October 2020
+## OCTOBER 2020
   
 ###### v1.170.2
 
 - Bugfix: Fixed issue causing some scheduled jobs to never be queued.
 
-## September 2020
+## SEPTEMBER 2020
 
 ###### v1.170.1
 
@@ -60,7 +60,7 @@
 - SCTE35 markers are preserved and included within the VOD.
 - Supports custom manifests that apply DRM keys from Vualto Archiver profiles to the resulting VOD.
 
-## July 2020
+## JULY 2020
 
 ###### v1.169.3
 
@@ -83,7 +83,7 @@
 - Queue reservation functionality for priority jobs.
 - Optimised thumbnail and VTT generation for timeline preview thumbnails.
 
-## March 2020
+## MARCH 2020
 
 ###### v1.168.1
 
@@ -102,13 +102,13 @@
 - Bugfix: Added index to audio tracks when ingesting mp4s. This is to ensure each track name is unique.
 - Added support for USP 1.10.18.
 
-## November 2019
+## NOVEMBER 2019
 
 ###### v1.167.2
 
 - Bitmovin enhancements for re-packaging.
 
-## October 2019
+## OCTOBER 2019
 
 ###### v1.167.1
 
@@ -136,13 +136,13 @@
 - CPIX support for DRM packaging.
 - Completed [vodremix](TaskEngineWorkflows.md#vod-remix) workflow.
 
-## September 2019
+## SEPTEMBER 2019
 
 ###### v1.166.8
 
 - Hotfix: Updated DRM switch callback message.
 
-## August 2019
+## AUGUST 2019
 
 ###### v1.166.7
 
@@ -168,7 +168,7 @@
 - Added vodcapture.json optional parameter "empty_target" to specify whether to delete the contents of the output folder or not.
 - New versioning system for the Task Engine.
 
-## February 2019
+## FEBRUARY 2019
 
 ###### v165 
 

@@ -1,6 +1,6 @@
 # TASK ENGINE WORKFLOWS
 
-## VOD Stream
+## VOD STREAM
 
 This workflow will generate a VOD asset from an offline source (eg. MP4). A server side manifest is created, with and/or without DRM, that can be used for on the fly delivery of VOD content via the Unified Streaming Platform.
 
@@ -112,7 +112,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## VOD Capture
+## VOD CAPTURE
 
 This workflow allows you to create a frame accurate VOD clip by passing in a start and end time. If the source stream contains time stamps, UTC time stamps can be used for the start and end times. The result will be a new VOD asset and/or a downloadable MP4.
 
@@ -230,7 +230,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## VOD Delete
+## VOD DELETE
 
 This workflow allows you to a delete VOD asset from storage.
 
@@ -293,7 +293,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | Name of the folder deleted from storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## DRM Switch
+## DRM SWITCH
 
 This workflow allows you to toggle DRM on and off for a VOD asset. Missing manifests will be generated when required. If the VOD asset does not have a DRM manifest and DRM is being enabled, a list of DRM systems needs to be provided as part of the payload.
 
@@ -362,7 +362,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | Full path of the active manifest, for the generated content. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Create MP4
+## CREATE MP4
 
 This workflow allows you to create an MP4 from a VOD asset.
 
@@ -433,7 +433,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Build Thumbnails
+## BUILD THUMBNAILS
 
 This workflow allows you to generate thumbnail assets which can then be used for video timeline previews.
 
@@ -502,7 +502,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | List of thumbnail assets uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## VOD Remix
+## VOD REMIX
 
 This workflow allows you to create a virtual VOD asset that is just a playlist referencing other VOD streams or video files.
 
@@ -659,7 +659,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | output            | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Generate GIF
+## GENERATE GIF
 
 This workflow allows you to create animated GIFs from a VOD stream.
 
@@ -742,7 +742,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Capture Frame
+## CAPTURE FRAME
 
 This workflow allows you to capture a single frame from a stream.
 
@@ -812,7 +812,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Asset Delete
+## ASSET DELETE
 
 This workflow allows you to delete individual assets without deleting an entire VOD directory.
 
@@ -982,7 +982,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | segments          | Segments used for the VOD asset. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
-## Workflow Trigger Example
+## WORKFLOW TRIGGER EXAMPLE
 
 Example of a curl command to trigger ingest for the [VOD Stream](#vod-stream) workflow:
 

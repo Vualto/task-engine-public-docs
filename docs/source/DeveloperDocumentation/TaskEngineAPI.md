@@ -2,7 +2,7 @@
 
 The Task Engine endpoints will always return a JSON response unless explicitly indicated otherwise.
 
-## Status Endpoints
+## STATUS ENDPOINTS
 
 ### GET: `/`
 
@@ -199,7 +199,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 </details><br /><br />
 
-## Job Endpoints
+## JOB ENDPOINTS
 
 ### POST: `/job`
 
@@ -466,7 +466,7 @@ Successful Response:
 
 </details><br /><br />
 
-## Log Endpoints
+## LOG ENDPOINTS
 
 ### GET: `/logs/<job id>`
 
@@ -564,7 +564,7 @@ Successful Response:
 
 </details><br /><br />
 
-## Scheduler Endpoints
+## SCHEDULER ENDPOINTS
 
 ### GET: `/schedules`
 
@@ -664,7 +664,7 @@ Successful Response:
 
 </details><br /><br />
 
-## Settings Endpoints
+## SETTINGS ENDPOINTS
 
 ### POST: `/settings`
 

@@ -10,7 +10,7 @@ There are two main integration points for the Task Engine:
 
 The API is mainly used to trigger [workflows](TaskEngineWorkflows.md) within the Task Engine but additional API endpoints are available for job management. Full API documentation can be found [here](TaskEngineAPI.html)
 
-### Callbacks
+### CALLBACKS
 
 Callbacks are used to notify a integrated services with workflow execution updates. Callback URLs are submitted as part of the payloads and the Task Engine will send callbacks when:
 
@@ -46,6 +46,6 @@ Specifying the Vualto Control Hub Video Information Service web-hook (`https://v
 
 As Task Engine is an integration product that can be customised, any specific requirements are easily catered for (eg. setting authentication headers) and the body of a callbacks may also be modified.
 
-## Authentication
+## AUTHENTICATION
 
 All Task Engine API calls that require authentication currently use the client name and API key provided by Vualto. The credentials should be supplied as `client` and `api-key` headers respectively.
