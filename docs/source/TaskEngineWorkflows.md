@@ -530,7 +530,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | remote_execute_timeout_seconds    |No | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. | 0 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 | live_compose | No | Generate a live stream looping the playlist (as opposed to the default VOD) |`false`|
-| markers       |No | SCTE-35 markers object, see example below. | |
+| markers       |No | SCTE-35 markers object, see [example below](#markers-example). | |
 | markers.frame_accurate |No | Add sync samples at the markers position. | |
 | markers.meta_events    |No | Array of meta_event objects. | |
 | markers.meta\_events.presentation_time |Yes | Time position relative to the resulting presentation. | |
@@ -585,6 +585,8 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
   }
 }
 ```
+
+<a name="markers-example"></a>
 ### VOD Remix: JSON Payload example 2
 
 ```json
