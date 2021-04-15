@@ -514,7 +514,8 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | content_id        |Yes| This is the id for the resulting VOD.||
 | output_folder     |Yes| This is the folder where the resulting VOD will be saved on the destination storage. This is cleared before the capture is uploaded.||
 | clips             |Yes| This is an array of sources, with optional start and end times, please see the example request below. ||
-| clip: source      |Yes| This would need to be either a VOD stream or the URL to a video file. Must be accessible from both Task Engine and the Origin. E.g. `http://mydomain.com/manifest.ism`, `https://bucket-name.s3-eu-west-1.amazonaws.com/path/test.mp4` ||
+| clip: source      |Yes| This would need to be either a VOD stream or the URL to a video file. Must be accessible from both Task Engine and the Origin. E.g. `http://mydomain.com/manifest.ism`, `https://bucket-name.s3-eu-west-1.amazonaws.com/path/test.mp4`. Required unless `clip: sources` is used ||
+| clip: sources     |Yes| An array of video and audio files (tracks or renditions). E.g. `["http://library/path/low.mp4","http://library/high.mp4","http://library/eng.m4a"]`. Required unless `clip: source` is used ||
 | clip: start       |No | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”||
 | clip: end         |No | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss” ||
 | clip: frame_accurate    |No | This boolean indicates whether the specified clip will be trimmed using frame accuracy. | false |
@@ -528,8 +529,15 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | destination_storage         |No | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
 | remote_execute_timeout_seconds    |No | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. | 0 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
+| live_compose | No | Generate a live stream looping the playlist (as opposed to the default VOD) |`false`|
+| markers       |No | SCTE-35 markers object, see example below. | |
+| markers.frame_accurate |No | Add sync samples at the markers position. | |
+| markers.meta_events    |No | Array of meta_event objects. | |
+| markers.meta\_events.presentation_time |Yes | Time position relative to the resulting presentation. | |
+| markers.meta\_events.duration |Yes | Duration of the event. | |
+| markers.meta\_events.type |No | `replace` or `insert`. Whether the intention is to replace the underlying content with ads, or to insert ads and then resume from the point where was left. | `replace` |
 
-### VOD Remix: JSON Payload example
+### VOD Remix: JSON Payload example 1
 
 ```json
 {
@@ -574,6 +582,50 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
       "http://your.custom.endpoint"
     ],
     "output_file": "remix.mp4"
+  }
+}
+```
+### VOD Remix: JSON Payload example 2
+
+```json
+{
+  "client": "staging",
+  "job": {
+    "workflow": "vodremix"
+  },
+  "parameters": {
+    "content_id": "demo_1",
+    "output_folder": "demo_1",
+    "clips": [
+      {
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism"
+      }
+    ],
+    "drm": [
+        "fairplay",
+        "playready",
+        "cenc",
+        "widevine",
+        "aes"
+    ],
+    "rest_endpoints": [
+      "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
+      "http://your.custom.endpoint"
+    ],
+    "output_file": "remix.mp4",
+    "markers": {
+      "frame_accurate": true,
+      "meta_events": [
+        {
+          "presentation_time": "00:15:00",
+          "duration": "00:02:00.000"
+        },
+        {
+          "presentation_time": "00:32:00",
+          "duration": "00:00:30.000"
+        }
+      ]
+    }
   }
 }
 ```
