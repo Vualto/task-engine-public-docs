@@ -1,18 +1,27 @@
 # RELEASE NOTES
 
-## 1.170.4 - 18/11/2020
+* [v1.170](#v1-170)
+* [v1.169](#v1-169)
+* [v1.168](#v1-168)
+* [v1.167](#v1-167)
+* [v1.166](#v1-166)
+* [v1.165](#v1-165)
+
+## v1.170
+
+###### v1.170.4 - 18/11/2020
 
 - Bugfix: Fixed failing re-run job endpoint.
   
-## 1.170.3 - 18/11/2020
+###### v1.170.3 - 18/11/2020
 
 - Bugfix: Transcoding file extension check was case sensitive. 
   
-## 1.170.2 - 21/10/2020
+###### v1.170.2 - 21/10/2020
 
 - Bugfix: Fixed issue causing some scheduled jobs to never be queued.
 
-## 1.170.1 - 30/09/2020
+###### v1.170.1 - 30/09/2020
 
 - File properties in callbacks are returned as a JSON array instead of a string containing an array.
 - A new `custom_data` parameter has been added to all workflows to allow consumers to submit references they want returned in the final job callback.
@@ -43,19 +52,21 @@
 - SCTE35 markers are preserved and included within the VOD.
 - Supports custom manifests that apply DRM keys from Vualto Archiver profiles to the resulting VOD.
 
-## 1.169.3 - 09/07/2020
+## v1.169
+
+###### v1.169.3 - 09/07/2020
 
 - Dashboard hotfix.
 
-## 1.169.2 - 07/07/2020
+###### v1.169.2 - 07/07/2020
 
 - General release build.
 
-## 1.169.1 - 07/07/2020
+###### v1.169.1 - 07/07/2020
 
 - Build fixes.
 
-## 1.169.0 - 06/07/2020
+###### v1.169.0 - 06/07/2020
 
 - API enhancements for UI integrations.
 - Updated to a newer Ruby version.
@@ -64,7 +75,9 @@
 - Queue reservation functionality for priority jobs.
 - Optimised thumbnail and VTT generation for timeline preview thumbnails.
 
-## 1.168.1 - 17/03/2020
+## v1.168
+
+###### v1.168.1 - 17/03/2020
 
 - Added workflows for:
   - generating gifs
@@ -81,15 +94,17 @@
 - Bugfix: Added index to audio tracks when ingesting mp4s. This is to ensure each track name is unique.
 - Added support for USP 1.10.18.
 
-## 1.167.2 - 04/11/2019
+## v1.167
+
+###### v1.167.2 - 04/11/2019
 
 - Bitmovin enhancements for re-packaging.
 
-## 1.167.1 - 29/10/2019
+###### v1.167.1 - 29/10/2019
 
 - Bitmovin integration now supports setting the ACL permission for the mp4 outputs.
 
-## 1.167.0 - 25/10/2019
+###### v1.167.0 - 25/10/2019
 
 - Added support for Azure Blob Storage as a source and/or destination storage option.
   - The option needs to be specified as `azure_blob`.
@@ -111,20 +126,22 @@
 - CPIX support for DRM packaging.
 - Completed [vodremix](TaskEngineWorkflows.md#vod-remix) workflow.
 
-## 1.166.8 - 04/09/2019
+## v1.166
+
+###### v1.166.8 - 04/09/2019
 
 - Hotfix: Updated DRM switch callback message.
 
-## 1.166.7 - 20/08/2019
+###### v1.166.7 - 20/08/2019
 
 - Hotfix: supporting spaces in file inputs/outputs.
 
-## 1.166.6 - 14/08/2019
+###### v1.166.6 - 14/08/2019
 
 - Added support for USP 1.10.12.
 - Removed support for USP 1.8.5.
 
-## 1.166.5 - 13/08/2019
+###### v1.166.5 - 13/08/2019
 
 - Added visible field to log with show_all param toggling.
 - Improvements to the `build_thumbnails` workflow.
@@ -139,7 +156,9 @@
 - Added vodcapture.json optional parameter "empty_target" to specify whether to delete the contents of the output folder or not.
 - New versioning system for the Task Engine.
 
-## 165 - 15/02/2019
+## v1.165
+
+###### v165 - 15/02/2019
 
 - Fixed issue with retry job call from the front end (queue page).
 - Fixed bug with job scheduler not assigning the correct run_at time.
