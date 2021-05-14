@@ -112,6 +112,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Full path of the active manifest, for the generated content. |
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
+| metadata.duration | Duration of the VOD event. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
 ## VOD CAPTURE
@@ -230,6 +231,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Full path of the active manifest, for the generated content. |
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
+| metadata.duration | Duration of the VOD event. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
 ## VOD DELETE
@@ -614,6 +616,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | status            | This will identify the status of the job. It can be either `completed` or `failed`. |
 | workflow          | Name of the workflow being executed. |
 | output            | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
+| metadata.duration | Duration of the VOD event. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
 ## GENERATE GIF
@@ -937,6 +940,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | Full path of the active manifest, for the generated content. |
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | segments          | Segments used for the VOD asset. |
+| metadata.duration | Duration of the VOD event. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
 ## WORKFLOW TRIGGER EXAMPLE
