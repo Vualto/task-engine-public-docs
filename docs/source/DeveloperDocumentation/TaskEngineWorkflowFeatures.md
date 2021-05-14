@@ -301,3 +301,81 @@ Different players reference the VTT file differently. The following are some exa
 
 - [Bitmovin](https://bitmovin.com/demos/thumbnail-seeking)
 - [THEOPlayer](https://docs.portal.theoplayer.com/docs/next/add-ons/user-engagement/text-track/text-track-5-how-to-implement-thumbnails/#__docusaurus) 
+
+## AVOD AND LIVE COMPOSE
+
+The Vualto Task Engine now supports creating AVOD and Live Compose playlists using the vodremix workflow.  
+
+- AVOD refers to a playlist of VOD events with support for server side ad insertion and replacement through SCTE35 markers.
+- Live Compose refers to a playlist of VOD events, played out as a live stream, with support for server side ad replacement through SCTE35 markers. Ad insertion is currently not supported for simulated live streams. Live Compose playlists can be created by setting the `live_compose` flag to `true` in the job payload. The rest of the payload is identical to AVOD.
+
+A markers object can be added to each clip object. The marker object supports setting the timescale and sync samples for each marker. The main use for the marker object is to specify meta events (SCTE35 markers. It's important to note that the `presentation_time` property of each meta event is relative to the clip and will always consider the clip start to be "00:00:00".
+
+When adding meta events for ad replacement ( `"type": "replace"` - default) the `duration` property will indicate how much of the original event content is to be replaced by an ad. When adding meta events for ad insertion (`"type": "insert"`) the `duration` property indicates how long the ad inserted will be. The original event content will continue from where it stopped when the ad is inserted.
+
+The AVOD example below shows three VOD events (clips) being stitched together. The first VOD event has two SCTE 35 markers, a 4 minute and 30 second replacement marker at the 10 minute mark and a 30second ad insertion at the 16 minute mark. The second VOD event doesn't have any SCTE 35 markers. The third VOD event has a 2 minute replacement marker at the 5 minute mark.
+
+```json
+{
+  "parameters": {
+    "content_id": "demo_1",
+    "output_folder": "demo_1",
+    "clips": [
+      {
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism",
+        "markers": {
+          "frame_accurate": true,
+          "meta_events": [
+            {
+              "presentation_time": "00:10:00",
+              "duration": "00:04:30.000"
+            },
+            {
+              "type": "insert",
+              "presentation_time": "00:16:00",
+              "duration": "00:00:30.000"
+            }
+          ]
+        }
+      },
+      {
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest2.ism",
+        "start": "00:00:00.000",
+        "end": "00:10:00.000",
+        "frame_accurate": "true"
+      },
+      {
+        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest3.ism",
+        "start": "00:00:00.000",
+        "end": "00:20:00.000",
+        "frame_accurate": "true",
+        "markers": {
+          "meta_events": [
+            {
+              "type": "replace",
+              "presentation_time": "00:05:00",
+              "duration": "00:02:00"
+            }
+          ]
+        }
+      }
+    ],
+    "drm": [
+        "fairplay",
+        "playready",
+        "cenc",
+        "widevine",
+        "aes"
+    ],
+    "rest_endpoints": [
+      "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
+      "http://your.custom.endpoint"
+    ],
+    "output_file": "remix.mp4"
+  },
+  "client": "demo-client",
+  "job": {
+      "workflow": "vodremix"
+  }
+}
+```
