@@ -172,7 +172,7 @@ A jobs `run_at` and `semaphore_url` attributes can be set in multiple ways. The 
 
 1. When submitting a job
 
-`post '/job/:job_id'`
+`post '/job'`
 
 ```json
 {
