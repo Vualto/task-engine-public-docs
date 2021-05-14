@@ -540,7 +540,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 | live_compose | No | Generate a live stream looping the playlist (as opposed to the default VOD) |`false`|
 
-### VOD Remix: JSON Payload example 1
+### VOD Remix: JSON Payload example
 
 ```json
 {
