@@ -322,7 +322,11 @@ The AVOD example below shows three VOD events (clips) being stitched together. T
     "output_folder": "demo_1",
     "clips": [
       {
-        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism",
+        "sources": [
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip1_1080.mp4",
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip1_720.mp4",
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip1_480.mp4"
+        ],
         "markers": {
           "frame_accurate": true,
           "meta_events": [
@@ -339,13 +343,21 @@ The AVOD example below shows three VOD events (clips) being stitched together. T
         }
       },
       {
-        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest2.ism",
+        "sources": [
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip2_1080.mp4",
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip2_720.mp4",
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip2_480.mp4"
+        ],
         "start": "00:00:00.000",
         "end": "00:10:00.000",
         "frame_accurate": "true"
       },
       {
-        "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest3.ism",
+        "sources": [
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip3_1080.mp4",
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip3_720.mp4",
+          "https://bucket.s3-eu-west-1.amazonaws.com/clip3_480.mp4"
+        ],
         "start": "00:00:00.000",
         "end": "00:20:00.000",
         "frame_accurate": "true",
