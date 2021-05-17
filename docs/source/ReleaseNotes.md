@@ -38,7 +38,7 @@
 ###### Asset Delete
 
 - Bugfix: Added checks for empty arrays before deleting attempting to delete files.
-- 
+
 ## v1.170.x
 
 ##### v1.170.4 - 18/11/2020
