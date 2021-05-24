@@ -259,7 +259,7 @@ This endpoint is used to return a list of jobs from the Task Engine database. Fi
 **Optional Headers:None**<br />
 **Query String Parameters:**
 
-- `items` - the maximum number of jobs to return
+- `limit` - the maximum number of jobs to return
 - `order_by` - order the query by a job property
 - `asc` - order the results in ascending or descending order. Accepts 1 (true) or 0 (false)
 - `state` - filter by job state. One of the following IDs needs to be specified
@@ -375,7 +375,7 @@ Successful response for `/jobs/123`
 
 </details><br /><br />
        
-### PUT: `/job/<job_id>`
+### PUT: `/jobs/<job_id>`
 
 This endpoint is used to update job fields. Only a specific selection of fields can be updated after a job has been submitted. The response will return the job id and the result of the update.
 
