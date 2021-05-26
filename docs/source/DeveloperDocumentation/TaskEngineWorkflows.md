@@ -888,7 +888,7 @@ This workflow allows for creating and updating live compose streams - very simil
 }
 ```
 
-### Asset Delete: Callback properties
+### Medatailor Channel Assembly: Callback properties
 
 #### Task Callback
 
