@@ -903,7 +903,6 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
-| files   |         | List of assets deleted |
 
 #### Job Callback
 
@@ -964,7 +963,6 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
-| files   |         | List of assets deleted |
 
 #### Job Callback
 
