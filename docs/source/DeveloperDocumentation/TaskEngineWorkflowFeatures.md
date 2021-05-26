@@ -404,7 +404,7 @@ With this workflow, it is also possible to condition live streams for SSAI (serv
 
 > Important! VOD sources must be encoded similarly. For example the same number of renditions, codecs, resolutions, etc. Job requests with mixed encoding proflies will fail validation.
 
-The example below would result in a live stream where assets 1, 2, and 3 would loop infintetly with ad breaks (with ad-slate as underlying content) in between each clip.
+The example below would result in a live stream where assets 1, 2, and 3 would loop infintetly with ad breaks (with ad-slate as underlying content) in between each clip. Clip 3 would have an additional ad break approximately 30 seconds in the video (mid-roll).
 
 ```json
 {
@@ -444,6 +444,10 @@ The example below would result in a live stream where assets 1, 2, and 3 would l
             {
               "slate": "https://cdn.com/assets/ad-slate.m3u8",
               "presentation_time": "00:00:00"
+            },
+            {
+              "slate": "https://cdn.com/assets/ad-slate.m3u8",
+              "presentation_time": "00:00:30"
             }
           ]
         }
