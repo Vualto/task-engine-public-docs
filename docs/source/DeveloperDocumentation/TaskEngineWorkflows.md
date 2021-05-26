@@ -841,7 +841,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 
 ## MEDIATAILOR CHANNEL ASSEMBLY
 
-This workflow allows for creating and updating live compose streams - very similar to [VOD REMIX](TaskEngineWorkflows.html#vod-remix) [Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose).
+This workflow allows for creating and updating live compose streams - very similar to [VOD REMIX](TaskEngineWorkflows.html#vod-remix) [Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose). Please refer to [Live Compose with Manifest Manipulation](TaskEngineWorkflowFeatures.html#live-compose-with-manifest-manipulation) for more information and ad break singaling examples.
 
 ### Medatailor Channel Assembly: Parameters
 
