@@ -400,7 +400,7 @@ The AVOD example below shows three clips being stitched together. The first clip
 
 The Vualto Task Engine now supports manifest manipulation to generate live compose streams (looping of a VOD sources' playlist), using AWS Mediatailor Channel Assembly. This engine takes VOD streaming URLs directly and the resulting Live stream fragments come frome the original VOD streaming URLs - this could result in cost savings in caching layers in some instances.
 
-With this workflow, it is also possible condition live streams for SSAI (server side ad insertion), however, it requires ad slate clips (also in the form of VODs) in order to signal ad breaks. The slate clips are stitch linearly with the clip sources at the given `presentation_time` (relative to the clip source) and the relevant ad break timed metadata added to the resulting live stream. If no `presentation_time` is provided will default to `00:00:00` (pre-roll).
+With this workflow, it is also possible condition live streams for SSAI (server side ad insertion), however, it requires ad slate clips (also in the form of VODs) in order to signal ad breaks. The slate clips are stitched linearly with the clip sources at the given `presentation_time` (relative to the clip source) and the relevant ad break timed metadata added to the resulting live stream. If no `presentation_time` is provided will default to `00:00:00` (pre-roll).
 
 > Important! VOD sources must be encoded similarly. For example the same number of renditions, codecs, resolutions, etc. Job requests with mixed encoding proflies will fail validation and get aborted.
 
