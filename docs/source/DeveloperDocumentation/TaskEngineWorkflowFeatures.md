@@ -391,3 +391,67 @@ The AVOD example below shows three clips being stitched together. The first clip
   }
 }
 ```
+
+```json
+
+```
+
+## LIVE COMPOSE WITH MANIFEST MANIPULATION
+
+The Vualto Task Engine now supports manifest manipulation to generate live compose streams (looping of a VOD sources' playlist), using AWS Mediatailor Channel Assembly. This engine takes VOD streaming URLs directly and the resulting Live stream fragments come frome the original VOD streaming URLs - this could result in cost savings in caching layers in some instances.
+
+With this workflow, it is also possible condition live streams for SSAI (server side ad insertion), however, it requires ad slate clips (also in the form of VODs) in order to signal ad breaks. The slate clips are stitch linearly with the clip sources at the given `presentation_time` (relative to the clip source) and the relevant ad break timed metadata added to the resulting live stream. If no `presentation_time` is provided will default to `00:00:00` (pre-roll).
+
+> Important! VOD sources must be encoded similarly. For example the same number of renditions, codecs, resolutions, etc. Job requests with mixed encoding proflies will fail validation and get aborted.
+
+The example below would result in a live stream where assets 1, 2, and 3 would loop infintetly with ad breaks (with ad-slate as underlying content) in between each clip.
+
+```json
+{
+  "client": "demo-client",
+  "job": {
+    "workflow": "mediatailor_channel_assembly"
+  },
+  "parameters": {
+    "content_id": "demo-content",
+    "clips": [
+      {
+        "source": "https://cdn.com/assets/1.m3u8",
+        "markers": {
+          "meta_events": [
+            {
+              "slate": "https://cdn.com/assets/ad-slate.m3u8",
+              "presentation_time": "00:00:00"
+            }
+          ]
+        }  
+      },
+      {
+        "source": "https://cdn.com/assets/2.m3u8",
+        "markers": {
+          "meta_events": [
+            {
+              "slate": "https://cdn.com/assets/ad-slate.m3u8",
+              "presentation_time": "00:00:00"
+            }
+          ]
+        }
+      },
+      {
+        "source": "https://cdn.com/assets/3.m3u8",
+        "markers": {
+          "meta_events": [
+            {
+              "slate": "https://cdn.com/assets/ad-slate.m3u8",
+              "presentation_time": "00:00:00"
+            }
+          ]
+        }
+      }
+    ],
+    "rest_endpoints": [
+      "http://your.custom.endpoint"
+    ]
+  }
+}
+```
