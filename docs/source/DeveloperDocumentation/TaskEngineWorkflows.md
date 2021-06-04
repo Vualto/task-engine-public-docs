@@ -841,26 +841,26 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 
 ## MEDIATAILOR CHANNEL ASSEMBLY
 
-This workflow allows for creating and updating live compose streams - very similar to [VOD REMIX](TaskEngineWorkflows.html#vod-remix) [Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose). Please refer to [Live Compose with Manifest Manipulation](TaskEngineWorkflowFeatures.html#live-compose-with-manifest-manipulation) for more information and ad break singaling examples.
+This workflow allows for creating and updating Live Compose streams - very similar to [VOD REMIX](TaskEngineWorkflows.html#vod-remix) [Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose). Please refer to [Live Compose with Manifest Manipulation](TaskEngineWorkflowFeatures.html#live-compose-with-manifest-manipulation) for more information and ad break signaling examples.
 
-### Medatailor Channel Assembly: Parameters
+### MediaTailor Channel Assembly: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
 | workflow          |Yes| Specify 'mediatailor_channel_assembly'. ||
 | content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
-| clips             |Yes| This is an array of sources, with optional start and end times, please see the example request below. ||
+| clips             |Yes| This is an array of sources, each with optional start and end times, please see the example request below. ||
 | clips.source      |Yes| This is a VOD stream. Currently only HLS streams are supported. E.g. `http://mydomain.com/manifest.m3u8`. ||
-| clips.markers       |No | This object contains all the information related to the SCTE35 markers for the clip (see [AVOD and Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose) section). ||
+| clips.markers     |No | This object contains all the information related to the SCTE35 markers for the clip (see [AVOD and Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose) section). ||
 | clips.markers.meta_events    |No | Array of meta_event objects. | |
 | clips.markers.meta_events.presentation_time |Yes | This is the time position at which the marker will be inserted relative to the clip.| |
 | clips.markers.meta_events.slate |Yes | This is the duration of the marker. | |
-| restart_channel   |No | This boolean indicates whether the mediatailor channel must be restarted or not. Channel restart is required if the source types do not match |true|
-| dvr_window_length |No | The duration in seconds of the live stream dvr window |60|
+| restart_channel   |No | This boolean indicates whether the MediaTailor channel must be restarted or not. Channel restart is required if the source types do not match |true|
+| dvr_window_length |No | The duration in seconds of the live stream DVR window |60|
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
-| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference) and returns it as part of the job callback. | |
 
-### Medatailor Channel Assembly: Payload example
+### MediaTailor Channel Assembly: Payload example
 
 ```json
 {
@@ -888,7 +888,7 @@ This workflow allows for creating and updating live compose streams - very simil
 }
 ```
 
-### Medatailor Channel Assembly: Callback properties
+### MediaTailor Channel Assembly: Callback properties
 
 #### Task Callback
 
@@ -919,9 +919,9 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 
 ## MEDIATAILOR CHANNEL STATE
 
-This workflow allows for stopping and starting mediatailor channels.
+This workflow allows for stopping and starting MediaTailor channels.
 
-### Medatailor Channel State: Parameters
+### MediaTailor Channel State: Parameters
 
 | Parameter Name    | Required |  Description | Default |
 | ----------------- | -------- | ------------ | ------- |
@@ -932,7 +932,7 @@ This workflow allows for stopping and starting mediatailor channels.
 | rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
-### Medatailor Channel State: Payload example
+### MediaTailor Channel State: Payload example
 
 ```json
 {
@@ -948,7 +948,7 @@ This workflow allows for stopping and starting mediatailor channels.
 }
 ```
 
-### Medatailor Channel State: Callback properties
+### MediaTailor Channel State: Callback properties
 
 #### Task Callback
 

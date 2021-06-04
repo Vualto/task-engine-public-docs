@@ -392,19 +392,15 @@ The AVOD example below shows three clips being stitched together. The first clip
 }
 ```
 
-```json
-
-```
-
 ## LIVE COMPOSE WITH MANIFEST MANIPULATION
 
-The Vualto Task Engine now supports manifest manipulation to generate LIVE COMPOSE streams (VOD playlist looping), using AWS Mediatailor Channel Assembly. This workflow takes VOD streaming URLs directly and the resulting Live stream fragments come frome the original VOD streaming URLs - this could result in cost savings in caching layers in some instances.
+The VUALTO Task Engine now supports manifest manipulation to generate LIVE COMPOSE streams (VOD playlist looping), using AWS Mediatailor Channel Assembly. This workflow takes VOD streaming URLs directly and the resulting live stream fragments come from the original VOD streaming URLs - this could result in cost savings in caching layers.
 
 With this workflow, it is also possible to condition live streams for SSAI (server side ad insertion), however, it requires ad slate clips (also in the form of VODs) in order to signal ad breaks. The slate clips are stitched linearly with the clip sources at the given `presentation_time` (relative to the clip source) and the relevant ad break timed metadata added to the resulting live stream. If no `presentation_time` is provided, it will default to `00:00:00` (pre-roll).
 
-> Important! VOD sources must be encoded similarly. For example the same number of renditions, codecs, resolutions, etc. Job requests with mixed encoding proflies will fail validation.
+> Important! VOD sources must be encoded similarly. For example the same number of renditions, codecs, resolutions, etc. Job requests with mixed encoding profiles will fail validation.
 
-The example below would result in a live stream where assets 1, 2, and 3 would loop infintetly with ad breaks (with ad-slate as underlying content) in between each clip. Clip 3 would have an additional ad break approximately 30 seconds in the video (mid-roll).
+The example below would result in a live stream where assets `source_1.m3u8`, `source_2.m3u8`, and `source_3.m3u8` would loop infinitely with ad breaks (where the ad content is ad-slate.m3u8) in between each clip. `source_3.m3u8` would have an additional ad break approximately 30 seconds in the video (mid-roll).
 
 ```json
 {
@@ -416,7 +412,7 @@ The example below would result in a live stream where assets 1, 2, and 3 would l
     "content_id": "demo-content",
     "clips": [
       {
-        "source": "https://cdn.com/assets/1.m3u8",
+        "source": "https://cdn.com/assets/source_1.m3u8",
         "markers": {
           "meta_events": [
             {
@@ -427,7 +423,7 @@ The example below would result in a live stream where assets 1, 2, and 3 would l
         }  
       },
       {
-        "source": "https://cdn.com/assets/2.m3u8",
+        "source": "https://cdn.com/assets/source_2.m3u8",
         "markers": {
           "meta_events": [
             {
@@ -438,7 +434,7 @@ The example below would result in a live stream where assets 1, 2, and 3 would l
         }
       },
       {
-        "source": "https://cdn.com/assets/3.m3u8",
+        "source": "https://cdn.com/assets/source_3.m3u8",
         "markers": {
           "meta_events": [
             {
