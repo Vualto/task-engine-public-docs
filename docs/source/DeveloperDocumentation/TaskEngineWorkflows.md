@@ -156,6 +156,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | preview_thumbnails          |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. | false |
 | preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds. | 10 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
+| transcode_proxy   |No | This field accepts the url for the remote transcode proxy. | |
 
 ### VOD Capture: JSON Payload example
 
@@ -187,6 +188,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
       "aes"
     ],
     "frame_accurate": true,
+    "transcode_proxy": "https://vualto.transcode-proxy.com",
     "copy_ts": false,
     "rest_endpoints": [
       "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
@@ -540,7 +542,11 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | destination_storage         |No | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
 | remote_execute_timeout_seconds    |No | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. | 0 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
-| live_compose | No | Generate a live stream looping the playlist (as opposed to the default VOD) |`false`|
+| live_compose      |No | Generate a live stream looping the playlist (as opposed to the default VOD) |`false`|
+| stream_start_time |No | This field accepts a UTC timestamp eg. 2016-10-13T10:10:40.251Z that will be used to indicate when the Live Compose stream should start. | |
+| dvr_window_length |No | The duration in seconds of the live stream DVR window |60|
+| custom_active_manifest_name |No | This field accepts a string that will be used as the manifest name. | |
+| transcode_proxy   |No | This field accepts the url for the remote transcode proxy. | |
 
 ### VOD Remix: JSON Payload example
 
@@ -549,6 +555,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
   "parameters": {
     "content_id": "demo_1",
     "output_folder": "demo_1",
+    "transcode_proxy": "https://vualto.transcode-proxy.com",
     "clips": [
       {
         "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism",
@@ -1008,6 +1015,7 @@ A server side manifest is created, with and/or without DRM, that can be used for
 | missing_content_limit |No | The limit in seconds of missing content over which the VOD asset generation is abandoned. Missing content is usually caused by discontinuities from the Archiver source stream | 5.0 |
 | enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
+| transcode_proxy   |No | This field accepts the url for the remote transcode proxy | |
 
 ### VOD NPVR: JSON Payload example
 
@@ -1026,6 +1034,7 @@ A server side manifest is created, with and/or without DRM, that can be used for
             "capture_id": "test4"
         }
     ],
+    "transcode_proxy": "https://vualto.transcode-proxy.com",
     "output_root": "output_root",
     "apply_custom_drm": true,
     "profile_id": "test4_drm",
