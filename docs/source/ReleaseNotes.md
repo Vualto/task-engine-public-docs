@@ -1,5 +1,6 @@
 # RELEASE NOTES
 
+- [v1.172.x](#v1-172-x)
 - [v1.171.x](#v1-171-x)
 - [v1.170.x](#v1-170-x)
 - [v1.169.x](#v1-169-x)
@@ -7,6 +8,30 @@
 - [v1.167.x](#v1-167-x)
 - [v1.166.x](#v1-166-x)
 - [v1.165.x](#v1-165-x)
+
+## v1.172.x
+
+#### v1.172.0 - 07/06/2021
+
+- Added [`mediatailor_channel_assembly` workflow](DeveloperDocumentation/TaskEngineWorkflows.md#mediatailor-channel-assembly) for creating and updating MediaTailor VOD playlist channels.
+- Added [`mediatailor_channel state` workflow](DeveloperDocumentation/TaskEngineWorkflows.md#mediatailor-channel-state) for starting, stopping and deleting MediaTailor VOD playlist channels.
+- Added support for the [`priority_threshold` setting](DeveloperDocumentation/TaskEngineAPI.md#settings-endpoints).
+- Minor UI updates to reflect the new setting.
+
+###### VOD Capture
+
+- New `transcode_proxy` parameter for off loading frame accurate transcoding to a remote proxy.
+
+###### VOD Remix
+
+- New `stream_start_time` parameter for setting the stream start time for a Live Compose stream.
+- New `dvr_window_length` parameter for setting the DVR window for Live Compose streams
+- New `custom_active_manifest_name` parameter to allow the consumer to specify the manifest name for the resulting stream.
+- New `transcode_proxy` parameter for off loading frame accurate transcoding to a remote proxy.
+
+###### VOD Remix
+
+- New `transcode_proxy` parameter for off loading frame accurate transcoding to a remote proxy.
 
 ## v1.171.x
 
@@ -156,7 +181,7 @@
 - Added `output_root` option to all workflows.
 - API error codes updated.
 - CPIX support for DRM packaging.
-- Completed [vodremix](TaskEngineWorkflows.md#vod-remix) workflow.
+- Completed [vodremix](DeveloperDocumentation/TaskEngineWorkflows.md#vod-remix) workflow.
 
 ## v1.166.x
 

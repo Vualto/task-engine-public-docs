@@ -679,6 +679,7 @@ System default settings:
 
 - `max_jobs` - The maximum number of concurrent jobs. Default: 2
 - `priority_slots` - The number of concurrent job slots that should be reserved for high priority jobs. More information can be found [here](TaskEngineWorkflowFeatures.html#priority-slots). Default: 0
+- `priority_threshold` - The threshold at which jobs will start being considered as priority. Default: 5.
 - `schedule_interval` - The interval, in seconds, between scheduler executions. Default: 60
 - `retry_delay` - The delay, in seconds, between retries for failed Resque tasks. Default: 5
 - `retry_limit` - The number of times a Resque task should be retried before a job is abandoned. Default: 3
