@@ -156,6 +156,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | preview_thumbnails          |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. | false |
 | preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds. | 10 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
+| transcode_proxy   |No | This field accepts the url for the remote transcode proxy. | |
 
 ### VOD Capture: JSON Payload example
 
@@ -187,6 +188,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
       "aes"
     ],
     "frame_accurate": true,
+    "transcode_proxy": "https://vualto.transcode-proxy.com",
     "copy_ts": false,
     "rest_endpoints": [
       "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
@@ -540,7 +542,11 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | destination_storage         |No | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). | `S3` (system default) |
 | remote_execute_timeout_seconds    |No | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. | 0 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
-| live_compose | No | Generate a live stream looping the playlist (as opposed to the default VOD) |`false`|
+| live_compose      |No | Generate a live stream looping the playlist (as opposed to the default VOD) |`false`|
+| stream_start_time |No | This field accepts a UTC timestamp eg. 2016-10-13T10:10:40.251Z that will be used to indicate when the Live Compose stream should start. | |
+| dvr_window_length |No | The duration in seconds of the live stream DVR window |60|
+| custom_active_manifest_name |No | This field accepts a string that will be used as the manifest name. | |
+| transcode_proxy   |No | This field accepts the url for the remote transcode proxy. | |
 
 ### VOD Remix: JSON Payload example
 
@@ -549,6 +555,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
   "parameters": {
     "content_id": "demo_1",
     "output_folder": "demo_1",
+    "transcode_proxy": "https://vualto.transcode-proxy.com",
     "clips": [
       {
         "source": "https://bucket.s3-eu-west-1.amazonaws.com/manifest.ism",
@@ -839,6 +846,143 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | List of files to requested for deletion the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
 
+## MEDIATAILOR CHANNEL ASSEMBLY
+
+This workflow allows for creating and updating Live Compose streams - very similar to [VOD REMIX](TaskEngineWorkflows.html#vod-remix) [Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose). Please refer to [Live Compose with Manifest Manipulation](TaskEngineWorkflowFeatures.html#live-compose-with-manifest-manipulation) for more information and ad break signaling examples.
+
+### MediaTailor Channel Assembly: Parameters
+
+| Parameter Name    | Required |  Description | Default |
+| ----------------- | -------- | ------------ | ------- |
+| workflow          |Yes| Specify 'mediatailor_channel_assembly'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
+| clips             |Yes| This is an array of sources, each with optional start and end times, please see the example request below. ||
+| clips.source      |Yes| This is a VOD stream. Currently only HLS streams are supported. E.g. `http://mydomain.com/manifest.m3u8`. ||
+| clips.markers     |No | This object contains all the information related to the SCTE35 markers for the clip (see [AVOD and Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose) section). ||
+| clips.markers.meta_events    |No | Array of meta_event objects. | |
+| clips.markers.meta_events.presentation_time |Yes | This is the time position at which the marker will be inserted relative to the clip.| |
+| clips.markers.meta_events.slate |Yes | This is the duration of the marker. | |
+| restart_channel   |No | This boolean indicates whether the MediaTailor channel must be restarted or not. Channel restart is required if the source types do not match |true|
+| dvr_window_length |No | The duration in seconds of the live stream DVR window |60|
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference) and returns it as part of the job callback. | |
+
+### MediaTailor Channel Assembly: Payload example
+
+```json
+{
+  "client": "demo-client",
+  "job": {
+    "workflow": "mediatailor_channel_assembly"
+  },
+  "parameters": {
+    "content_id": "demo-content",
+    "clips": [
+      {
+        "source": "https://cdn.com/assets/1.m3u8"
+      },
+      {
+        "source": "https://cdn.com/assets/2.m3u8"
+      },
+      {
+        "source": "https://cdn.com/assets/3.m3u8"
+      }
+    ],
+    "rest_endpoints": [
+      "http://your.custom.endpoint"
+    ]
+  }
+}
+```
+
+### MediaTailor Channel Assembly: Callback properties
+
+#### Task Callback
+
+Task callbacks are triggered after each task within a workflow is completed. Below is a list of the default properties for the callback:
+
+| Property Name     | Required |
+| ----------------- | -------- |
+| job_id            | Unique job identifier generated by the Task Engine. |
+| task_id           | Unique task identifier generated by the Task Engine. |
+| task_name         | Name of the task that triggered the callback. |
+| workflow          | Name of the workflow being executed. |
+| event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
+| content_id        | Content ID provided when the job was submitted. |
+| message           | Any message associated with the event. This will usually contain exception messages. |
+
+#### Job Callback
+
+Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
+
+| Property Name     | Required |
+| ----------------- | -------- |
+| job_id            | Unique job identifier generated by the Task Engine. |
+| status            | This will identify the status of the job. It can be either `completed` or `failed`. |
+| workflow          | Name of the workflow being executed. |
+| content_id        | Content ID provided when the job was submitted. |
+| message           | Resulting live streaming URL |
+| custom_data       | Returns the custom data submitted to the workflow. |
+
+## MEDIATAILOR CHANNEL STATE
+
+This workflow allows for stopping and starting MediaTailor channels.
+
+### MediaTailor Channel State: Parameters
+
+| Parameter Name    | Required |  Description | Default |
+| ----------------- | -------- | ------------ | ------- |
+| workflow          |Yes| Specify 'mediatailor_channel_assembly'. ||
+| content_id        |Yes| Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. ||
+| state             |Yes| Either `start` or `stop` ||
+| delete            |No | This boolean indicates whether the channel must be deleted or not |false|
+| rest_endpoints    |No | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. ||
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
+
+### MediaTailor Channel State: Payload example
+
+```json
+{
+  "client": "demo-client",
+  "job": {
+    "workflow": "mediatailor_channel_state"
+  },
+  "parameters": {
+    "content_id": "demo-content",
+    "state": "stop",
+    "delete": true
+  }
+}
+```
+
+### MediaTailor Channel State: Callback properties
+
+#### Task Callback
+
+Task callbacks are triggered after each task within a workflow is completed. Below is a list of the default properties for the callback:
+
+| Property Name     | Required |
+| ----------------- | -------- |
+| job_id            | Unique job identifier generated by the Task Engine. |
+| task_id           | Unique task identifier generated by the Task Engine. |
+| task_name         | Name of the task that triggered the callback. |
+| workflow          | Name of the workflow being executed. |
+| event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
+| content_id        | Content ID provided when the job was submitted. |
+| message           | Any message associated with the event. This will usually contain exception messages. |
+
+#### Job Callback
+
+Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
+
+| Property Name     | Required |
+| ----------------- | -------- |
+| job_id            | Unique job identifier generated by the Task Engine. |
+| status            | This will identify the status of the job. It can be either `completed` or `failed`. |
+| workflow          | Name of the workflow being executed. |
+| content_id        | Content ID provided when the job was submitted. |
+| custom_data       | Returns the custom data submitted to the workflow. |
+
 ## VOD NPVR
 
 This workflow will generate a VOD asset from segments captured through the Vualto Archiver. Segments are shared across different VOD assets which reduces storage requirements and processing time. 
@@ -871,6 +1015,7 @@ A server side manifest is created, with and/or without DRM, that can be used for
 | missing_content_limit |No | The limit in seconds of missing content over which the VOD asset generation is abandoned. Missing content is usually caused by discontinuities from the Archiver source stream | 5.0 |
 | enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
+| transcode_proxy   |No | This field accepts the url for the remote transcode proxy | |
 
 ### VOD NPVR: JSON Payload example
 
@@ -889,6 +1034,7 @@ A server side manifest is created, with and/or without DRM, that can be used for
             "capture_id": "test4"
         }
     ],
+    "transcode_proxy": "https://vualto.transcode-proxy.com",
     "output_root": "output_root",
     "apply_custom_drm": true,
     "profile_id": "test4_drm",

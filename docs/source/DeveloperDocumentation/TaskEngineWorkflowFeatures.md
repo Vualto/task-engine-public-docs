@@ -36,11 +36,16 @@ Whenever an execution slot is available, the system will first check by priority
 
 ### Priority Slots
 
-To further enhance support for priority jobs, a new setting has been added to reserve job slots for default to top priority (1 - 5) jobs. This will allow a client to schedule as many low priority jobs as required while still having job slots free for default and priority jobs.
+Two [settings](TaskEngineAPI.md#settings-endpoints) are available to further enhance support for priority jobs.
 
-The advantage of using priority slots is to stop the queue from being held up by low priority jobs. This is especially useful if long running jobs are given a lower priority than the default as they can be queued up without exhausting the setup's concurrency availability.
+- Priority Slots - The number of job slots reserved for priority jobs.
+- Priority Threshold - The priority at which a job can run within a priority slot. The threshold value defaults to `5` and cannot be less than `1`.
 
-**Important note**: This will not increase the number of max concurrent jobs but it will reserve some fo the concurrency for jobs with priority between 1 and 5. As an example, if a setup has 5 maximum concurrent jobs and the priority slots is set to 2, any job can ustilise 3 concurrency slots but only jobs with priority between 1 and 5 can use the 2 priority slots.
+The advantage of using priority slots is to stop the queue from being held up by low priority jobs. This is especially useful if long running jobs are given a lower priority as they can be queued up without exhausting the setup's concurrency availability. It is also a good way of fast tracking certain types of jobs by giving them a higher priority and setting the threshold to an appropriate value. This ensures that the priority slots are reserved for such jobs. 
+
+The slots and threshold can be modified on the fly through the Task Engine API [settings endpoint](TaskEngineAPI.md#settings-endpoints).
+
+**Important note**: This will not increase the number of max concurrent jobs but it will reserve some fo the concurrency for jobs with priority between 1 and the `Priority Threshold`. As an example, if a setup has 5 maximum concurrent jobs and the priority slots is set to 2, any job can ustilise 3 concurrency slots but only priority jobs can utilise the 2 priority slots.
 
 ## STITCHING CLIPS
 
@@ -307,7 +312,7 @@ Different players reference the VTT file differently. The following are some exa
 The Vualto Task Engine now supports creating AVOD and Live Compose playlists using the vodremix workflow.  
 
 - AVOD refers to a playlist of clips (VOD or MP4s) with support for server side ad insertion and replacement through SCTE35 markers.
-- Live Compose refers to a playlist of clips (VOD or MP4s), played out as a live stream, with support for server side ad replacement through SCTE35 markers. Ad insertion is currently not supported for simulated live streams. Live Compose playlists can be created by setting the `live_compose` flag to `true` in the job payload. The rest of the payload is identical to AVOD.
+- Live Compose refers to a playlist of clips (VOD or MP4s), played out as a live stream, with support for server side ad replacement through SCTE35 markers. Ad insertion is currently not supported for simulated live streams. Live Compose playlists can be created by setting the `live_compose` flag to `true` in the job payload. To set a specific start time for a live stream use the `stream_start_time` parameter. If this is not set, the live stream will begin as soon as the manifest is packaged and available. The rest of the payload is identical to AVOD.
 
 A markers object can be added to each clip object. The marker object supports setting the timescale and sync samples for each marker. The main use for the marker object is to specify meta events (SCTE35 markers. It's important to note that the `presentation_time` property of each meta event is relative to the clip and will always consider the clip start to be "00:00:00".
 
@@ -372,12 +377,12 @@ The AVOD example below shows three clips being stitched together. The first clip
         }
       }
     ],
+    "dvr_window_length": 60,
     "drm": [
         "fairplay",
         "playready",
         "cenc",
-        "widevine",
-        "aes"
+        "widevine"
     ],
     "rest_endpoints": [
       "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
@@ -388,6 +393,70 @@ The AVOD example below shows three clips being stitched together. The first clip
   "client": "demo-client",
   "job": {
       "workflow": "vodremix"
+  }
+}
+```
+
+## LIVE COMPOSE WITH MANIFEST MANIPULATION
+
+The VUALTO Task Engine now supports manifest manipulation to generate LIVE COMPOSE streams (VOD playlist looping), using AWS Mediatailor Channel Assembly. This workflow takes VOD streaming URLs directly and the resulting live stream fragments come from the original VOD streaming URLs - this could result in cost savings in caching layers.
+
+With this workflow, it is also possible to condition live streams for SSAI (server side ad insertion), however, it requires ad slate clips (also in the form of VODs) in order to signal ad breaks. The slate clips are stitched linearly with the clip sources at the given `presentation_time` (relative to the clip source) and the relevant ad break timed metadata added to the resulting live stream. If no `presentation_time` is provided, it will default to `00:00:00` (pre-roll).
+
+> Important! VOD sources must be encoded similarly. For example the same number of renditions, codecs, resolutions, etc. Job requests with mixed encoding profiles will fail validation.
+
+The example below would result in a live stream where assets `source_1.m3u8`, `source_2.m3u8`, and `source_3.m3u8` would loop infinitely with ad breaks (where the ad content is ad-slate.m3u8) in between each clip. `source_3.m3u8` would have an additional ad break approximately 30 seconds in the video (mid-roll).
+
+```json
+{
+  "client": "demo-client",
+  "job": {
+    "workflow": "mediatailor_channel_assembly"
+  },
+  "parameters": {
+    "content_id": "demo-content",
+    "clips": [
+      {
+        "source": "https://cdn.com/assets/source_1.m3u8",
+        "markers": {
+          "meta_events": [
+            {
+              "slate": "https://cdn.com/assets/ad-slate.m3u8",
+              "presentation_time": "00:00:00"
+            }
+          ]
+        }  
+      },
+      {
+        "source": "https://cdn.com/assets/source_2.m3u8",
+        "markers": {
+          "meta_events": [
+            {
+              "slate": "https://cdn.com/assets/ad-slate.m3u8",
+              "presentation_time": "00:00:00"
+            }
+          ]
+        }
+      },
+      {
+        "source": "https://cdn.com/assets/source_3.m3u8",
+        "markers": {
+          "meta_events": [
+            {
+              "slate": "https://cdn.com/assets/ad-slate.m3u8",
+              "presentation_time": "00:00:00"
+            },
+            {
+              "slate": "https://cdn.com/assets/ad-slate.m3u8",
+              "presentation_time": "00:00:30"
+            }
+          ]
+        }
+      }
+    ],
+    "rest_endpoints": [
+      "http://your.custom.endpoint"
+    ]
   }
 }
 ```
