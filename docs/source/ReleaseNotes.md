@@ -11,6 +11,14 @@
 
 ## v1.172.x
 
+#### 1.172.5 - 18/08/2021
+
+- Minor hot fixes introduced by 1.172.3 release
+
+#### v1.172.3 - 17/08/2021
+
+- Added support for transmuxing when generating the mp4 based on the duration of the content.
+- 
 #### v1.172.0 - 07/06/2021
 
 - Added [`mediatailor_channel_assembly` workflow](DeveloperDocumentation/TaskEngineWorkflows.md#mediatailor-channel-assembly) for creating and updating MediaTailor VOD playlist channels.
