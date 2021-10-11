@@ -142,6 +142,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | clips.filter      |No | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000". ||
 | clips.key_id      |No | Should the stream be DRM’d we would require the KeyID. ||
 | clips.content_key |No | Should the stream be DRM’d we would require the Content Key. ||
+| clips.seed        |No | Should the stream be encrypted with VUDRM, this can be provided instead of the key_id and content_key. ||
 | encrypted (deprecated) |No | Deprecated and replaced by `enable_drm` for clarity. | |
 | enable_drm        |No | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. | true |
 | drm               |No | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. | ["clear"] |
