@@ -99,6 +99,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -114,6 +116,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | metadata.duration | Duration of the VOD event. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## VOD CAPTURE
 
@@ -220,6 +224,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -235,6 +241,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | files             | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | metadata.duration | Duration of the VOD event. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## VOD DELETE
 
@@ -285,6 +293,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -298,6 +308,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Name of the folder deleted from storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## DRM SWITCH
 
@@ -354,6 +366,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -367,6 +381,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Full path of the active manifest, for the generated content. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## CREATE MP4
 
@@ -424,6 +440,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -438,6 +456,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | MP4 filename. |
 | files             | List of files uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## BUILD THUMBNAILS
 
@@ -494,6 +514,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -507,6 +529,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | List of thumbnail assets uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## VOD REMIX
 
@@ -612,6 +636,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | workflow          | Name of the workflow being executed. |
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -625,6 +651,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | output            | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
 | metadata.duration | Duration of the VOD event. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## GENERATE GIF
 
@@ -694,6 +722,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -708,6 +738,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | GIF filename. |
 | files             | List of files uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## CAPTURE FRAME
 
@@ -764,6 +796,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -778,6 +812,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | message           | Image filename. |
 | files             | List of files uploaded to the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## ASSET DELETE
 
@@ -832,6 +868,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
 | files   |         | List of assets deleted |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -845,6 +883,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | List of files to requested for deletion the destination storage. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## MEDIATAILOR CHANNEL ASSEMBLY
 
@@ -910,6 +950,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -923,6 +965,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Resulting live streaming URL |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## MEDIATAILOR CHANNEL STATE
 
@@ -970,6 +1014,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -982,6 +1028,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | workflow          | Name of the workflow being executed. |
 | content_id        | Content ID provided when the job was submitted. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## VOD NPVR
 
@@ -1072,6 +1120,8 @@ Task callbacks are triggered after each task within a workflow is completed. Bel
 | event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
 | content_id        | Content ID provided when the job was submitted. |
 | message           | Any message associated with the event. This will usually contain exception messages. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 #### Job Callback
 
@@ -1088,6 +1138,8 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | segments          | Segments used for the VOD asset. |
 | metadata.duration | Duration of the VOD event. |
 | custom_data       | Returns the custom data submitted to the workflow. |
+| time              | Time (UTC) the callback was submitted. |
+| client            | Client name provided when the job was submitted. |
 
 ## WORKFLOW TRIGGER EXAMPLE
 
