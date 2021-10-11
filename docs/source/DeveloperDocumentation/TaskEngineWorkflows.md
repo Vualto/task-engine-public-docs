@@ -41,6 +41,11 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | encoding_region   |No | This is used to indicate in which region Bitmovin's encoding process should be executed. |  |
 | encoder_version   |No | This is used to select which Bitmovin encoder version. This is useful to allow testing with BETA releases of Bitmovin encoders | `STABLE` |
 | extract_audio     |No | This boolean indicates whether the audio track from the original source needs to be extracted. This only required when encoding the source into multiple bitrates | encode_source |
+| trickplay         |No | This boolean indicates whether trickplay should be added to the resulting VOD. | false |
+| trickplay_thumbnails        |No | This boolean indicates whether to generate thumbnail assets which can be used for trickplay. | <trickplay> |
+| trickplay_thumbnail_size    |No | This is used to specify the size of the long edge of each trickplay thumbnail (in pixels). | 0 (original size) | 
+| trickplay_thumbnail_interval|No | This is used to indicate the duration between trickplay thumbnails (in seconds). | 10 |
+| trickplay_thumbnail_quality |No | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100). | 30 |
 | custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### VOD Stream: JSON Payload example
@@ -159,8 +164,13 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | track_properties  |No | This is used to define track properties to be applied to the VOD (See [Track Properties](TaskEngineWorkflowFeatures.html#track-properties) section). ||
 | preview_thumbnails          |No |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. | false |
 | preview_thumbnails_interval |No | Interval time between thumbnail captures in seconds. | 10 |
-| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 | transcode_proxy   |No | This field accepts the url for the remote transcode proxy. | |
+| trickplay         |No | This boolean indicates whether trickplay should be added to the resulting VOD. | false |
+| trickplay_thumbnails        |No | This boolean indicates whether to generate thumbnail assets which can be used for trickplay. | <trickplay> |
+| trickplay_thumbnail_size    |No | This is used to specify the size of the long edge of each trickplay thumbnail (in pixels). | 0 (original size) | 
+| trickplay_thumbnail_interval|No | This is used to indicate the duration between trickplay thumbnails (in seconds). | 10 |
+| trickplay_thumbnail_quality |No | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100). | 30 |
+| custom_data       |No | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. | |
 
 ### VOD Capture: JSON Payload example
 
