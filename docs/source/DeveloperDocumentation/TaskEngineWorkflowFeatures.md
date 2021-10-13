@@ -292,6 +292,10 @@ Natively supported storage types:
 
 ## PREVIEW THUMBNAILS
 
+> **Note:**
+> 
+> Trickplay support has been added to the [VOD Capture](TaskEngineWorkflows.md#vod-capture) and [VOD Stream](TaskEngineWorkflows.md#vod-stream) workflows. This can be used as an alternative to generating the preview thumbnails.
+
 Preview thumbnails refers to the thumbnails that appear on the a video player's timeline as the user hovers over the progress bar. These can be generated on 3 different occasions:
 
 - When capturing content, by setting the `preview_thumbnails` property to `true` when submitting a [VOD Capture](TaskEngineWorkflows.html#vod-capture) job.

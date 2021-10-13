@@ -1,5 +1,6 @@
 # RELEASE NOTES
 
+- [v1.173.x](#v1-173-x)
 - [v1.172.x](#v1-172-x)
 - [v1.171.x](#v1-171-x)
 - [v1.170.x](#v1-170-x)
@@ -8,6 +9,32 @@
 - [v1.167.x](#v1-167-x)
 - [v1.166.x](#v1-166-x)
 - [v1.165.x](#v1-165-x)
+
+## v1.173.x
+
+#### 1.173.1
+
+- Improved filtering for trickplay track selection.
+
+#### 1.173.0
+
+- Bugfix: Fixed API error codes for issues when submitting a job with missing parameters.
+- Added support for the latest USP GA release, 1.11.9.
+
+###### Callbacks
+
+- Added UTC date and time to all workflow callbacks
+- Added the client name to all workflow callbacks
+
+###### VOD Capture
+
+- New `seed` parameter has been added to the clip object. This can be used instead of the `content_key` and `key_id` to capture from VUDRM encrypted streams.
+- Frame Accuracy is automatically enabled for captures from streams with discontinuities. This reduces the chance of audio/video sync issues.
+- Added support for adding trickplay to captures.
+
+###### VOD Capture
+
+- Added support for adding trickplay to ingests.
 
 ## v1.172.x
 
@@ -18,7 +45,7 @@
 #### v1.172.3 - 17/08/2021
 
 - Added support for transmuxing when generating the mp4 based on the duration of the content.
-- 
+
 #### v1.172.0 - 07/06/2021
 
 - Added [`mediatailor_channel_assembly` workflow](DeveloperDocumentation/TaskEngineWorkflows.md#mediatailor-channel-assembly) for creating and updating MediaTailor VOD playlist channels.
