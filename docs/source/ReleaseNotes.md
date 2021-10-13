@@ -32,7 +32,7 @@
 - Frame Accuracy is automatically enabled for captures from streams with discontinuities. This reduces the chance of audio/video sync issues.
 - Added support for adding trickplay to captures.
 
-###### VOD Capture
+###### VOD Stream
 
 - Added support for adding trickplay to ingests.
 
