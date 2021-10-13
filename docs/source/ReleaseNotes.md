@@ -12,6 +12,10 @@
 
 ## v1.173.x
 
+#### 1.173.1
+
+- Improved filtering for trickplay track selection.
+
 #### 1.173.0
 
 - Bugfix: Fixed API error codes for issues when submitting a job with missing parameters.
