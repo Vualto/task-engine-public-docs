@@ -137,8 +137,8 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | output_folder     |Yes| | This is the folder where the resulting capture will be saved on the destination storage. This is cleared before the capture is uploaded. |
 | clips             |yes| | This is an array of sources, with optional start and end times, please see the example request below. |
 | clips.source      |Yes| | This would need to be either an HLS, MSS or Dash stream URL to the Live or Archive content. e.g. `http://mydomain.com/test.ism/.m3u8` , `http://mydomain.com/test.ism/manifest` , `http://mydomain.com/test.ism/.mpd` |
-| clips.start       |No | | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z or Offsets e.g. “hh:mm:ss”. |
-| clips.end         |No | | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z or Offsets e.g. “hh:mm:ss”. |
+| clips.start       |No | | UTC timestamp for the start timecode. e.g `2016-10-13T10:10:40.251Z` or Offsets e.g. `hh:mm:ss`. |
+| clips.end         |No | | UTC timestamp for the end timecode e.g `2016-10-13T10:20:40.251Z` or Offsets e.g. `hh:mm:ss`. |
 | clips.filter      |No | | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000". |
 | clips.key_id      |No | | Should the stream be DRM’d we would require the KeyID. |
 | clips.content_key |No | | Should the stream be DRM’d we would require the Content Key. |
@@ -557,8 +557,8 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | clips             |Yes| | This is an array of sources, with optional start and end times, please see the example request below. |
 | clips.source      |Yes| | This would need to be either a VOD stream or the URL to a video file. Must be accessible from both Task Engine and the Origin. E.g. `http://mydomain.com/manifest.ism`, `https://bucket-name.s3-eu-west-1.amazonaws.com/path/test.mp4`. Required unless `clips.sources` is used. |
 | clips.sources     |Yes| | An array of video and audio files (tracks or renditions). E.g. `["http://library/path/low.mp4","http://library/high.mp4","http://library/eng.m4a"]`. Required unless `clips.source` is used. |
-| clips.start       |No | | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z OR Offsets e.g. “hh:mm:ss”. |
-| clips.end         |No | | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z OR Offsets e.g. “hh:mm:ss”. |
+| clips.start       |No | | UTC timestamp for the start timecode. e.g `2016-10-13T10:10:40.251Z` OR Offsets e.g. `hh:mm:ss`. |
+| clips.end         |No | | UTC timestamp for the end timecode e.g `2016-10-13T10:20:40.251Z` OR Offsets e.g. `hh:mm:ss`. |
 | clips.frame_accurate    |No | false | This boolean indicates whether the specified clip will be trimmed using frame accuracy. |
 | clips.output_description |No | false | This boolean indicates that this clip should be used to set the target profile. There should be only one clip with this set to true. |
 | clips.markers       |No | | This object contains all the information related to the SCTE35 markers for the clip (see [AVOD and Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose) section). |
@@ -578,7 +578,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | remote_execute_timeout_seconds    |No | 0 | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 | live_compose      |No | `false` | Generate a live stream looping the playlist (as opposed to the default VOD). |
-| stream_start_time |No | | This field accepts a UTC timestamp eg. 2016-10-13T10:10:40.251Z that will be used to indicate when the Live Compose stream should start. |
+| stream_start_time |No | | This field accepts a UTC timestamp eg. `2016-10-13T10:10:40.251Z` that will be used to indicate when the Live Compose stream should start. |
 | dvr_window_length |No | 60 | The duration in seconds of the live stream DVR window. |
 | custom_active_manifest_name |No | | This field accepts a string that will be used as the manifest name. |
 | transcode_proxy   |No | | This field accepts the url for the remote transcode proxy. |
@@ -1056,8 +1056,8 @@ A server side manifest is created, with and/or without DRM, that can be used for
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | clips             |yes| | This is an array of sources, with optional start and end times, please see the example request below. |
 | clips.capture_id  |Yes| | This would be the capture id for the Vualto Archiver event to be used as the source. |
-| clips.start       |Yes| | UTC timestamp for the start timecode. e.g 2016-10-13T10:10:40.251Z . |
-| clips.end         |Yes| | UTC timestamp for the end timecode e.g 2016-10-13T10:20:40.251Z . |
+| clips.start       |Yes| | UTC timestamp for the start timecode. e.g `2016-10-13T10:10:40.251Z` . |
+| clips.end         |Yes| | UTC timestamp for the end timecode e.g `2016-10-13T10:20:40.251Z` . |
 | output_folder     |Yes| | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | apply_custom_drm  |No | false | This boolean indicates whether a custom DRM manifest using drm keys from the specified Vualto Archiver profile. |
