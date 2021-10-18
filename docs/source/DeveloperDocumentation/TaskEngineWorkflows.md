@@ -139,7 +139,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | clips.source      |Yes| | This would need to be either an HLS, MSS or Dash stream URL to the Live or Archive content. e.g. `http://mydomain.com/test.ism/.m3u8` , `http://mydomain.com/test.ism/manifest` , `http://mydomain.com/test.ism/.mpd` |
 | clips.start       |No | | UTC timestamp for the start timecode. e.g `2016-10-13T10:10:40.251Z` or Offsets e.g. `hh:mm:ss`. |
 | clips.end         |No | | UTC timestamp for the end timecode e.g `2016-10-13T10:20:40.251Z` or Offsets e.g. `hh:mm:ss`. |
-| clips.filter      |No | | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps "type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000". |
+| clips.filter      |No | | This allows you to pass filter expressions to select certain video, audio tracks. e.g. to all video bitrates below 8Mbps and all audio bitrates at 64Kbps `"type==\\"video\\"&&systemBitrate==800000\|\|type==\\"audio\\"&&systemBitrate==64000"`. |
 | clips.key_id      |No | | Should the stream be DRM’d we would require the KeyID. |
 | clips.content_key |No | | Should the stream be DRM’d we would require the Content Key. |
 | clips.seed        |No | | Should the stream be encrypted with VUDRM, this can be provided instead of the key_id and content_key. |
