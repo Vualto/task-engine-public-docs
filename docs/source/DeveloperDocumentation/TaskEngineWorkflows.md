@@ -11,41 +11,41 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | workflow          |Yes| | Specify 'vodstream'. |
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | source_folder     |Yes| | Location of the source files. All files to be processed will need to be in a discrete folder, the ‘root’ folder will be specified in the client configuration. |
-| delete_source     |No | false | This boolean indicates whether the source should be deleted from source storage after the job has completed. |
+| delete_source     |No | `false` | This boolean indicates whether the source should be deleted from source storage after the job has completed. |
 | encrypted (deprecated) |No | | Deprecated and replaced by `enable_drm` for clarity. |
-| enable_drm        |No | true | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
-| output_folder     |No | source_folder | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. |
-| drm               |No | ["clear"] | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
-| cpix              |No | false | This boolean indicates whether DRM will be handled using a CPIX document. |
+| enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
+| output_folder     |No | {source_folder} | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. |
+| drm               |No | `["clear"]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
+| cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| create_thumbnail  |No | true | This boolean indicates whether a thumbnail should be created for the content. |
-| thumbnail_time    |No | 0s | Time at which the thumbnail will be taken. |
-| generate_mp4      |No | false | This boolean indicates whether an MP4 is generated for the VOD content. |
-| mp4_filename      |No | {content_id}.mp4 | Filename for the generated MP4, if generate_mp4 is set to true. |
-| mezzanine         |No | false | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
-| combine_sources   |No | true | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests. |
-| create_dref       |No | true | This boolean indicates whether a dref MP4 is generated for the VOD content. |
-| all_audio_tracks  |No | true | This boolean indicates whether all audio tracks or only the audio tracks with the highest bitrates for each language are packaged. |
-| encrypt_ismv      |No | false | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM. |
+| create_thumbnail  |No | `true` | This boolean indicates whether a thumbnail should be created for the content. |
+| thumbnail_time    |No | `0`s | Time at which the thumbnail will be taken. |
+| generate_mp4      |No | `false` | This boolean indicates whether an MP4 is generated for the VOD content. |
+| mp4_filename      |No | `"{content_id}.mp4"` | Filename for the generated MP4, if generate_mp4 is set to true. |
+| mezzanine         |No | `false` | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
+| combine_sources   |No | `true` | This boolean indicates whether the isma/v/ts generated from the source content are to be combined into a single ismv before packaging the manifests. |
+| create_dref       |No | `true` | This boolean indicates whether a dref MP4 is generated for the VOD content. |
+| all_audio_tracks  |No | `true` | This boolean indicates whether all audio tracks or only the audio tracks with the highest bitrates for each language are packaged. |
+| encrypt_ismv      |No | `false` | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM. |
 | playready_key     |No | | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM. |
-| preview_thumbnails          |No | false | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. |
-| preview_thumbnails_interval |No | 10 | Interval time between thumbnail captures in seconds. |
-| apply_track_properties      |No | false | This boolean indicates whether custom track properties (set in `track_properties` when submitting the job or in central configuration) should be applied to the VOD asset. |
+| preview_thumbnails          |No | `false` | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. |
+| preview_thumbnails_interval |No | `10` | Interval time between thumbnail captures in seconds. |
+| apply_track_properties      |No | `false` | This boolean indicates whether custom track properties (set in `track_properties` when submitting the job or in central configuration) should be applied to the VOD asset. |
 | track_properties  |No | | This is used to define track properties to be applied to the VOD (See [Track Properties](TaskEngineWorkflowFeatures.html#track-properties) section). |
-| retries           |No | 0 | This is used to indicate the number of times fetching the source should be re-tried. |
-| source_storage    |No | `S3` (system default) | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
-| destination_storage         |No | <source_storage> | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
-| encode_source     |No | false | This boolean indicates whether the source is to be encoded into multiple bitrates/resolutions. |
-| encoding_profile  |No | "H264" | This is used to indicate which encoding profiles are used when encoding the source. |
-| encoding_mode     |No | "STANDARD" | This is used to indicate which Bitmovin encoding mode is used (See [here](https://bitmovin.com/bitmovin-video-encoding-v2/) for more details). |
+| retries           |No | `0` | This is used to indicate the number of times fetching the source should be re-tried. |
+| source_storage    |No | `"S3"` (system default) | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| destination_storage         |No | {source_storage} | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| encode_source     |No | `false` | This boolean indicates whether the source is to be encoded into multiple bitrates/resolutions. |
+| encoding_profile  |No | `"H264"` | This is used to indicate which encoding profiles are used when encoding the source. |
+| encoding_mode     |No | `"STANDARD"` | This is used to indicate which Bitmovin encoding mode is used (See [here](https://bitmovin.com/bitmovin-video-encoding-v2/) for more details). |
 | encoding_region   |No |  | This is used to indicate in which region Bitmovin's encoding process should be executed. |
-| encoder_version   |No | `STABLE` | This is used to select which Bitmovin encoder version. This is useful to allow testing with BETA releases of Bitmovin encoders |
-| extract_audio     |No | encode_source | This boolean indicates whether the audio track from the original source needs to be extracted. This only required when encoding the source into multiple bitrates |
+| encoder_version   |No | `"STABLE"` | This is used to select which Bitmovin encoder version. This is useful to allow testing with BETA releases of Bitmovin encoders |
+| extract_audio     |No | `"{encode_source}"` | This boolean indicates whether the audio track from the original source needs to be extracted. This only required when encoding the source into multiple bitrates |
 | trickplay         |No | false | This boolean indicates whether trickplay should be added to the resulting VOD. |
-| trickplay_thumbnails        |No | <trickplay> | This boolean indicates whether to generate thumbnail assets which can be used for trickplay. |
-| trickplay_thumbnail_size    |No | 0 (original size) |  This is used to specify the size of the long edge of each trickplay thumbnail (in pixels). |
-| trickplay_thumbnail_interval|No | 10 | This is used to indicate the duration between trickplay thumbnails (in seconds). |
-| trickplay_thumbnail_quality |No | 30 | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100). |
+| trickplay_thumbnails        |No | `"{trickplay}"` | This boolean indicates whether to generate thumbnail assets which can be used for trickplay. |
+| trickplay_thumbnail_size    |No | `0` (original size) |  This is used to specify the size of the long edge of each trickplay thumbnail (in pixels). |
+| trickplay_thumbnail_interval|No | `10` | This is used to indicate the duration between trickplay thumbnails (in seconds). |
+| trickplay_thumbnail_quality |No | `30` | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### VOD Stream: JSON Payload example
@@ -144,33 +144,33 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | clips.content_key |No | | Should the stream be DRM’d we would require the Content Key. |
 | clips.seed        |No | | Should the stream be encrypted with VUDRM, this can be provided instead of the key_id and content_key. |
 | encrypted (deprecated) |No | | Deprecated and replaced by `enable_drm` for clarity. |
-| enable_drm        |No | true | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
-| drm               |No | ["clear"] | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
-| cpix              |No | false | This boolean indicates whether DRM will be handled using a CPIX document. |
-| frame_accurate    |No | true | This boolean allows the capture to be done using frame accuracy. |
-| copy_ts           |No | false | This boolean indicates whether the timestamps should be included in the resulting manifests. |
+| enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
+| drm               |No | `["clear"]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
+| cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
+| frame_accurate    |No | `true` | This boolean allows the capture to be done using frame accuracy. |
+| copy_ts           |No | `false` | This boolean indicates whether the timestamps should be included in the resulting manifests. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| generate_vod      |No | true | This boolean indicates whether VOD manifests are generated for the capture. |
-| create_thumbnail  |No | true | This boolean indicates whether a thumbnail should be created for the content. |
-| thumbnail_time    |No | first frame | Time at which the thumbnail will be taken. |
-| generate_mp4      |No | false | This boolean indicates whether an MP4 is generated for the VOD content. |
-| mp4_filename      |No | {content_id}.mp4 | Filename for the generated MP4. |
-| mezzanine         |No | false | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
-| create_dref       |No | <generate_vod> | This boolean indicates whether a dref MP4 is generated for the VOD content. |
-| encrypt_ismv      |No | false | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM. |
+| generate_vod      |No | `true` | This boolean indicates whether VOD manifests are generated for the capture. |
+| create_thumbnail  |No | `true` | This boolean indicates whether a thumbnail should be created for the content. |
+| thumbnail_time    |No | `0`s | Time at which the thumbnail will be taken. |
+| generate_mp4      |No | `false` | This boolean indicates whether an MP4 is generated for the VOD content. |
+| mp4_filename      |No | `"{content_id}.mp4"` | Filename for the generated MP4. |
+| mezzanine         |No | `false` | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
+| create_dref       |No | `"{generate_vod}"` | This boolean indicates whether a dref MP4 is generated for the VOD content. |
+| encrypt_ismv      |No | `false` | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM. |
 | playready_key     |No | | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM. |
-| empty_target      |No | true | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
-| destination_storage         |No | `S3` (system default) | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
-| apply_track_properties      |No | false | This boolean indicates whether custom track properties (set when submitting the job or in central configuration) should be applied to the VOD asset. |
+| empty_target      |No | `true` | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
+| destination_storage         |No | `"S3"` (system default) | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| apply_track_properties      |No | `false` | This boolean indicates whether custom track properties (set when submitting the job or in central configuration) should be applied to the VOD asset. |
 | track_properties  |No | | This is used to define track properties to be applied to the VOD (See [Track Properties](TaskEngineWorkflowFeatures.html#track-properties) section). |
-| preview_thumbnails          |No | false |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. |
-| preview_thumbnails_interval |No | 10 | Interval time between thumbnail captures in seconds. |
+| preview_thumbnails          |No | `false` |  This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. |
+| preview_thumbnails_interval |No | `10` | Interval time between thumbnail captures in seconds. |
 | transcode_proxy   |No | | This field accepts the url for the remote transcode proxy. |
-| trickplay         |No | false | This boolean indicates whether trickplay should be added to the resulting VOD. |
-| trickplay_thumbnails        |No | <trickplay> | This boolean indicates whether to generate thumbnail assets which can be used for trickplay. |
-| trickplay_thumbnail_size    |No | 0 (original size) |  This is used to specify the size of the long edge of each trickplay thumbnail (in pixels). |
-| trickplay_thumbnail_interval|No | 10 | This is used to indicate the duration between trickplay thumbnails (in seconds). |
-| trickplay_thumbnail_quality |No | 30 | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100). |
+| trickplay         |No | `false` | This boolean indicates whether trickplay should be added to the resulting VOD. |
+| trickplay_thumbnails        |No | `"{trickplay}"` | This boolean indicates whether to generate thumbnail assets which can be used for trickplay. |
+| trickplay_thumbnail_size    |No | `0` (original size) |  This is used to specify the size of the long edge of each trickplay thumbnail (in pixels). |
+| trickplay_thumbnail_interval|No | `10` | This is used to indicate the duration between trickplay thumbnails (in seconds). |
+| trickplay_thumbnail_quality |No | `30` | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### VOD Capture: JSON Payload example
@@ -267,7 +267,7 @@ This workflow allows you to a delete VOD asset from storage.
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | folder            |Yes| | Folder where the content to be deleted is currently saved. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| source_storage    |No | `S3` (system default) | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| source_storage    |No | `"S3"` (system default) | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### VOD Delete: JSON Payload example
@@ -333,10 +333,10 @@ This workflow allows you to toggle DRM on and off for a VOD asset. Missing manif
 | workflow          |Yes| | Specify 'drmswitch'. |
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | folder            |Yes| | Folder where the content to be DRM toggled is stored. |
-| drm               |No | [] | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`. |
+| drm               |No | `[]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`. |
 | cpix              |No | false | This boolean indicates whether DRM will be handled using a CPIX document. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| source_storage    |No | `S3` (system default) | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| source_storage    |No | `"S3"` (system default) | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### DRM Switch: Payload example
@@ -406,13 +406,13 @@ This workflow allows you to create an MP4 from a VOD asset.
 | workflow          |Yes| | Specify 'createmp4'. |
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | source_folder     |Yes| | Folder where the VoD source content can be found. |
-| output_folder     |No | <source_folder> | Folder where the MP4 should be saved. |
-| retries           |No | 0 | Retry limit when attempting to copy from the source storage. |
-| mp4_filename      |No | <content_id>.mp4 | The name of the resulting mp4 file. |
+| output_folder     |No | `"{source_folder}"` | Folder where the MP4 should be saved. |
+| retries           |No | `0` | Retry limit when attempting to copy from the source storage. |
+| mp4_filename      |No | `"{content_id}.mp4"` | The name of the resulting mp4 file. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| mezzanine         |No | false | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
-| source_storage    |No | `S3` (system default) | This is used to indicate where the source VOD is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
-| destination_storage         |No | <source_storage> | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| mezzanine         |No | `false` | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
+| source_storage    |No | `"S3"` (system default) | This is used to indicate where the source VOD is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| destination_storage         |No | `"{source_storage}"` | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### Create MP4: Payload example
@@ -481,12 +481,12 @@ This workflow allows you to generate thumbnail assets which can then be used for
 | workflow          |Yes| | Specify 'build_thumbnails'. |
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | source            |Yes| | URL of the HLS source from which to create assets. Live sources (.isml) must be in a state of `stopped`. |
-| filename_prefix   |No | <content_id> | Prefix for the file names of generated assets, eg: `<target_filename>_sprite.jpg` .|
-| output_folder     |Yes| <content_id> | This is the folder where the resulting assets will be saved on the destination storage. |
-| preview_thumbnails_interval   |No | 10 | Interval time between thumbnail captures in seconds. |
-| video_fps         |No | 24 | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. |
+| filename_prefix   |No | `"{content_id}"` | Prefix for the file names of generated assets, eg: `"{target_filename}_sprite.jpg"` .|
+| output_folder     |Yes| `"{content_id}"` | This is the folder where the resulting assets will be saved on the destination storage. |
+| preview_thumbnails_interval   |No | `10` | Interval time between thumbnail captures in seconds. |
+| video_fps         |No | `24` | Fallback parameter, which will only be used if the fps cannot be obtained from the source metadata. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| destination_storage         |No | `S3` (system default) | This is used to indicate the destination for the generated thumbnail assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| destination_storage         |No | `"S3"` (system default) | This is used to indicate the destination for the generated thumbnail assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### Build Thumbnails: Payload example
@@ -559,11 +559,11 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | clips.sources     |Yes| | An array of video and audio files (tracks or renditions). E.g. `["http://library/path/low.mp4","http://library/high.mp4","http://library/eng.m4a"]`. Required unless `clips.source` is used. |
 | clips.start       |No | | UTC timestamp for the start timecode. e.g `2016-10-13T10:10:40.251Z` OR Offsets e.g. `hh:mm:ss`. |
 | clips.end         |No | | UTC timestamp for the end timecode e.g `2016-10-13T10:20:40.251Z` OR Offsets e.g. `hh:mm:ss`. |
-| clips.frame_accurate    |No | false | This boolean indicates whether the specified clip will be trimmed using frame accuracy. |
-| clips.output_description |No | false | This boolean indicates that this clip should be used to set the target profile. There should be only one clip with this set to true. |
+| clips.frame_accurate    |No | `false` | This boolean indicates whether the specified clip will be trimmed using frame accuracy. |
+| clips.output_description |No | `false` | This boolean indicates that this clip should be used to set the target profile. There should be only one clip with this set to true. |
 | clips.markers       |No | | This object contains all the information related to the SCTE35 markers for the clip (see [AVOD and Live Compose](TaskEngineWorkflowFeatures.html#avod-and-live-compose) section). |
-| clips.markers.timescale      |No | 1000 | This is used to define the base timescale for the SCTE35 markers. |
-| clips.markers.frame_accurate |No | clip.frame_accurate | This is used to add sync samples at the markers position. |
+| clips.markers.timescale      |No | `1000` | This is used to define the base timescale for the SCTE35 markers. |
+| clips.markers.frame_accurate |No | `{clip.frame_accurate}` | This boolean is used to add sync samples at the markers position. |
 | clips.markers.meta_events    |No | | Array of meta_event objects. |
 | clips.markers.meta_events.presentation_time |Yes | | This is the time position at which the marker will be inserted relative to the clip.|
 | clips.markers.meta_events.duration |Yes | | This is the duration of the marker. |
@@ -571,15 +571,15 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | output_file       |No | remix.mp4 | Name of the output .mp4 file. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | drm               |No |  A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |["clear"]. |
-| cpix              |No | false | This boolean indicates whether DRM will be handled using a CPIX document. |
-| empty_target      |No | true | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
-| enable_drm        |No | true | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
-| destination_storage         |No | `S3` (system default) | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
-| remote_execute_timeout_seconds    |No | 0 | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. |
+| cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
+| empty_target      |No | `true` | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
+| enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
+| destination_storage         |No | `"S3"` (system default) | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| remote_execute_timeout_seconds    |No | `0` | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 | live_compose      |No | `false` | Generate a live stream looping the playlist (as opposed to the default VOD). |
 | stream_start_time |No | | This field accepts a UTC timestamp eg. `2016-10-13T10:10:40.251Z` that will be used to indicate when the Live Compose stream should start. |
-| dvr_window_length |No | 60 | The duration in seconds of the live stream DVR window. |
+| dvr_window_length |No | `60` | The duration in seconds of the live stream DVR window. |
 | custom_active_manifest_name |No | | This field accepts a string that will be used as the manifest name. |
 | transcode_proxy   |No | | This field accepts the url for the remote transcode proxy. |
 
@@ -681,14 +681,14 @@ This workflow allows you to create animated GIFs from a VOD stream.
 | output_folder     |Yes| | Folder where the GIF should be saved. |
 | gif_filename      |Yes| | The name of the resulting GIF file. |
 | bitrate           |No | | This is used to filter the source and capture the GIF from a specific video bitrate within the stream. |
-| fps               |No | 12 | The frames per second of the resulting bitrate. |
-| width             |No | -1 | The width of the resulting GIF. If not provided it will be calculated automatically based on the aspect ration and the height specified. |
-| height            |No | -1 | The height of the resulting GIF. If not provided, it will be calculated automatically based on the aspect ration and width specified. If neither height or width are specified, a height of 480 pixels is used. |
-| playback_loop     |No | 0 | The number of times the GIF should loop. |
-| reverse           |No | false | This boolean indicates whether the GIF should be played in revers. |
-| playback_speed    |No | 1 | This indicates the speed at which the GIF should be played back. Eg. `1.5` for GIF playback that is 1 and a half faster than the actual speed. |
+| fps               |No | `12` | The frames per second of the resulting bitrate. |
+| width             |No | `-1` | The width of the resulting GIF. If not provided it will be calculated automatically based on the aspect ration and the height specified. |
+| height            |No | `-1` | The height of the resulting GIF. If not provided, it will be calculated automatically based on the aspect ration and width specified. If neither height or width are specified, a height of 480 pixels is used. |
+| playback_loop     |No | `0` | The number of times the GIF should loop. |
+| reverse           |No | `false` | This boolean indicates whether the GIF should be played in revers. |
+| playback_speed    |No | `1` | This indicates the speed at which the GIF should be played back. Eg. `1.5` for GIF playback that is 1 and a half faster than the actual speed. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| destination_storage         |No | `S3` (system default) | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| destination_storage         |No | `"S3"` (system default) | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### Generate GIF: Payload example
@@ -767,7 +767,7 @@ This workflow allows you to capture a single frame from a stream.
 | output_folder     |Yes| | Folder where the captured frame should be saved. |
 | image_filename    |Yes| | The name of the resulting image file. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| destination_storage         |No | `S3` (system default) | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| destination_storage         |No | `"S3"` (system default) | This is used to indicate the destination for the generated MP4 (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### Capture Frame: Payload example
@@ -838,7 +838,7 @@ This workflow allows you to delete individual assets without deleting an entire 
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | files             |Yes| | Array of files to be deleted from S3. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| source_storage    |No | `S3` (system default) | This is used to indicate where the source VOD is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| source_storage    |No | `"S3"` (system default) | This is used to indicate where the source VOD is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### Asset Delete: Payload example
@@ -913,8 +913,8 @@ This workflow allows for creating and updating Live Compose streams - very simil
 | clips.markers.meta_events    |No | | Array of meta_event objects. |
 | clips.markers.meta_events.presentation_time |Yes | | This is the time position at which the marker will be inserted relative to the clip.|
 | clips.markers.meta_events.slate |Yes | | This is the duration of the marker. |
-| restart_channel   |No | true | This boolean indicates whether the MediaTailor channel must be restarted or not. Channel restart is required if the source types do not match. |
-| dvr_window_length |No | 60 | The duration in seconds of the live stream DVR window. |
+| restart_channel   |No | `true` | This boolean indicates whether the MediaTailor channel must be restarted or not. Channel restart is required if the source types do not match. |
+| dvr_window_length |No | `60` | The duration in seconds of the live stream DVR window. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference) and returns it as part of the job callback. |
 
@@ -1060,19 +1060,19 @@ A server side manifest is created, with and/or without DRM, that can be used for
 | clips.end         |Yes| | UTC timestamp for the end timecode e.g `2016-10-13T10:20:40.251Z` . |
 | output_folder     |Yes| | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| apply_custom_drm  |No | false | This boolean indicates whether a custom DRM manifest using drm keys from the specified Vualto Archiver profile. |
+| apply_custom_drm  |No | `false` | This boolean indicates whether a custom DRM manifest using drm keys from the specified Vualto Archiver profile. |
 | profile_id        |No | | This is the id for the profile used for the custom DRM manifest. |
-| custom_manifest_name  |No | `custom.ism` | The name to be given to the custom DRM manifest. |
-| drm               |No | ["clear"] | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present the the normal DRM manifest is not created. |
-| cpix              |No | false | This boolean indicates whether DRM will be handled using a CPIX document. |
-| empty_target      |No | true | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
-| source_storage    |No | `S3` (system default) | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
-| destination_storage         |No | <source_storage> | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
-| remote_execute_timeout_seconds    |No | 0 | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. |
-| overwrite_segments |No | false | This boolean indicates whether segments already in use by other VOD assets should be overwritten when generating the current VOD asset. |
+| custom_manifest_name  |No | `"custom.ism"` | The name to be given to the custom DRM manifest. |
+| drm               |No | `["clear"]` | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present the the normal DRM manifest is not created. |
+| cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
+| empty_target      |No | `true` | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
+| source_storage    |No | `"S3"` (system default) | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| destination_storage         |No | `"{source_storage}"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| remote_execute_timeout_seconds    |No | `0` | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. |
+| overwrite_segments |No | `false` | This boolean indicates whether segments already in use by other VOD assets should be overwritten when generating the current VOD asset. |
 | custom_package_options    |No | `--timed_metadata --splice_media` | This contains package options required to support SCTE35 markers within remix profiles. |
-| missing_content_limit |No | 5.0 | The limit in seconds of missing content over which the VOD asset generation is abandoned. Missing content is usually caused by discontinuities from the Archiver source stream. |
-| enable_drm        |No | true | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
+| missing_content_limit |No | `5.0` | The limit in seconds of missing content over which the VOD asset generation is abandoned. Missing content is usually caused by discontinuities from the Archiver source stream. |
+| enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 | transcode_proxy   |No | | This field accepts the url for the remote transcode proxy. |
 
