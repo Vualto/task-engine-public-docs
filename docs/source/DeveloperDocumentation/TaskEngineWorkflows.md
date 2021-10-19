@@ -19,7 +19,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | create_thumbnail  |No | `true` | This boolean indicates whether a thumbnail should be created for the content. |
-| thumbnail_time    |No | `0` | Time at which the thumbnail will be taken. |
+| thumbnail_time    |No | `0` (seconds) | Time at which the thumbnail will be taken. |
 | generate_mp4      |No | `false` | This boolean indicates whether an MP4 is generated for the VOD content. |
 | mp4_filename      |No | `"{content_id}.mp4"` | Filename for the generated MP4, if generate_mp4 is set to true. |
 | mezzanine         |No | `false` | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
@@ -34,14 +34,14 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | track_properties  |No | | This is used to define track properties to be applied to the VOD (See [Track Properties](TaskEngineWorkflowFeatures.html#track-properties) section). |
 | retries           |No | `0` | This is used to indicate the number of times fetching the source should be re-tried. |
 | source_storage    |No | `"S3"` (system default) | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
-| destination_storage         |No | {source_storage} | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
+| destination_storage         |No | `"{source_storage}"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | encode_source     |No | `false` | This boolean indicates whether the source is to be encoded into multiple bitrates/resolutions. |
 | encoding_profile  |No | `"H264"` | This is used to indicate which encoding profiles are used when encoding the source. |
 | encoding_mode     |No | `"STANDARD"` | This is used to indicate which Bitmovin encoding mode is used (See [here](https://bitmovin.com/bitmovin-video-encoding-v2/) for more details). |
 | encoding_region   |No |  | This is used to indicate in which region Bitmovin's encoding process should be executed. |
 | encoder_version   |No | `"STABLE"` | This is used to select which Bitmovin encoder version. This is useful to allow testing with BETA releases of Bitmovin encoders |
 | extract_audio     |No | `"{encode_source}"` | This boolean indicates whether the audio track from the original source needs to be extracted. This only required when encoding the source into multiple bitrates |
-| trickplay         |No | false | This boolean indicates whether trickplay should be added to the resulting VOD. |
+| trickplay         |No | `false` | This boolean indicates whether trickplay should be added to the resulting VOD. |
 | trickplay_thumbnails        |No | `"{trickplay}"` | This boolean indicates whether to generate thumbnail assets which can be used for trickplay. |
 | trickplay_thumbnail_size    |No | `0` (original size) |  This is used to specify the size of the long edge of each trickplay thumbnail (in pixels). |
 | trickplay_thumbnail_interval|No | `10` | This is used to indicate the duration between trickplay thumbnails (in seconds). |
@@ -152,7 +152,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | generate_vod      |No | `true` | This boolean indicates whether VOD manifests are generated for the capture. |
 | create_thumbnail  |No | `true` | This boolean indicates whether a thumbnail should be created for the content. |
-| thumbnail_time    |No | `0` | Time at which the thumbnail will be taken. |
+| thumbnail_time    |No | `0` (seconds) | Time at which the thumbnail will be taken. |
 | generate_mp4      |No | `false` | This boolean indicates whether an MP4 is generated for the VOD content. |
 | mp4_filename      |No | `"{content_id}.mp4"` | Filename for the generated MP4. |
 | mezzanine         |No | `false` | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
@@ -334,7 +334,7 @@ This workflow allows you to toggle DRM on and off for a VOD asset. Missing manif
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | folder            |Yes| | Folder where the content to be DRM toggled is stored. |
 | drm               |No | `[]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`. |
-| cpix              |No | false | This boolean indicates whether DRM will be handled using a CPIX document. |
+| cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | source_storage    |No | `"S3"` (system default) | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
@@ -568,9 +568,9 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | clips.markers.meta_events.presentation_time |Yes | | This is the time position at which the marker will be inserted relative to the clip.|
 | clips.markers.meta_events.duration |Yes | | This is the duration of the marker. |
 | clips.markers.meta_events.type |No | `replace` | `replace` or `insert`. This indicates whether the intention is to replace the underlying content with ads, or to insert ads and then resume from the point the ad was inserted. |
-| output_file       |No | remix.mp4 | Name of the output .mp4 file. |
+| output_file       |No | `"remix.mp4"` | Name of the output .mp4 file. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| drm               |No |  A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |["clear"]. |
+| drm               |No | `["clear"]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
 | cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
 | empty_target      |No | `true` | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
 | enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
@@ -990,7 +990,7 @@ This workflow allows for stopping and starting MediaTailor channels.
 | workflow          |Yes| | Specify 'mediatailor_channel_assembly'. |
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | state             |Yes| | Either `start` or `stop`. |
-| delete            |No | false | This boolean indicates whether the channel must be deleted or not. |
+| delete            |No | `false` | This boolean indicates whether the channel must be deleted or not. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
