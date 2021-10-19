@@ -14,12 +14,12 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | delete_source     |No | `false` | This boolean indicates whether the source should be deleted from source storage after the job has completed. |
 | encrypted (deprecated) |No | | Deprecated and replaced by `enable_drm` for clarity. |
 | enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
-| output_folder     |No | {source_folder} | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. |
+| output_folder     |No | `"{source_folder}"` | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. |
 | drm               |No | `["clear"]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
 | cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | create_thumbnail  |No | `true` | This boolean indicates whether a thumbnail should be created for the content. |
-| thumbnail_time    |No | `0`s | Time at which the thumbnail will be taken. |
+| thumbnail_time    |No | `0` | Time at which the thumbnail will be taken. |
 | generate_mp4      |No | `false` | This boolean indicates whether an MP4 is generated for the VOD content. |
 | mp4_filename      |No | `"{content_id}.mp4"` | Filename for the generated MP4, if generate_mp4 is set to true. |
 | mezzanine         |No | `false` | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
@@ -152,7 +152,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | generate_vod      |No | `true` | This boolean indicates whether VOD manifests are generated for the capture. |
 | create_thumbnail  |No | `true` | This boolean indicates whether a thumbnail should be created for the content. |
-| thumbnail_time    |No | `0`s | Time at which the thumbnail will be taken. |
+| thumbnail_time    |No | `0` | Time at which the thumbnail will be taken. |
 | generate_mp4      |No | `false` | This boolean indicates whether an MP4 is generated for the VOD content. |
 | mp4_filename      |No | `"{content_id}.mp4"` | Filename for the generated MP4. |
 | mezzanine         |No | `false` | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
