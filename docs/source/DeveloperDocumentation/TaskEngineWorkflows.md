@@ -1070,7 +1070,7 @@ A server side manifest is created, with and/or without DRM, that can be used for
 | destination_storage         |No | `"{source_storage}"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | remote_execute_timeout_seconds    |No | `0` | This parameter is used to specify the timeout length in seconds for remote workers to complete execution. |
 | overwrite_segments |No | `false` | This boolean indicates whether segments already in use by other VOD assets should be overwritten when generating the current VOD asset. |
-| custom_package_options    |No | `--timed_metadata --splice_media` | This contains package options required to support SCTE35 markers within remix profiles. |
+| custom_package_options    |No | `"--timed_metadata --splice_media"` | This contains package options required to support SCTE35 markers within remix profiles. |
 | missing_content_limit |No | `5.0` | The limit in seconds of missing content over which the VOD asset generation is abandoned. Missing content is usually caused by discontinuities from the Archiver source stream. |
 | enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
