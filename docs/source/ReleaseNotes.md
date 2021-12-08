@@ -28,7 +28,7 @@
 
 ###### VOD Capture
 
-- New `seed` parameter has been added to the clip object. This can be used instead of the `content_key` and `key_id` to capture from VUDRM encrypted streams.
+- New `seed` parameter has been added to the clip object. This can be used instead of the `content_key` and `key_id` to capture from Studio DRM encrypted streams.
 - Frame Accuracy is automatically enabled for captures from streams with discontinuities. This reduces the chance of audio/video sync issues.
 - Added support for adding trickplay to captures.
 

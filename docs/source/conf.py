@@ -32,8 +32,8 @@ def setup(app):
 # -- Project information -----------------------------------------------------
 
 project = u'vualto-task-engine-documentation'
-copyright = u'2018, VUALTO'
-author = u'VUALTO'
+copyright = u'2018, JW Player'
+author = u'JW Player'
 
 html_context = {
     'home_link': 'https://vualto-public-documentation.readthedocs-hosted.com',

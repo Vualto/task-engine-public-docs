@@ -42,10 +42,10 @@ Job callbacks vary depending on the workflow being executed but the following ar
 
 More information of the callbacks for each workflow can be found [here](TaskEngineWorkflows.md).
 
-Specifying the Vualto Control Hub Video Information Service web-hook (`https://vis.controlhub.[client].vualto.com/api/event/vuflow/taskenginecallback`) as a callback url, will be add the asset as a VOD event within the Vualto Control Hub CMS. A second CMS web-hook (`https://admin.controlhub.[client].vualto.com/vod/PublishVuflowData`) can also be included for realtime updates on the status of the job.
+Specifying the Broadcast Live Video Information Service web-hook (`https://vis.controlhub.[client].vualto.com/api/event/vuflow/taskenginecallback`) as a callback url, will be add the asset as a VOD event within the Broadcast Live CMS. A second CMS web-hook (`https://admin.controlhub.[client].vualto.com/vod/PublishVuflowData`) can also be included for realtime updates on the status of the job.
 
 As Task Engine is an integration product that can be customised, any specific requirements are easily catered for (eg. setting authentication headers) and the body of a callbacks may also be modified.
 
 ## AUTHENTICATION
 
-All Task Engine API calls that require authentication currently use the client name and API key provided by Vualto. The credentials should be supplied as `client` and `api-key` headers respectively.
+All Task Engine API calls that require authentication currently use the client name and API key provided by JW Player. The credentials should be supplied as `client` and `api-key` headers respectively.

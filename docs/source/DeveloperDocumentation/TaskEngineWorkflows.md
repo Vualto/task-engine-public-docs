@@ -27,7 +27,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | create_dref       |No | `true` | This boolean indicates whether a dref MP4 is generated for the VOD content. |
 | all_audio_tracks  |No | `true` | This boolean indicates whether all audio tracks or only the audio tracks with the highest bitrates for each language are packaged. |
 | encrypt_ismv      |No | `false` | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM. |
-| playready_key     |No | | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM. |
+| playready_key     |No | | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through Studio DRM. |
 | preview_thumbnails          |No | `false` | This boolean indicates whether to generate thumbnail assets which can be used for video timeline previews. |
 | preview_thumbnails_interval |No | `10` | Interval time between thumbnail captures in seconds. |
 | apply_track_properties      |No | `false` | This boolean indicates whether custom track properties (set in `track_properties` when submitting the job or in central configuration) should be applied to the VOD asset. |
@@ -158,7 +158,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | mezzanine         |No | `false` | This boolean indicates whether the generated mp4 contains all the video tracks or just the highest bitrate audio and video track. |
 | create_dref       |No | `"{generate_vod}"` | This boolean indicates whether a dref MP4 is generated for the VOD content. |
 | encrypt_ismv      |No | `false` | This boolean indicates whether the resulting ismv file should be encrypted. This is can be used to implement TransDRM. |
-| playready_key     |No | | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through VuDRM. |
+| playready_key     |No | | The playready key used to encrypt the ismv file (if encrypt_ismv is set to true). If no playready key is provided, one will be generated through Studio DRM. |
 | empty_target      |No | `true` | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
 | destination_storage         |No | `"S3"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | apply_track_properties      |No | `false` | This boolean indicates whether custom track properties (set when submitting the job or in central configuration) should be applied to the VOD asset. |
@@ -1044,7 +1044,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 
 ## VOD NPVR
 
-This workflow will generate a VOD asset from segments captured through the Vualto Archiver. Segments are shared across different VOD assets which reduces storage requirements and processing time. 
+This workflow will generate a VOD asset from segments captured through the Archiver. Segments are shared across different VOD assets which reduces storage requirements and processing time. 
 
 A server side manifest is created, with and/or without DRM, that can be used for on the fly delivery of VOD content via the Unified Streaming Platform. The [VOD NPVR](TaskEngineWorkflows.md#vod-npvr) workflow includes support to inherit the DRM keys form a specified Vualto Archiver profile and stores it as a custom manifest. This workflow will include any SCTE35 markers that occurred during each segment.
 
@@ -1055,12 +1055,12 @@ A server side manifest is created, with and/or without DRM, that can be used for
 | workflow          |Yes| | Specify 'vodnpvr'. |
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | clips             |yes| | This is an array of sources, with optional start and end times, please see the example request below. |
-| clips.capture_id  |Yes| | This would be the capture id for the Vualto Archiver event to be used as the source. |
+| clips.capture_id  |Yes| | This would be the capture id for the Archiver event to be used as the source. |
 | clips.start       |Yes| | UTC timestamp for the start timecode. e.g `2016-10-13T10:10:40.251Z` . |
 | clips.end         |Yes| | UTC timestamp for the end timecode e.g `2016-10-13T10:20:40.251Z` . |
 | output_folder     |Yes| | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
-| apply_custom_drm  |No | `false` | This boolean indicates whether a custom DRM manifest using drm keys from the specified Vualto Archiver profile. |
+| apply_custom_drm  |No | `false` | This boolean indicates whether a custom DRM manifest using drm keys from the specified Archiver profile. |
 | profile_id        |No | | This is the id for the profile used for the custom DRM manifest. |
 | custom_manifest_name  |No | `"custom.ism"` | The name to be given to the custom DRM manifest. |
 | drm               |No | `["clear"]` | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present the the normal DRM manifest is not created. |

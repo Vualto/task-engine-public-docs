@@ -210,7 +210,7 @@ If a capture is submitted with a clip end time that is in the future, it will be
 
 ## TRACK PROPERTIES
 
-There are instances when track properties need to be added to specific tracks within the VOD manifest. This usually occurs when custom track descriptions or track roles need to be set. The Task Engine supports adding track properties to audio and subtitle tracks. Filtering of tracks is based on type (`audio` or `textstream`) and a combination of language and/or track role. The filters and values can be set in Vualto's Central Configuration so they can easily be applied to all VODs being captured or ingested. They can also be defined as part of the job submission. The value set will overwrite the existing value for the property, if it already exists. Below are some samples of how the filters can be defined.
+There are instances when track properties need to be added to specific tracks within the VOD manifest. This usually occurs when custom track descriptions or track roles need to be set. The Task Engine supports adding track properties to audio and subtitle tracks. Filtering of tracks is based on type (`audio` or `textstream`) and a combination of language and/or track role. The filters and values can be set in JW Player's Central Configuration so they can easily be applied to all VODs being captured or ingested. They can also be defined as part of the job submission. The value set will overwrite the existing value for the property, if it already exists. Below are some samples of how the filters can be defined.
 
 Setting the defined track description where the audio language is not set or set to `und` (undefined).
 
@@ -302,7 +302,7 @@ Preview thumbnails refers to the thumbnails that appear on the a video player's 
 - When ingesting content, by setting the `preview_thumbnails` property to `true` when submitting a [VOD Stream](TaskEngineWorkflows.html#vod-stream) job.
 - By submitting a separate [Build Thumbnails](TaskEngineWorkflows.html#build-thumbnails) job.
 
-The process is pretty much the same for all of the above. A sprite is generated with thumbnails at every 'x' second intervals (default is 10 seconds) and a VTT file which relates each thumbnail within the sprite to corresponding time within the stream. These files must be made accessible to the players. On cloud platforms, this is usually done by create a CDN for .jgp and .vtt files. The [Vualto Assets API](https://docs.vualto.com/projects/VIS/en/latest/assets.html) can be used to retrieve the URL for the VTT file.
+The process is pretty much the same for all of the above. A sprite is generated with thumbnails at every 'x' second intervals (default is 10 seconds) and a VTT file which relates each thumbnail within the sprite to corresponding time within the stream. These files must be made accessible to the players. On cloud platforms, this is usually done by create a CDN for .jgp and .vtt files. The [Broadcast Live Assets API](https://docs.vualto.com/projects/VIS/en/latest/assets.html) can be used to retrieve the URL for the VTT file.
 
 **Important Note**: The interval is a very close approximation and not an exact interval.The thumbnail image is generated from the closest iframe.
 
@@ -313,7 +313,7 @@ Different players reference the VTT file differently. The following are some exa
 
 ## AVOD AND LIVE COMPOSE
 
-The Vualto Task Engine now supports creating AVOD and Live Compose playlists using the vodremix workflow.  
+The JW Player Task Engine now supports creating AVOD and Live Compose playlists using the vodremix workflow.  
 
 - AVOD refers to a playlist of clips (VOD or MP4s) with support for server side ad insertion and replacement through SCTE35 markers.
 - Live Compose refers to a playlist of clips (VOD or MP4s), played out as a live stream, with support for server side ad replacement through SCTE35 markers. Ad insertion is currently not supported for simulated live streams. Live Compose playlists can be created by setting the `live_compose` flag to `true` in the job payload. To set a specific start time for a live stream use the `stream_start_time` parameter. If this is not set, the live stream will begin as soon as the manifest is packaged and available. The rest of the payload is identical to AVOD.
@@ -403,7 +403,7 @@ The AVOD example below shows three clips being stitched together. The first clip
 
 ## LIVE COMPOSE WITH MANIFEST MANIPULATION
 
-The VUALTO Task Engine now supports manifest manipulation to generate LIVE COMPOSE streams (VOD playlist looping), using AWS Mediatailor Channel Assembly. This workflow takes VOD streaming URLs directly and the resulting live stream fragments come from the original VOD streaming URLs - this could result in cost savings in caching layers.
+The JW Player Task Engine now supports manifest manipulation to generate LIVE COMPOSE streams (VOD playlist looping), using AWS Mediatailor Channel Assembly. This workflow takes VOD streaming URLs directly and the resulting live stream fragments come from the original VOD streaming URLs - this could result in cost savings in caching layers.
 
 With this workflow, it is also possible to condition live streams for SSAI (server side ad insertion), however, it requires ad slate clips (also in the form of VODs) in order to signal ad breaks. The slate clips are stitched linearly with the clip sources at the given `presentation_time` (relative to the clip source) and the relevant ad break timed metadata added to the resulting live stream. If no `presentation_time` is provided, it will default to `00:00:00` (pre-roll).
 
