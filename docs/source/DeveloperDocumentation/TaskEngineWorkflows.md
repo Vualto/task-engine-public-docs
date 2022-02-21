@@ -425,7 +425,7 @@ This workflow allows you to create an MP4 from a VOD asset.
   },
   "parameters": {
     "content_id": "demo1",
-    "folder": "vualto-test-1",
+    "source_folder": "vualto-test-1",
     "rest_endpoints": [
       "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
       "http://your.custom.endpoint"
