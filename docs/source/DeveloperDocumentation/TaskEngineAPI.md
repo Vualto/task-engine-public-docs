@@ -27,7 +27,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 ### GET: `/health`
 
-The health endpoint will run checks on the different Task Engine components and returns the status of each service. The endpoint will also return some information about the Task Engine and statistics about jobs and tasks. Only administrators will be able to see resqueue information.
+The health endpoint will run checks on the different Task Engine components and returns the status of each service. The endpoint will also return some information about the Task Engine and statistics about jobs and tasks.
 
 <details>
 
@@ -35,15 +35,13 @@ The health endpoint will run checks on the different Task Engine components and 
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: Optional**<br />
+
 **Required Headers:**
 
 - `client` - client name, required for authentication
 - `api-key` - required for authentication
  
-**Optional Headers:**
-
-- `client` - client name, used to filter by client-name in multi-tenant setups only usable by administrator.
+**Optional Headers: None**<br />
 
 Successful Response:
 
@@ -113,7 +111,7 @@ Successful Response:
 
 ### GET: `/dashboard`
 
-The dashboard endpoint returns information about the current Task Engine queue status of the current client and in the case of stand alone deployments the general queue status. The information includes lists of started, queued and scheduled jobs as well as the setting information for the maximum concurrent jobs and the number of priority reserved job slots. The Task Engine version is also returned. Non-administrators will always just be able to get information pertinent to themselves. Administrators are able to get information regarding any client. 
+The dashboard endpoint returns information about the current Task Engine queue status of the current client and in the case of stand alone deployments the general queue status. The information includes lists of started, queued and scheduled jobs as well as the setting information for the maximum concurrent jobs and the number of priority reserved job slots. The Task Engine version is also returned.
 
 <details>
 
@@ -121,11 +119,12 @@ The dashboard endpoint returns information about the current Task Engine queue s
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: Optional**<br />
-**Required Headers:None**<br />
-**Optional Headers:**
 
-- `client` - client name, used to filter by client-name in multi-tenant setups only usable by administrator.
+**Required Headers:**
+- `client` - client name, required for authentication
+- `api-key` - required for authentication
+
+**Optional Headers: None**<br />
 
 Successful Response:
 ```json
@@ -216,7 +215,7 @@ This endpoint is used to submit jobs to the Task Engine. It is the endpoint used
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: No**<br />
+
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -254,15 +253,13 @@ Successful Response:
 ### GET: `/jobs`
 
 This endpoint is used to return a list of jobs from the Task Engine database. Filtering is supported through query string parameters. The default search (no parameters) will return the last 10 jobs.
-Non-administrators will always just be able to get information pertinent to themselves. Administrators are able to get information regarding any client.
-
 <details>
 
 <summary>Details</summary>
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: Optional**<br />
+
 **Required Headers: None**<br />
 **Optional Headers:None**<br />
 **Query String Parameters:**
@@ -282,8 +279,7 @@ Non-administrators will always just be able to get information pertinent to them
 - `from` - used to filter by date range, based on the job creation date
 - `to` - used to filter by date range, based on the job creation date
 - `search` - search term used to filter by eg. the content id for a submitted job
-- `job_ids` - comma separated job ids
-- `client` - client name to filter by
+- `job_ids` - comma separated job ids  
 
 Successful response for `/jobs?limit=3&client=demo-client&state=2`
 
@@ -351,7 +347,6 @@ This endpoints returns information about the specified job.
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: No**<br />
 **Required Headers: None**<br />
 **Optional Headers: None**
 
@@ -394,7 +389,7 @@ This endpoint is used to update job fields. Only a specific selection of fields 
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: No**<br />
+
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -408,7 +403,7 @@ The list of job fields that can be updated:
 - `queue_state` - The queue state for a job can be updated. This can be used to pause or break a job by specifying the values `paused` or `broken` respectively
 - `run_at` - Updating the run_at field for a job changes when the job will be queued. The date must be in UTC and in the following format `yyyy-MM-ddTHH:mm:ss.fff`
 - `priority` - Updating the priority for a job. More information on job priority can be found [here](TaskEngineWorkflowFeatures.html#priority)
-- `sempahore_url` - This url can be used as part of the scheduling process. More information on the semaphore url can be found [here](TaskEngineWorkflowFeatures.html#scheduler)
+- `semaphore_url` - This url can be used as part of the scheduling process. More information on the semaphore url can be found [here](TaskEngineWorkflowFeatures.html#scheduler)
 
 Sample payload:
 
@@ -450,7 +445,7 @@ This endpoint is used to rerun a job with exactly the same parameters. When reru
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: No**<br />
+
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -479,7 +474,7 @@ Successful Response:
 
 ### POST: `/push_jobs`
 
-This endpoint is used to force queued jobs to run. For example if a setting such as the maximun number of cuncurrent jobs is updated without using the api while multiple jobs are running the Task engine will keep running the previous amount of maximun cuncurrent jobs and so push jobs needs to be called so the updated stting is used. Successful requests will return an `200 ok` status. An error message is returned when a the request fails submission fails.
+This endpoint is used to force queued jobs to run. For example if a setting such as the maximum number of concurrent jobs is updated without using the api while multiple jobs are running the Task engine will keep running the previous amount of maximum concurrent jobs and so push jobs needs to be called so the updated setting is used. Successful requests will return an `200 ok` status. An error message is returned when a the request fails submission fails.
 
 <details>
 
@@ -487,7 +482,7 @@ This endpoint is used to force queued jobs to run. For example if a setting such
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: Yes**<br />
+
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -506,7 +501,7 @@ Status: 200, ok
 
 ```json
 {
-    "result": "Unauthorised request."
+    "result": "Unauthorized request."
 }
 ```
 
@@ -532,7 +527,7 @@ This endpoint is used to retrieve the logs for the specified job.
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: No**<br />
+
 **Required Headers:**
 
 - `Accept` - set to `application/json`
@@ -623,7 +618,7 @@ Returns a list of the currently active schedules. More information about the Tas
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: Yes**<br />
+
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -656,7 +651,7 @@ Successful Response:
 
 ```json
 {
-    "result": "Unauthorised request."
+    "result": "Unauthorized request."
 }
 ```
 
@@ -680,7 +675,7 @@ This endpoint allows for activating or deactivating schedules. More information 
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: Yes**<br />
+
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -715,7 +710,7 @@ Successful Response:
 
 ```json
 {
-    "result": "Unauthorised request."
+    "result": "Unauthorized request."
 }
 ```
 
@@ -750,7 +745,7 @@ System default settings:
 - `retry_limit` - The number of times a Resque task should be retried before a job is abandoned. Default: 3
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: Yes**<br />
+
 **Required Headers:**
 
 - `client` - client name, required for authentication
@@ -786,7 +781,7 @@ Successful Response:
 
 ```json
 {
-    "result": "Unauthorised request."
+    "result": "Unauthorized request."
 }
 ```
 
