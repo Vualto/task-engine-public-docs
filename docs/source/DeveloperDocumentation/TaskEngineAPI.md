@@ -41,7 +41,9 @@ The health endpoint will run checks on the different Task Engine components and 
 - `client` - client name, required for authentication
 - `api-key` - required for authentication
  
-**Optional Headers: None**
+**Optional Headers:**
+
+- `client` - client name, used to filter by client-name in multi-tenant setups only usable by administrator.
 
 Successful Response:
 
@@ -125,6 +127,7 @@ The dashboard endpoint returns information about the current Task Engine queue s
 
 - `client` - client name, used to filter by client-name in multi-tenant setups only usable by administrator.
 
+Successful Response:
 ```json
 {
     "max_jobs": 2,
@@ -606,14 +609,6 @@ Successful Response:
 ]
 ```
 
-400 - Error Response:
-
-```json
-{
-    "error": "<error message>"
-}
-```
-
 </details><br /><br />
 
 ## SCHEDULER ENDPOINTS
@@ -657,7 +652,15 @@ Successful Response:
 }
 ```
 
-400 - Error Response:
+401 - Unauthorized
+
+```json
+{
+    "result": "Unauthorised request."
+}
+```
+
+500 - Error Response:
 
 ```json
 {
@@ -708,7 +711,15 @@ Successful Response:
 }
 ```
 
-400 - Error Response
+401 - Unauthorized
+
+```json
+{
+    "result": "Unauthorised request."
+}
+```
+
+500 - Error Response:
 
 ```json
 {
@@ -771,7 +782,15 @@ Successful Response:
 }
 ```
 
-400 - Error Response
+401 - Unauthorized
+
+```json
+{
+    "result": "Unauthorised request."
+}
+```
+
+500 - Error Response:
 
 ```json
 {
