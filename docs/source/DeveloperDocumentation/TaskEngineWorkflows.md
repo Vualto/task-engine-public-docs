@@ -987,7 +987,7 @@ This workflow allows for stopping and starting MediaTailor channels.
 
 | Parameter Name    | Required | Default |  Description |
 | ----------------- | -------- | ------- | ------------ |
-| workflow          |Yes| | Specify 'mediatailor_channel_assembly'. |
+| workflow          |Yes| | Specify 'mediatailor_channel_state'. |
 | content_id        |Yes| | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system. |
 | state             |Yes| | Either `start` or `stop`. |
 | delete            |No | `false` | This boolean indicates whether the channel must be deleted or not. |
