@@ -914,6 +914,7 @@ This workflow allows for creating and updating Live Compose streams - very simil
 | clips.markers.meta_events.presentation_time |Yes | | This is the time position at which the marker will be inserted relative to the clip.|
 | clips.markers.meta_events.slate |Yes | | This is the duration of the marker. |
 | restart_channel   |No | `true` | This boolean indicates whether the MediaTailor channel must be restarted or not. Channel restart is required if the source types do not match. |
+| update_existing_vod_sources   |No | `false` | This boolean indicates whether existing MediaTailor vod sources should be updated if content with the same vod source location is submitted. |
 | dvr_window_length |No | `60` | The duration in seconds of the live stream DVR window. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference) and returns it as part of the job callback. |

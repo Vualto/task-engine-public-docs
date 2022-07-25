@@ -12,6 +12,15 @@
 
 ## v1.173.x
 
+#### 1.173.6
+
+- Patch: Added rescue to Twitter publications to handle forbidden actions
+- Patch: Changed the source used for trickplay thumbnail generation to improve performance.
+- Patch: Update mediatailor_channel_assembly workflow
+  - Added support for updating an existing VOD sources
+- Hotfix: Fixed the duration by reducing the time value from the metadata. This was causing issues when assets included capture timestamps.
+- Hotfix: Removed hardcoded no multiplex option when packaging DRM manifests that include FairPlay.
+
 #### 1.173.1
 
 - Improved filtering for trickplay track selection.
