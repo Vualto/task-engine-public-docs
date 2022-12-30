@@ -1153,6 +1153,90 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 | time              | Time (UTC) the callback was submitted. |
 | client            | Client name provided when the job was submitted. |
 
+## Trickplay
+
+This workflow will generate (with trickplay_thumbnails enabled) a thumbnail CMAF track containing JPEG compressed frames from points in a AVC/H.264 or HEVC/H.265 video.
+
+If trickplay_thumbnails is disabled, it will only insert sync-samples.
+
+### Trickplay: Parameters
+
+| Parameter Name               | Required | Default              | Description                                                                                                                                                    |
+|------------------------------|----------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| workflow                     | Yes      |                      | Specify 'trickplay'.                                                                                                                                           |
+| content_id                   | Yes      |                      | Unique identifier of the content. This is usually a key that allows identification of the content in the client’s system.                                      |
+| source_folder                | Yes      |                      | Location of the source files. All files to be processed will need to be in a discrete folder, the ‘root’ folder will be specified in the client configuration. |
+| output_folder                | No       | `"{source_folder}"`  | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration.                                                 |
+| rest_endpoints               | No       |                      | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified.                                                       |
+| source_storage               | No       | `"S3"`               | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section).                  |
+| destination_storage          | No       | `"{source_storage}"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section).                  |
+| custom_data                  | No       |                      | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback.                                     |
+| retries                      | No       | `0`                  | Retry limit when attempting to copy from the source storage.                                                                                                   |
+| trickplay_thumbnails         | No       | `true`               | This boolean indicates whether to generate thumbnail assets which can be used for trickplay.                                                                   |
+| trickplay_thumbnail_size     | No       | `0` (original size)  | This is used to specify the size of the long edge of each trickplay thumbnail (in pixels).                                                                     |
+| trickplay_thumbnail_interval | No       | `10`                 | This is used to indicate the duration between trickplay thumbnails (in seconds).                                                                               |
+| trickplay_thumbnail_quality  | No       | `30`                 | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100).                                                                       |
+
+### Trickplay: JSON Payload example
+
+```json
+{
+  "client": "demo-client",
+  "job": {
+    "workflow": "trickplay"
+  },
+  "parameters": {
+    "content_id": "vudrm_1",
+    "source_folder": "vualto-test-1",
+    "trickplay_thumbnails": true,
+    "trickplay_thumbnail_interval": 5,
+    "trickplay_thumbnail_size": 1280,
+    "trickplay_thumbnail_quality": 50,
+    "output_root": "output_root",
+    "output_folder": "vualto-output",
+    "rest_endpoints": [
+      "https://vis.vuworkflow.staging.vualto.com/api/event/vuflow/taskenginecallback",
+      "http://aaa.com/end",
+      "http://bbb.com/end"
+    ],
+    "custom_data": { "custom_ref" : "ref-123" }
+  }
+}
+```
+
+### Trickplay: Callback properties
+
+#### Task Callback
+
+Task callbacks are triggered after each task within a workflow is completed. Below is a list of the default properties for the callback:
+
+| Property Name     | Description                                                                                                            |
+|-------------------|------------------------------------------------------------------------------------------------------------------------|
+| job_id            | Unique job identifier generated by the Task Engine.                                                                    |
+| task_id           | Unique task identifier generated by the Task Engine.                                                                   |
+| task_name         | Name of the task that triggered the callback.                                                                          |
+| workflow          | Name of the workflow being executed.                                                                                   |
+| event             | This will identify the event that caused the callback to be triggered. It can be one of `start`, `complete` or `fail`. |
+| content_id        | Content ID provided when the job was submitted.                                                                        |
+| message           | Any message associated with the event. This will usually contain exception messages.                                   |
+| time              | Time (UTC) the callback was submitted.                                                                                 |
+| client            | Client name provided when the job was submitted.                                                                       |
+
+#### Job Callback
+
+Job callbacks are triggered when the entire job has completed. Below is a list of the default properties for the callback.
+
+| Property Name    | Description                                                                                                 |
+|------------------|-------------------------------------------------------------------------------------------------------------|
+| job_id           | Unique job identifier generated by the Task Engine.                                                         |
+| status           | This will identify the status of the job. It can be either `completed` or `failed`.                         |
+| workflow         | Name of the workflow being executed.                                                                        |
+| content_id       | Content ID provided when the job was submitted.                                                             |
+| files            | List of files (manifests, content files, thumbnail, etc...) that have been copied to the final destination. |
+| custom_data      | Returns the custom data submitted to the workflow.                                                          |
+| time             | Time (UTC) the callback was submitted.                                                                      |
+| client           | Client name provided when the job was submitted.                                                            |
+
 ## WORKFLOW TRIGGER EXAMPLE
 
 Example of a curl command to trigger ingest for the [VOD Stream](#vod-stream) workflow:
