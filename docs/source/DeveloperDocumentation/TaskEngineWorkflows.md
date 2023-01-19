@@ -1155,7 +1155,7 @@ Job callbacks are triggered when the entire job has completed. Below is a list o
 
 ## Trickplay
 
-This workflow will generate (with trickplay_thumbnails enabled) a thumbnail CMAF track containing JPEG compressed frames from points in a AVC/H.264 or HEVC/H.265 video.
+This workflow will generate (with `trickplay_thumbnails` enabled) a thumbnail CMAF track containing JPEG compressed frames from points in a AVC/H.264 or HEVC/H.265 video.
 
 If `trickplay_thumbnails` is disabled, it will only insert sync-samples.
 
