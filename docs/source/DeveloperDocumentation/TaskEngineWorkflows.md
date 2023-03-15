@@ -172,7 +172,6 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | trickplay_thumbnail_interval|No | `10` | This is used to indicate the duration between trickplay thumbnails (in seconds). |
 | trickplay_thumbnail_quality |No | `30` | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
-| continuous_capture          |No | `false` | This boolean enables captures to start before the latest clip.end_time has elapsed. The capture will aim to begin after approximately 80% of the way between the clip.start_time and clip.end_time. This can be overridden using the job `run_at` time |
 
 ### VOD Capture: JSON Payload example
 
