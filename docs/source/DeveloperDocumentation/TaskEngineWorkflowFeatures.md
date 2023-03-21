@@ -467,4 +467,4 @@ The example below would result in a live stream where assets `source_1.m3u8`, `s
 
 ## CONTINUOUS CAPTURE
 
-The Task Engine [VOD Capture](TaskEngineWorkflows.md#vod-capture) workflow supports the `continuous_capture` parameter which will begin capturing clips before the specified end time. By default it will begin capturing once 80% of the time has elapsed between the earliest start time of the specified clips and the latest end time. This can be overriden by setting the `run_at` parameter.
+The Task Engine [VOD Capture](TaskEngineWorkflows.md#vod-capture) workflow supports the `continuous_capture` parameter which will begin capturing clips before the specified end time. By default it will begin capturing once 80% of the time has elapsed between the earliest start time of the specified clips and the latest end time of all clips, or if the difference is less than 60 seconds it will begin capturing at the earliest start time. This can be overridden by setting the `run_at` parameter.
