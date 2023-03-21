@@ -277,6 +277,25 @@ Setting a combination of properties to both audio and subtitle tracks.
 
 Support is confirmed for `track_description`, `track_role` and `track_name` properties, but other properties may be supported.
 
+## FILE PROPERTIES
+
+File properties can be used to set the track kind and language in audio tracks. Track kind allows accessibility options, such as audio description tracks, to be indicated. The language of the track can also be changed using this property. This replaces the legacy behaviour of specifying the language between the last underscore and the extension (`_<language>.m4a`).
+
+Here is the list of [available track kinds](https://html.spec.whatwg.org/multipage/media.html#dom-audiotrack-kind).
+
+Marking audio1.m4a as the Dutch audio description track:
+
+```json
+"file_properties": {
+  "audio1.m4a": {
+    "kind": "main-desc",
+    "language": "dut",
+  }
+}
+```
+
+Both `kind` and `language` are optional. If `language` is specified, then this will override the legacy behaviour of checking the language in the file name.
+
 ## STORAGE SUPPORT
 
 The Task Engine supports multiple storage types for ingesting content and saving VOD. Support has also been added so a combination of storage types can be used for the same job. This can be done by setting the `source_storage` and `destination_storage` in the job payload (for supported workflows). Eg. Ingesting content from local storage and save VOD assets on S3 would require `source_storage` to be set to `local` and `destination_storage` to be set to `S3`.

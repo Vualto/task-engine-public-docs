@@ -32,6 +32,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | preview_thumbnails_interval |No | `10` | Interval time between thumbnail captures in seconds. |
 | apply_track_properties      |No | `false` | This boolean indicates whether custom track properties (set in `track_properties` when submitting the job or in central configuration) should be applied to the VOD asset. |
 | track_properties  |No | | This is used to define track properties to be applied to the VOD (See [Track Properties](TaskEngineWorkflowFeatures.html#track-properties) section). |
+| file_properties  |No | | This is used to define file properties (language, kind) to be applied to the VOD (See [File Properties](TaskEngineWorkflowFeatures.html#file-properties) section). |
 | retries           |No | `0` | This is used to indicate the number of times fetching the source should be re-tried. |
 | source_storage    |No | `"S3"` | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | destination_storage         |No | `"{source_storage}"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
