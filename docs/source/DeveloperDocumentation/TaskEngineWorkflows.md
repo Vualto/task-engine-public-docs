@@ -32,6 +32,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | preview_thumbnails_interval |No | `10` | Interval time between thumbnail captures in seconds. |
 | apply_track_properties      |No | `false` | This boolean indicates whether custom track properties (set in `track_properties` when submitting the job or in central configuration) should be applied to the VOD asset. |
 | track_properties  |No | | This is used to define track properties to be applied to the VOD (See [Track Properties](TaskEngineWorkflowFeatures.html#track-properties) section). |
+| file_properties  |No | | This is used to define file properties (language, kind) to be applied to the VOD (See [File Properties](TaskEngineWorkflowFeatures.html#file-properties) section). |
 | retries           |No | `0` | This is used to indicate the number of times fetching the source should be re-tried. |
 | source_storage    |No | `"S3"` | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | destination_storage         |No | `"{source_storage}"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
@@ -171,6 +172,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | trickplay_thumbnail_size    |No | `0` (original size) |  This is used to specify the size of the long edge of each trickplay thumbnail (in pixels). |
 | trickplay_thumbnail_interval|No | `10` | This is used to indicate the duration between trickplay thumbnails (in seconds). |
 | trickplay_thumbnail_quality |No | `30` | This is used to indicate the quality of the thumbnail generated for trickplay (1 - 100). |
+| continuous_capture |No | `false` | Determines if capturing should begin before the end of all clips (See [Continuous Capture](TaskEngineWorkflowFeatures.html#continuous-capture) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
 
 ### VOD Capture: JSON Payload example
