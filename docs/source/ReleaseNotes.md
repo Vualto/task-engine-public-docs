@@ -13,6 +13,11 @@
 
 ## v2.0.x
 
+#### 2.0.2 - 22/03/2023
+
+- Fixed null objects being added to the json metadata file
+- Added `file_parameters` property to `vodstream` to specify accessibility settings and language without needing to change the name of the file.
+
 #### 2.0.1 - 13/03/2023
 
 - Added support for USP 1.12.1.
