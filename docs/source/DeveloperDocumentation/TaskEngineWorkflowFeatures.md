@@ -283,7 +283,7 @@ File properties can be used to set the track kind and language in audio tracks. 
 
 Here is the list of [available track kinds](https://html.spec.whatwg.org/multipage/media.html#dom-audiotrack-kind).
 
-Marking audio1.m4a as the Dutch audio description track:
+Here is an example for marking audio1.m4a as the Dutch audio description track:
 
 ```json
 "file_properties": {
