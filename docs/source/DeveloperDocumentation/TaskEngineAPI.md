@@ -117,11 +117,15 @@ The dashboard endpoint returns information about the current Task Engine queue s
 <summary>Details</summary>
 <br />
 
-**Requires Authentication: No**<br />
-**Required Headers:None**<br />
-**Optional Headers:**
+**Requires Authentication: Yes**<br />
+**Required Headers:**
 
-- `client` - client name, used to filter by client-name in multi-tenant setups.
+- `client` - client name, required for authentication
+- `api-key` - required for authentication
+ 
+**Optional Headers: None**
+
+Successful Response:
 
 ```json
 {
@@ -276,6 +280,7 @@ This endpoint is used to return a list of jobs from the Task Engine database. Fi
 - `search` - search term used to filter by eg. the content id for a submitted job
 - `job_ids` - comma separated job ids
 - `client` - client name to filter by
+- `persist` - filter for jobs set to persist. Accepts 1 (true) or 0 (false)
 
 Successful response for `/jobs?limit=3&client=demo-client&state=2`
 
@@ -342,8 +347,12 @@ This endpoints returns information about the specified job.
 <summary>Details</summary>
 <br />
 
-**Requires Authentication: No**<br />
-**Required Headers: None**<br />
+**Requires Authentication: Yes**<br />
+**Required Headers:**
+
+- `client` - client name, required for authentication
+- `api-key` - required for authentication
+ 
 **Optional Headers: None**
 
 Successful response for `/jobs/123`
@@ -477,9 +486,11 @@ This endpoint is used to retrieve the logs for the specified job.
 <summary>Details</summary>
 <br />
 
-**Requires Authentication: No**<br />
+**Requires Authentication: Yes**<br />
 **Required Headers:**
 
+- `client` - client name, required for authentication
+- `api-key` - required for authentication
 - `Accept` - set to `application/json`
 
 **Optional Headers: None**
