@@ -468,7 +468,7 @@ Successful Response:
 
 ### POST: `/push_jobs`
 
-This endpoint is used to force queued jobs to run. For example if a setting such as the maximun number of cuncurrent jobs is updated without using the api while multiple jobs are running the Task engine will keep running the previous amount of maximun cuncurrent jobs and so push jobs needs to be called so the updated stting is used. Successful requests will return an `200 ok` status. An error message is returned when a the request fails submission fails.
+This endpoint is used to force queued jobs to consume any available queue slots. This can happen when a setting, such as the maximum number of concurrent jobs, is updated through the database and does not trigger the functionality for jobs to consume the new queue slots. Successful requests will return an `200 ok` status. An error message is returned when an issue occurs.
 
 <details>
 
