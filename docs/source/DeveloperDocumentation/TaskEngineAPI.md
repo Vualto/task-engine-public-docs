@@ -476,7 +476,6 @@ This endpoint is used to force queued jobs to consume any available queue slots.
 <br />
 
 **Requires Authentication: Yes**<br />
-**Requires Administrator Privileges: Yes**<br />
 **Required Headers:**
 
 - `client` - client name, required for authentication
