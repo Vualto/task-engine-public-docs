@@ -27,7 +27,7 @@ This endpoint will check if the Task Engine endpoint is reachable.
 
 ### GET: `/health`
 
-The health endpoint will run checks on the different Task Engine components and returns the status of each service. The endpoint will also return some information about the Task Engine and statistics about jobs and tasks.
+The endpoint will return information about the Task Engine and statistics about jobs and tasks.
 
 <details>
 
@@ -51,38 +51,6 @@ Successful Response:
     "databases": {
         "redis": "OK",
         "postgres": "OK"
-    },
-    "queues": {
-        "windows_capture": {
-            "workers": 12,
-            "working": 0,
-            "pending": 0
-        },
-        "scheduler": {
-            "workers": 1,
-            "working": 0,
-            "pending": 0
-        },
-        "work": {
-            "workers": 9,
-            "working": 0,
-            "pending": 0
-        },
-        "controller": {
-            "workers": 1,
-            "working": 0,
-            "pending": 0
-        },
-        "callback": {
-            "workers": 2,
-            "working": 0,
-            "pending": 0
-        }
-    },
-    "tasks": {
-        "failed": 0,
-        "pending": 0,
-        "processed": 987654321
     },
     "jobs": {
         "completed": 12345,
@@ -124,7 +92,8 @@ The dashboard endpoint returns information about the current Task Engine queue s
 - `client` - client name, required for authentication
 - `api-key` - required for authentication
 
-**Optional Headers: None**<br />
+**Query String Parameters:**<br />
+- `client` - client name, used to filter by client-name only usable by stand alone deployment users.
 
 Successful Response:
 ```json
@@ -777,7 +746,7 @@ Successful Response:
 }
 ```
 
-401 - Unauthorized
+401 - Unauthorised
 
 ```json
 {
