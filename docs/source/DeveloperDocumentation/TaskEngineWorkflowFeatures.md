@@ -216,11 +216,20 @@ Setting the defined track description where the audio language is not set or set
 
 ```json
 "track_properties": {
-  "audio": {
-    "und|": {
-      "track_description": "Original Audio Track"
-    }
-  }
+  "audio": [
+    {
+      "language": "und",
+      "properties": {
+        "track_description": "Original Audio Track"
+      }
+    },
+    {
+      "language": "",
+      "properties": {
+        "track_description": "Original Audio Track"
+      }
+    },
+  ]
 }
 ```
 
@@ -228,12 +237,16 @@ Setting the defined track description and track name where the language is set `
 
 ```json
 "track_properties": {
-  "audio": {
-    "eng_description": {
-      "track_name" : "Audio Description - English",
-      "track_description": "English Audio Descriptive"
+  "audio": [
+    {
+      "language": "eng",
+      "role": "description",
+      "properties": {
+        "track_name": "Audio Description - English",
+        "track_description": "English Audio Descriptive"
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -241,12 +254,15 @@ Setting the defined track role and description to the subtitle track where the l
 
 ```json
 "track_properties": {
-  "textstream": {
-    "eng": {
-      "track_role" : "caption",
-      "track_description": "English CC"
+  "textstream": [
+    {
+      "language": "eng"
+      "properties": {
+        "track_role": "caption",
+        "track_description": "English CC"
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -254,28 +270,56 @@ Setting a combination of properties to both audio and subtitle tracks.
 
 ```json
 "track_properties": {
-  "audio": {
-    "und|": {
-      "track_description": "Original Audio"
+  "audio": [
+    {
+      "language": "und",
+      "properties": {
+        "track_description": "Original Audio"
+      }
     },
-    "eng_alternate": {
-      "track_name": "English Alt",
-      "track_description": "English Alternate track"
+    {
+      "language": "",
+      "properties": {
+        "track_description": "Original Audio"
+      }
     },
-    "eng": {
-      "track_role" : "main",
+    {
+      "language": "eng",
+      "role": "alternate"
+      "properties": {
+        "track_name": "English Alt",
+        "track_description": "English Alternate track"
+      }
+    },
+    {
+      "language": "eng",
+      "properties": {
+        "track_role": "main"
+      }
     }
-  },
-  "textstream": {
-    "eng": {
-      "track_role" : "caption",
-      "track_description": "English CC"
+  ],
+  "textstream": [
+    {
+      "language": "eng",
+      "properties": {
+        "track_role" : "caption",
+        "track_description": "English CC"
+      }
     }
-  }
+  ]
 }
 ```
 
-Support is confirmed for `track_description`, `track_role` and `track_name` properties, but other properties may be supported.
+Supported properties are:
+- `track_name`
+- `track_description`
+- `track_role`
+- `track_language`
+
+Supported filters are:
+- `language` (retrieved from the .ism)
+- `role` (retrieved from the .ism, should not be mixed with `kind` in the same track)
+- `kind` (retrieved from the track file, should not be mixed with `role` in the same track)
 
 ## FILE PROPERTIES
 
