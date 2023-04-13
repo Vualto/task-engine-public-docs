@@ -468,7 +468,7 @@ Successful Response:
 
 ### POST: `/push_jobs`
 
-This endpoint is used to force queued jobs to consume any available queue slots. This can happen when a setting, such as the maximum number of concurrent jobs, is updated through the database and does not trigger the functionality for jobs to consume the new queue slots. Successful requests will return an `200 ok` status. An error message is returned when an issue occurs.
+This endpoint is used to manually push jobs to run on available queue slots. This does not overrule priority queue and threshold values.
 
 <details>
 
