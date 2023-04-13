@@ -464,50 +464,6 @@ Successful Response:
 }
 ```
 
-</details><br /><br />
-
-### POST: `/push_jobs`
-
-This endpoint is used to manually push jobs to run on available queue slots. This does not overrule priority queue and threshold values.
-
-<details>
-
-<summary>Details</summary>
-<br />
-
-**Requires Authentication: Yes**<br />
-**Required Headers:**
-
-- `client` - client name, required for authentication
-- `api-key` - required for authentication
-- `Content-Type` - set to `application/json`
-
-**Optional Headers: None**
-
-Successful Response:
-
-```
-Status: 200, ok 
-```
-
-403 - Error Response:
-
-```json
-{
-    "result": "Unauthorised request."
-}
-```
-
-500 - Error Response:
-
-```json
-{
-    "error": "<error message>"
-}
-```
-
-</details><br /><br />
-
 ## LOG ENDPOINTS
 
 ### GET: `/logs/<job id>`
