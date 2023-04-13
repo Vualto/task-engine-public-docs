@@ -464,7 +464,6 @@ Successful Response:
 }
 ```
 
-
 </details><br /><br />
 
 ## LOG ENDPOINTS
