@@ -464,6 +464,9 @@ Successful Response:
 }
 ```
 
+
+</details><br /><br />
+
 ## LOG ENDPOINTS
 
 ### GET: `/logs/<job id>`
