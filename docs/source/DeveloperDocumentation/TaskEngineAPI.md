@@ -490,7 +490,7 @@ Successful Response:
 Status: 200, ok 
 ```
 
-401 - Error Response:
+403 - Error Response:
 
 ```json
 {
