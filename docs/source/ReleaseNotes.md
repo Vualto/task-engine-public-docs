@@ -13,6 +13,19 @@
 
 ## v2.0.x
 
+#### 2.0.5 - 19/04/2023
+
+- Changed track properties format, the old format is deprecated but still works.
+- Track properties can now match based on the track kind.
+
+#### 2.0.4 - 31/03/2032
+
+- Adding an index to audio tracks to avoid accessibility audio tracks from being set as the default.
+
+#### 2.0.3 - 27/03/2023
+
+- Removed `+` from generated filenames to avoid issues with Apache on VOD Origins
+
 #### 2.0.2 - 22/03/2023
 
 - Fixed null objects being added to the json metadata file
