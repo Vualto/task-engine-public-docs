@@ -216,11 +216,20 @@ Setting the defined track description where the audio language is not set or set
 
 ```json
 "track_properties": {
-  "audio": {
-    "und|": {
-      "track_description": "Original Audio Track"
-    }
-  }
+  "audio": [
+    {
+      "language": "und",
+      "properties": {
+        "track_description": "Original Audio Track"
+      }
+    },
+    {
+      "language": "",
+      "properties": {
+        "track_description": "Original Audio Track"
+      }
+    },
+  ]
 }
 ```
 
@@ -228,12 +237,16 @@ Setting the defined track description and track name where the language is set `
 
 ```json
 "track_properties": {
-  "audio": {
-    "eng_description": {
-      "track_name" : "Audio Description - English",
-      "track_description": "English Audio Descriptive"
+  "audio": [
+    {
+      "language": "eng",
+      "role": "description",
+      "properties": {
+        "track_name": "Audio Description - English",
+        "track_description": "English Audio Descriptive"
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -241,12 +254,31 @@ Setting the defined track role and description to the subtitle track where the l
 
 ```json
 "track_properties": {
-  "textstream": {
-    "eng": {
-      "track_role" : "caption",
-      "track_description": "English CC"
+  "textstream": [
+    {
+      "language": "eng"
+      "properties": {
+        "track_role": "caption",
+        "track_description": "English CC"
+      }
     }
-  }
+  ]
+}
+```
+
+Adding a track description to the audio description track.
+
+```json
+"track_properties": {
+  "audio": [
+    {
+      "language": "eng",
+      "kind": "main-desc",
+      "properties": {
+        "track_description": "English (describes video)"
+      }
+    }
+  ]
 }
 ```
 
@@ -254,28 +286,75 @@ Setting a combination of properties to both audio and subtitle tracks.
 
 ```json
 "track_properties": {
-  "audio": {
-    "und|": {
-      "track_description": "Original Audio"
+  "audio": [
+    {
+      "language": "und",
+      "properties": {
+        "track_description": "Original Audio"
+      }
     },
-    "eng_alternate": {
-      "track_name": "English Alt",
-      "track_description": "English Alternate track"
+    {
+      "language": "",
+      "properties": {
+        "track_description": "Original Audio"
+      }
     },
-    "eng": {
-      "track_role" : "main",
+    {
+      "language": "eng",
+      "role": "alternate"
+      "properties": {
+        "track_name": "English Alt",
+        "track_description": "English Alternate track"
+      }
+    },
+    {
+      "language": "eng",
+      "properties": {
+        "track_role": "main"
+      }
     }
-  },
-  "textstream": {
-    "eng": {
-      "track_role" : "caption",
-      "track_description": "English CC"
+  ],
+  "textstream": [
+    {
+      "language": "eng",
+      "properties": {
+        "track_role" : "caption",
+        "track_description": "English CC"
+      }
     }
+  ]
+}
+```
+
+Supported properties are:
+- `track_name`
+- `track_description`
+- `track_role`
+- `track_language`
+
+Supported filters are:
+- `language` (retrieved from the .ism)
+- `role` (retrieved from the .ism, should not be mixed with `kind` in the same track)
+- `kind` (retrieved from the track file, should not be mixed with `role` in the same track)
+
+## FILE PROPERTIES
+
+File properties can be used to set the track kind and language in audio tracks. Track kind allows accessibility options, such as audio description tracks, to be indicated. The language of the track can also be changed using this property. This replaces the legacy behaviour of specifying the language between the last underscore and the extension (`_<language>.m4a`).
+
+Here is the list of [available track kinds](https://html.spec.whatwg.org/multipage/media.html#dom-audiotrack-kind).
+
+Here is an example for marking audio1.m4a as the Dutch audio description track:
+
+```json
+"file_properties": {
+  "audio1.m4a": {
+    "kind": "main-desc",
+    "language": "dut",
   }
 }
 ```
 
-Support is confirmed for `track_description`, `track_role` and `track_name` properties, but other properties may be supported.
+Both `kind` and `language` are optional. If `language` is specified, then this will override the legacy behaviour of checking the language in the file name.
 
 ## STORAGE SUPPORT
 
@@ -464,3 +543,7 @@ The example below would result in a live stream where assets `source_1.m3u8`, `s
   }
 }
 ```
+
+## CONTINUOUS CAPTURE
+
+The Task Engine [VOD Capture](TaskEngineWorkflows.md#vod-capture) workflow supports the `continuous_capture` parameter which will begin capturing clips before the specified end time. By default it will begin capturing once 80% of the time has elapsed between the earliest start time of the specified clips and the latest end time of all clips, or if the difference is less than 60 seconds it will begin capturing at the earliest start time. This can be overridden by setting the `run_at` parameter.
