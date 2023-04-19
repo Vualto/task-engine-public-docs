@@ -266,6 +266,22 @@ Setting the defined track role and description to the subtitle track where the l
 }
 ```
 
+Adding a track description to the audio description track.
+
+```json
+"track_properties": {
+  "audio": [
+    {
+      "language": "eng",
+      "kind": "main-desc",
+      "properties": {
+        "track_description": "English (describes video)"
+      }
+    }
+  ]
+}
+```
+
 Setting a combination of properties to both audio and subtitle tracks.
 
 ```json
