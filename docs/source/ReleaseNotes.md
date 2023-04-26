@@ -1,5 +1,6 @@
 # RELEASE NOTES
 
+- [v2.0.x](#v2-0-x)
 - [v1.173.x](#v1-173-x)
 - [v1.172.x](#v1-172-x)
 - [v1.171.x](#v1-171-x)
@@ -10,14 +11,81 @@
 - [v1.166.x](#v1-166-x)
 - [v1.165.x](#v1-165-x)
 
+## v2.0.x
+
+#### 2.0.5 - 19/04/2023
+
+- Changed track properties format, the old format is deprecated but still works.
+- Track properties can now match based on the track kind.
+
+#### 2.0.4 - 31/03/2032
+
+- Adding an index to audio tracks to avoid accessibility audio tracks from being set as the default.
+
+#### 2.0.3 - 27/03/2023
+
+- Removed `+` from generated filenames to avoid issues with Apache on VOD Origins
+
+#### 2.0.2 - 22/03/2023
+
+- Fixed null objects being added to the json metadata file
+- Added `file_parameters` property to `vodstream` to specify accessibility settings and language without needing to change the name of the file.
+
+#### 2.0.1 - 13/03/2023
+
+- Added support for USP 1.12.1.
+- Removed native support for USP versions older than 1.11.20.
+
+#### 2.0.0
+
+- Added official multi-tenancy support.
+  - Clients using a multi-tenant cluster will still have their own queue settings.
+- Added support for client filtering in the queue page
+- Client name is displayed in job rows.
+- Added support for continuous captures.
+  - This feature is experimental and needs to be explicitly specified when submitting a capture job.
+  - This feature enables captures that end in the future to start before the end time and continuously capture until the end time is reached.
+- Optimised job submission performance.
+- Added support for `notify_subscribers` for YouTube syndication.
+- Authentication has been made a requirement for more API endpoints.
+- Removed native support for USP versions older than 1.11.12.
+- The base images now run on top of Ubuntu 20
+- A new persist flag has been added to jobs.
+  - Jobs flagged to persist will not be cleared as part of the 30 day routines.
+- Added a check on ingest (`vodstream`) workflows to fail the job as soon as no sources are found.
+- General performance improvements.
+
 ## v1.173.x
 
+#### 1.173.11 - 05/12/2022
+
+- Hotfix: Fixed a race condition where a job may be started twice if multiple controllers are present
+
+#### 1.173.10 - 14/11/2022
+
+- Hotfix: vodremix workflow no longer uss the default package options `--timed_metadata --splice_media`
+
+#### 1.173.9 - 01/09/2022
+
+- Hotfix: NPVR hotfix to use archiver usp packaging options.
+- Hotfix: NPVR hotfix to use symlinks when using local storage.
+- Updated local storage:
+  - Added support for symlinks.
+
+#### 1.173.8 - 22/08/2022
+
+- Hotfix: NPVR hotfix to support nil values for segment end iframe times.
+
+#### 1.173.7 - 02/08/2022
+
+- Hotfix: Deducting start time from the duration value when generating mp4s
+  
 #### 1.173.6
 
-- Patch: Added rescue to Twitter publications to handle forbidden actions
+- Patch: Added rescue to Twitter publications to handle forbidden actions.
 - Patch: Changed the source used for trickplay thumbnail generation to improve performance.
-- Patch: Update mediatailor_channel_assembly workflow
-  - Added support for updating an existing VOD sources
+- Patch: Update mediatailor_channel_assembly workflow.
+  - Added support for updating an existing VOD sources.
 - Hotfix: Fixed the duration by reducing the time value from the metadata. This was causing issues when assets included capture timestamps.
 - Hotfix: Removed hardcoded no multiplex option when packaging DRM manifests that include FairPlay.
 
