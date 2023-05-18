@@ -1,5 +1,6 @@
 # RELEASE NOTES
 
+- [v2.1.x](#v2-1-x)
 - [v2.0.x](#v2-0-x)
 - [v1.173.x](#v1-173-x)
 - [v1.172.x](#v1-172-x)
@@ -10,6 +11,24 @@
 - [v1.167.x](#v1-167-x)
 - [v1.166.x](#v1-166-x)
 - [v1.165.x](#v1-165-x)
+
+## v2.1.x
+
+#### 2.1.1 - 16/05/2023
+
+- Fixed Twitter upload not working.
+- Added the option to enabled/disable the use of a cpix document instead of the cpix proxy when generating VOD using the following workflows:
+  - vodcapture
+  - vodnpvr
+  - vodremix
+  - vodstream
+
+#### 2.1.0 - 19/04/2023
+
+- Cleaned up ffMPEG errors.
+- Added support for linux based trickplay track generation.
+- Fixed an issue in the drmswitch workflow were the files array did not return full paths.
+- Workflows can now be setup for more concurrent task execution.
 
 ## v2.0.x
 

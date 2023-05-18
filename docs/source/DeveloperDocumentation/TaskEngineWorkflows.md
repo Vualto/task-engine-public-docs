@@ -17,6 +17,7 @@ This workflow will generate a VOD asset from an offline source (eg. MP4). A serv
 | output_folder     |No | `"{source_folder}"` | The folder for processed files to be placed.  The ‘root’ folder will be specified in the client configuration. |
 | drm               |No | `["clear"]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
 | cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
+| download_cpix     |No | `false` | This boolean indicates whether the cpix document should be downloaded. This should be set to false if the cpix proxy is being used. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | create_thumbnail  |No | `true` | This boolean indicates whether a thumbnail should be created for the content. |
 | thumbnail_time    |No | `0` (seconds) | Time at which the thumbnail will be taken. |
@@ -148,6 +149,7 @@ This workflow allows you to create a frame accurate VOD clip by passing in a sta
 | enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
 | drm               |No | `["clear"]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
 | cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
+| download_cpix     |No | `false` | This boolean indicates whether the cpix document should be downloaded. This should be set to false if the cpix proxy is being used. |
 | frame_accurate    |No | `true` | This boolean allows the capture to be done using frame accuracy. |
 | copy_ts           |No | `false` | This boolean indicates whether the timestamps should be included in the resulting manifests. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
@@ -574,6 +576,7 @@ This workflow allows you to create a virtual VOD asset that is just a playlist r
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | drm               |No | `["clear"]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`.  If this value isn’t present or `"clear"` is specified as a system a DRM-free manifest is created. |
 | cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
+| download_cpix     |No | `false` | This boolean indicates whether the cpix document should be downloaded. This should be set to false if the cpix proxy is being used. |
 | empty_target      |No | `true` | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
 | enable_drm        |No | `true` | This boolean indicates whether the drm manifest (if created - read `drm` parameter) should be enabled. |
 | destination_storage         |No | `"S3"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
@@ -1068,6 +1071,7 @@ A server side manifest is created, with and/or without DRM, that can be used for
 | custom_manifest_name  |No | `"custom.ism"` | The name to be given to the custom DRM manifest. |
 | drm               |No | `["clear"]` | The type of DRM that is required. This could be “playready” and/or ”widevine” and/or ”fairplay” and/or “cenc” and/or "aes". If this value isn’t present the the normal DRM manifest is not created. |
 | cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
+| download_cpix     |No | `false` | This boolean indicates whether the cpix document should be downloaded. This should be set to false if the cpix proxy is being used. |
 | empty_target      |No | `true` | This boolean indicates whether the target folder in storage should be cleared before the output assets are save. |
 | source_storage    |No | `"S3"` | This is used to indicate where the source content is stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | destination_storage         |No | `"{source_storage}"` | This is used to indicate the destination for the VOD assets (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
