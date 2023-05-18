@@ -25,9 +25,9 @@
 
 #### 2.1.0 - 19/04/2023
 
-- Cleaned up ffMPEG errors.
-- Added support for linux based trickplay track generation.
-- Fixed an issue in the drmswitch workflow were the files array did not return full paths.
+- Cleaned up FFmpeg errors.
+- Added support for Linux based trickplay track generation.
+- Fixed an issue in the `drmswitch` workflow were the files array did not return full paths.
 - Workflows can now be setup for more concurrent task execution.
 
 ## v2.0.x
@@ -37,7 +37,7 @@
 - Changed track properties format, the old format is deprecated but still works.
 - Track properties can now match based on the track kind.
 
-#### 2.0.4 - 31/03/2032
+#### 2.0.4 - 31/03/2023
 
 - Adding an index to audio tracks to avoid accessibility audio tracks from being set as the default.
 
