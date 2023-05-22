@@ -14,7 +14,7 @@
 
 ## v2.1.x
 
-#### 2.1.1 - 16/05/2023
+#### 2.1.1 - 2023-05-16
 
 - Fixed Twitter upload not working.
 - Added the option to enabled/disable the use of a cpix document instead of the cpix proxy when generating VOD using the following workflows:
@@ -23,7 +23,7 @@
   - vodremix
   - vodstream
 
-#### 2.1.0 - 19/04/2023
+#### 2.1.0 - 2023-04-19
 
 - Cleaned up FFmpeg errors.
 - Added support for Linux based trickplay track generation.
@@ -32,25 +32,25 @@
 
 ## v2.0.x
 
-#### 2.0.5 - 19/04/2023
+#### 2.0.5 - 2023-04-19
 
 - Changed track properties format, the old format is deprecated but still works.
 - Track properties can now match based on the track kind.
 
-#### 2.0.4 - 31/03/2023
+#### 2.0.4 - 2023-03-31
 
 - Adding an index to audio tracks to avoid accessibility audio tracks from being set as the default.
 
-#### 2.0.3 - 27/03/2023
+#### 2.0.3 - 2023-03-27
 
 - Removed `+` from generated filenames to avoid issues with Apache on VOD Origins
 
-#### 2.0.2 - 22/03/2023
+#### 2.0.2 - 2023-03-22
 
 - Fixed null objects being added to the json metadata file
 - Added `file_parameters` property to `vodstream` to specify accessibility settings and language without needing to change the name of the file.
 
-#### 2.0.1 - 13/03/2023
+#### 2.0.1 - 2023-03-13
 
 - Added support for USP 1.12.1.
 - Removed native support for USP versions older than 1.11.20.
@@ -76,26 +76,26 @@
 
 ## v1.173.x
 
-#### 1.173.11 - 05/12/2022
+#### 1.173.11 - 2022-12-05
 
 - Hotfix: Fixed a race condition where a job may be started twice if multiple controllers are present
 
-#### 1.173.10 - 14/11/2022
+#### 1.173.10 - 2022-11-14
 
 - Hotfix: vodremix workflow no longer uss the default package options `--timed_metadata --splice_media`
 
-#### 1.173.9 - 01/09/2022
+#### 1.173.9 - 2022-09-01
 
 - Hotfix: NPVR hotfix to use archiver usp packaging options.
 - Hotfix: NPVR hotfix to use symlinks when using local storage.
 - Updated local storage:
   - Added support for symlinks.
 
-#### 1.173.8 - 22/08/2022
+#### 1.173.8 - 2022-08-22
 
 - Hotfix: NPVR hotfix to support nil values for segment end iframe times.
 
-#### 1.173.7 - 02/08/2022
+#### 1.173.7 - 2022-08-02
 
 - Hotfix: Deducting start time from the duration value when generating mp4s
   
@@ -134,15 +134,15 @@
 
 ## v1.172.x
 
-#### 1.172.5 - 18/08/2021
+#### 1.172.5 - 2021-08-18
 
 - Minor hot fixes introduced by 1.172.3 release
 
-#### v1.172.3 - 17/08/2021
+#### v1.172.3 - 2021-08-17
 
 - Added support for transmuxing when generating the mp4 based on the duration of the content.
 
-#### v1.172.0 - 07/06/2021
+#### v1.172.0 - 2021-06-07
 
 - Added [`mediatailor_channel_assembly` workflow](DeveloperDocumentation/TaskEngineWorkflows.md#mediatailor-channel-assembly) for creating and updating MediaTailor VOD playlist channels.
 - Added [`mediatailor_channel state` workflow](DeveloperDocumentation/TaskEngineWorkflows.md#mediatailor-channel-state) for starting, stopping and deleting MediaTailor VOD playlist channels.
@@ -166,7 +166,7 @@
 
 ## v1.171.x
 
-#### v1.171.1 - 08/04/2021
+#### v1.171.1 - 2021-04-08
 
 - Added a task to extract event metatdata to a json file.
 - Added event duration to the job callback within a new metadata object.
@@ -197,19 +197,19 @@
 
 ## v1.170.x
 
-##### v1.170.4 - 18/11/2020
+##### v1.170.4 - 2020-11-18
 
 - Bugfix: Fixed failing re-run job endpoint.
   
-##### v1.170.3 - 18/11/2020
+##### v1.170.3 - 2020-11-18
 
 - Bugfix: Transcoding file extension check was case sensitive. 
   
-##### v1.170.2 - 21/10/2020
+##### v1.170.2 - 2020-10-21
 
 - Bugfix: Fixed issue causing some scheduled jobs to never be queued.
 
-##### v1.170.1 - 30/09/2020
+##### v1.170.1 - 2020-09-30
 
 - File properties in callbacks are returned as a JSON array instead of a string containing an array.
 - A new `custom_data` parameter has been added to all workflows to allow consumers to submit references they want returned in the final job callback.
@@ -242,19 +242,19 @@
 
 ## v1.169.x
 
-##### v1.169.3 - 09/07/2020
+##### v1.169.3 - 2020-07-09
 
 - Dashboard hotfix.
 
-##### v1.169.2 - 07/07/2020
+##### v1.169.2 - 2020-07-07
 
 - General release build.
 
-##### v1.169.1 - 07/07/2020
+##### v1.169.1 - 2020-07-07
 
 - Build fixes.
 
-##### v1.169.0 - 06/07/2020
+##### v1.169.0 - 2020-07-06
 
 - API enhancements for UI integrations.
 - Updated to a newer Ruby version.
@@ -265,7 +265,7 @@
 
 ## v1.168.x
 
-##### v1.168.1 - 17/03/2020
+##### v1.168.1 - 2020-03-17
 
 - Added workflows for:
   - generating gifs
@@ -284,15 +284,15 @@
 
 ## v1.167.x
 
-##### v1.167.2 - 04/11/2019
+##### v1.167.2 - 2019-11-04
 
 - Bitmovin enhancements for re-packaging.
 
-##### v1.167.1 - 29/10/2019
+##### v1.167.1 - 2019-10-29
 
 - Bitmovin integration now supports setting the ACL permission for the mp4 outputs.
 
-##### v1.167.0 - 25/10/2019
+##### v1.167.0 - 2019-10-25
 
 - Added support for Azure Blob Storage as a source and/or destination storage option.
   - The option needs to be specified as `azure_blob`.
@@ -316,20 +316,20 @@
 
 ## v1.166.x
 
-##### v1.166.8 - 04/09/2019
+##### v1.166.8 - 2019-09-04
 
 - Hotfix: Updated DRM switch callback message.
 
-##### v1.166.7 - 20/08/2019
+##### v1.166.7 - 2019-08-20
 
 - Hotfix: supporting spaces in file inputs/outputs.
 
-##### v1.166.6 - 14/08/2019
+##### v1.166.6 - 2019-08-14
 
 - Added support for USP 1.10.12.
 - Removed support for USP 1.8.5.
 
-##### v1.166.5 - 13/08/2019
+##### v1.166.5 - 2019-08-13
 
 - Added visible field to log with show_all param toggling.
 - Improvements to the `build_thumbnails` workflow.
@@ -346,7 +346,7 @@
 
 ## v1.165.x
 
-##### v1.165.0 - 15/02/2019
+##### v1.165.0 - 2019-02-15
 
 - Fixed issue with retry job call from the front end (queue page).
 - Fixed bug with job scheduler not assigning the correct run_at time.
