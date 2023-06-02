@@ -339,6 +339,7 @@ This workflow allows you to toggle DRM on and off for a VOD asset. Missing manif
 | folder            |Yes| | Folder where the content to be DRM toggled is stored. |
 | drm               |No | `[]` | A list of DRM systems o be applied to the VOD stream. This could be `"playready"` and/or `”widevine”` and/or `”fairplay”` and/or `“cenc”` and/or `"aes"`. |
 | cpix              |No | `false` | This boolean indicates whether DRM will be handled using a CPIX document. |
+| download_cpix     |No | `false` | This boolean indicates whether the cpix document should be downloaded. This should be set to false if the cpix proxy is being used. |
 | rest_endpoints    |No | | Endpoints that will receive the callbacks defined in the workflow. Multiple end points can be specified. |
 | source_storage    |No | `"S3"` | This is used to indicate where the VOD assets are stored (see [Storage Support](TaskEngineWorkflowFeatures.html#storage-support) section). |
 | custom_data       |No | | This field accepts consumer custom data (such as consumer internal reference ) and returns it as part of the job callback. |
