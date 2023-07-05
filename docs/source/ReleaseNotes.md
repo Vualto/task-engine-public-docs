@@ -14,6 +14,11 @@
 
 ## v2.1.x
 
+#### 2.1.2 - 2023-07-05
+
+- Fixed an issue where the incorrect duration was being used to decide the transcode options.
+- Added support for USP 1.12.3
+
 #### 2.1.1 - 2023-05-16
 
 - Fixed Twitter upload not working.
