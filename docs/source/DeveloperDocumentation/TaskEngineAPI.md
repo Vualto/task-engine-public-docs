@@ -384,7 +384,7 @@ Successful response for `/jobs/123`
 
 </details><br /><br />
        
-### PUT: `/jobs/<job_id>`
+### PATCH: `/jobs/<job_id>`
 
 This endpoint is used to update job fields. Only a specific selection of fields can be updated after a job has been submitted. The response will return the job id and the result of the update.
 
@@ -408,6 +408,7 @@ The list of job fields that can be updated:
 - `run_at` - Updating the run_at field for a job changes when the job will be queued. The date must be in UTC and in the following format `yyyy-MM-ddTHH:mm:ss.fff`
 - `priority` - Updating the priority for a job. More information on job priority can be found [here](TaskEngineWorkflowFeatures.html#priority)
 - `sempahore_url` - This url can be used as part of the scheduling process. More information on the semaphore url can be found [here](TaskEngineWorkflowFeatures.html#scheduler)
+- `persist` - This boolean flag is used to indicate that the job and its logs should persist and not be cleared as part of any automatic database clean up
 
 Sample payload:
 
